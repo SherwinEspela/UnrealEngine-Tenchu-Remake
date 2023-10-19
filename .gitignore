@@ -73,3 +73,9 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 ReferenceImages/
+TenchuFanRemake/Binaries/
+TenchuFanRemake/Config/
+TenchuFanRemake/Intermediate/
+TenchuFanRemake/Saved/
+TenchuFanRemake/UpgradeLog.htm
+TenchuFanRemake/.vsconfig
