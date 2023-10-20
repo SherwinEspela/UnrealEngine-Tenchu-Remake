@@ -4,7 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputActionValue.h"
 #include "TenchuCharacter.generated.h"
+
+class UInputMappingContext;
+class UInputAction;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -19,4 +25,25 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputMappingContext> InputMappingContextPlayer;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputAction> InputActionMovement;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputAction> InputActionLookAround;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputAction> InputActionJump;
+
+	void Move(const FInputActionValue& Value);
+	void LookAround(const FInputActionValue& Value);
+
+private:
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<USpringArmComponent> CameraBoom;
+
+	UPROPERTY(VisibleAnywhere)
+	TObjectPtr<UCameraComponent> Camera;
 };
