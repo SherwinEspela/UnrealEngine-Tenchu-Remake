@@ -6,6 +6,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Item/Weapons/Weapon.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -29,6 +30,20 @@ ATenchuCharacter::ATenchuCharacter()
 void ATenchuCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	AttachSword();
+}
+
+void ATenchuCharacter::AttachSword()
+{
+	if (WeaponClass)
+	{
+		AWeapon* Katana = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+		if (Katana)
+		{
+			FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
+			Katana->AttachToComponent(GetMesh(), TransformRules, FName("WEAPON_R"));
+		}
+	}
 }
 
 void ATenchuCharacter::Tick(float DeltaTime)
