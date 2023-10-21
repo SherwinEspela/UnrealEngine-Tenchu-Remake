@@ -9,6 +9,7 @@
 
 class UInputMappingContext;
 class UInputAction;
+class ATenchuCharacter;
 
 /**
  * 
@@ -39,7 +40,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionJump;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputAction> InputActionToggleCrouch;
+
+	UPROPERTY();
+	TObjectPtr<ATenchuCharacter> TenchuCharacter;
+
 private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
+	void Jump();
+	void ToggleCrouch();
 };

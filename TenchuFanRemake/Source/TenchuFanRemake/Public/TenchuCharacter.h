@@ -20,6 +20,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	virtual void Jump() override;
+	void ToggleCrouch();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -36,5 +39,8 @@ private:
 private:
 	/* Private Functions */
 	void AttachSword();
+
+	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	bool bIsJumping = false;
 
 };

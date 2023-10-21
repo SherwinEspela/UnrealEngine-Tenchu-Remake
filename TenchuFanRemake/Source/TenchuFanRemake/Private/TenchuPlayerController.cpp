@@ -4,6 +4,8 @@
 #include "TenchuPlayerController.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/Character.h"
+#include "TenchuCharacter.h"
 
 ATenchuPlayerController::ATenchuPlayerController()
 {
@@ -15,6 +17,8 @@ void ATenchuPlayerController::BeginPlay()
 
 	UEnhancedInputLocalPlayerSubsystem* PlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	PlayerSubsystem->AddMappingContext(InputMappingContextPlayer, 0);
+
+	TenchuCharacter = Cast<ATenchuCharacter>(GetPawn());
 }
 
 void ATenchuPlayerController::SetupInputComponent()
@@ -25,6 +29,7 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionMovement, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Move);
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
 	//EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -34,8 +39,6 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 	const FRotator Rotation = GetControlRotation();
 	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
-	//UE_LOG(LogTemp, Warning, TEXT("movement vector y ===== %f"), MovementVector.Y);
-	
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
 
@@ -49,4 +52,20 @@ void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 
 	GetPawn()->AddControllerYawInput(LookAxisVector.X);
 	GetPawn()->AddControllerPitchInput(LookAxisVector.Y);
+}
+
+void ATenchuPlayerController::Jump()
+{
+	//ATenchuCharacter* PlayerCharacter = Cast<ATenchuCharacter>(GetPawn());
+	//PlayerCharacter->Jump();
+}
+
+void ATenchuPlayerController::ToggleCrouch()
+{
+	UE_LOG(LogTemp, Warning, TEXT("ToggleCrouch......."));
+
+	if (TenchuCharacter)
+	{
+		TenchuCharacter->ToggleCrouch();
+	}
 }

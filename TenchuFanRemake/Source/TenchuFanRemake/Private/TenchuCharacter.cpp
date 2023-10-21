@@ -22,9 +22,11 @@ ATenchuCharacter::ATenchuCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 250.f;
-
+	
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(CameraBoom);
+
+	CanCrouch();
 }
 
 void ATenchuCharacter::BeginPlay()
@@ -55,4 +57,24 @@ void ATenchuCharacter::Tick(float DeltaTime)
 void ATenchuCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void ATenchuCharacter::Jump()
+{
+	//if (bIsJumping == false)
+	//{
+	//	Jump();
+	//	bIsJumping = true;
+	//}
+	Jump();
+}
+
+void ATenchuCharacter::ToggleCrouch()
+{
+	if (bIsCrouched)
+	{
+		UnCrouch();
+	} else {
+		Crouch();
+	}
 }
