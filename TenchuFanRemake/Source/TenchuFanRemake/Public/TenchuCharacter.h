@@ -19,6 +19,9 @@ public:
 	ATenchuCharacter();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
+	void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
+	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
 	virtual void Jump() override;
 	void ToggleCrouch();
@@ -43,4 +46,8 @@ private:
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
 
+	FVector CrouchEyeOffset;
+
+	UPROPERTY(EditDefaultsOnly)
+	float CrouchSpeed;
 };
