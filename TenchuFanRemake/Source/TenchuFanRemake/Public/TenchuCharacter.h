@@ -26,6 +26,9 @@ public:
 	virtual void Jump() override;
 	void ToggleCrouch();
 
+public:
+	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -50,4 +53,6 @@ private:
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrouchSpeed;
+
+	float WalkSpeed;
 };

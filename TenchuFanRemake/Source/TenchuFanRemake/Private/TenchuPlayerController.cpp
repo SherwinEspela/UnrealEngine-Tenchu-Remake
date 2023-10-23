@@ -62,8 +62,6 @@ void ATenchuPlayerController::Jump()
 
 void ATenchuPlayerController::ToggleCrouch()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ToggleCrouch......."));
-
 	if (TenchuCharacter)
 	{
 		TenchuCharacter->ToggleCrouch();

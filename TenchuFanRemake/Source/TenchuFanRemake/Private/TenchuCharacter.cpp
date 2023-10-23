@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Item/Weapons/Weapon.h"
+#include "Kismet/KismetMathLibrary.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -16,8 +17,12 @@ ATenchuCharacter::ATenchuCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	GetCharacterMovement()->bOrientRotationToMovement = true;
-	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);
+
+	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	MovementComponent->bOrientRotationToMovement = true;
+	MovementComponent->RotationRate = FRotator(0.f, 400.f, 0.f);
+	MovementComponent->MaxWalkSpeed = 850.f;
+	MovementComponent->MinAnalogWalkSpeed = 50.f;
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
@@ -39,8 +44,6 @@ ATenchuCharacter::ATenchuCharacter()
 void ATenchuCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 	AttachSword();
 }
 
@@ -63,6 +66,7 @@ void ATenchuCharacter::Tick(float DeltaTime)
 
 	float CrouchInterpTime = FMath::Min(1.f, CrouchSpeed * DeltaTime);
 	CrouchEyeOffset = (1.f - CrouchInterpTime) * CrouchEyeOffset;
+	WalkSpeed = UKismetMathLibrary::VSizeXY(GetMovementComponent()->Velocity);
 }
 
 void ATenchuCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -73,7 +77,6 @@ void ATenchuCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 void ATenchuCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
 {
 	if (HalfHeightAdjust == 0.f) return;
-
 	float StartBaseEyeHeight = BaseEyeHeight;
 	Super::OnStartCrouch(HalfHeightAdjust, ScaledHalfHeightAdjust);
 	CrouchEyeOffset.Z = StartBaseEyeHeight - BaseEyeHeight + HalfHeightAdjust;
@@ -111,6 +114,7 @@ void ATenchuCharacter::Jump()
 
 void ATenchuCharacter::ToggleCrouch()
 {
+	if (WalkSpeed > GetCharacterMovement()->MaxWalkSpeedCrouched) return;
 	if (bIsCrouched)
 	{
 		UnCrouch();
