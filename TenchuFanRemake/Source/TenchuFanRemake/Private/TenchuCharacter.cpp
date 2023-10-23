@@ -114,7 +114,7 @@ void ATenchuCharacter::Jump()
 
 void ATenchuCharacter::ToggleCrouch()
 {
-	if (WalkSpeed > GetCharacterMovement()->MaxWalkSpeedCrouched) return;
+	if (WalkSpeed > 0) return;
 	if (bIsCrouched)
 	{
 		UnCrouch();
