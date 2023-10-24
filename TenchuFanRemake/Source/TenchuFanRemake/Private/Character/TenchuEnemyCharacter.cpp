@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "Components/WidgetComponent.h"
 #include "TenchuCharacter.h"
+#include "Animation/AnimMontage.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -46,7 +47,12 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ATenchuEnemyCharacter::StealthAttackAction()
+void ATenchuEnemyCharacter::StealthDeath()
 {
-
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance)
+	{
+		AnimInstance->Montage_Play(MontageStealthDeath);
+		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthDeath);
+	}
 }

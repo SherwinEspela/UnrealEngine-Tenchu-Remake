@@ -18,7 +18,7 @@ void ATenchuPlayerController::BeginPlay()
 	UEnhancedInputLocalPlayerSubsystem* PlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	PlayerSubsystem->AddMappingContext(InputMappingContextPlayer, 0);
 
-	TenchuCharacter = Cast<ATenchuCharacter>(GetPawn());
+	PlayerCharacter = Cast<ATenchuCharacter>(GetPawn());
 }
 
 void ATenchuPlayerController::SetupInputComponent()
@@ -30,6 +30,11 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
 	//EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
 	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
+	
+	if (InputActionStealthAttack)
+	{
+		EnhancedInputComponent->BindAction(InputActionStealthAttack, ETriggerEvent::Triggered, this, &ATenchuPlayerController::PlayStealthAttack);
+	}
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -62,8 +67,17 @@ void ATenchuPlayerController::Jump()
 
 void ATenchuPlayerController::ToggleCrouch()
 {
-	if (TenchuCharacter)
+	if (PlayerCharacter)
 	{
-		TenchuCharacter->ToggleCrouch();
+		PlayerCharacter->ToggleCrouch();
+	}
+}
+
+void ATenchuPlayerController::PlayStealthAttack()
+{
+	if (PlayerCharacter && PlayerCharacter->CanStealthAttack())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Play Stealth Attack...."));
+		PlayerCharacter->StealthAttack();
 	}
 }

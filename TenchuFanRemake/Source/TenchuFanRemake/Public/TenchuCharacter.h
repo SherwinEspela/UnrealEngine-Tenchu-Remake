@@ -10,6 +10,7 @@ class USpringArmComponent;
 class UCameraComponent;
 class AWeapon;
 class ATenchuEnemyCharacter;
+class UAnimMontage;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -27,12 +28,12 @@ public:
 	virtual void Jump() override;
 	void ToggleCrouch();
 	void StealthAttack();
-	
 
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
 	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }
+	FORCEINLINE bool CanStealthAttack() const { return EnemyToStealthAttack != nullptr; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -46,6 +47,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Weapon, meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AWeapon> WeaponClass;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthAttacks;
 
 private:
 	/* Private Members / Properties */

@@ -9,6 +9,7 @@
 #include "Item/Weapons/Weapon.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Character/TenchuEnemyCharacter.h"
+#include "Animation/AnimMontage.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -128,11 +129,16 @@ void ATenchuCharacter::StealthAttack()
 	if (EnemyToStealthAttack)
 	{
 		PlayStealthAttackAnimation();
-		EnemyToStealthAttack->StealthAttackAction();
+		EnemyToStealthAttack->StealthDeath();
 	}
 }
 
 void ATenchuCharacter::PlayStealthAttackAnimation()
 {
-
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	if (AnimInstance)
+	{
+		AnimInstance->Montage_Play(MontageStealthAttacks);
+		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthAttacks);
+	}
 }

@@ -43,12 +43,16 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionToggleCrouch;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	TObjectPtr<UInputAction> InputActionStealthAttack;
+
 	UPROPERTY();
-	TObjectPtr<ATenchuCharacter> TenchuCharacter;
+	TObjectPtr<ATenchuCharacter> PlayerCharacter;
 
 private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
 	void ToggleCrouch();
+	void PlayStealthAttack();
 };

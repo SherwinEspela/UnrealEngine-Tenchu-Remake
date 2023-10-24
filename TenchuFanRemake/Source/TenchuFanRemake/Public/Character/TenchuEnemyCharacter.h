@@ -8,6 +8,7 @@
 
 class USphereComponent;
 class UWidgetComponent;
+class UAnimMontage;
 
 /**
  * 
@@ -19,7 +20,7 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter
 public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
-	void StealthAttackAction();
+	void StealthDeath();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -27,6 +28,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UWidgetComponent* EnemyCloseWidget;
+
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthDeath;
 
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
