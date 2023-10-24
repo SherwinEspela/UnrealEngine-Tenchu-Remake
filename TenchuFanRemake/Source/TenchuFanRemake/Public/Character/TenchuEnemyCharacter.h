@@ -18,8 +18,8 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter
 	GENERATED_BODY()
 public:
 	ATenchuEnemyCharacter();
-
 	virtual void BeginPlay() override;
+	void StealthAttackAction();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -33,6 +33,5 @@ protected:
 
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
 
 };

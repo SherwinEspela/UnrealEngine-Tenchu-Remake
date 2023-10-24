@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Item/Weapons/Weapon.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Character/TenchuEnemyCharacter.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -16,7 +17,6 @@ ATenchuCharacter::ATenchuCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
 
 	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
 	MovementComponent->bOrientRotationToMovement = true;
@@ -121,4 +121,18 @@ void ATenchuCharacter::ToggleCrouch()
 	} else {
 		Crouch();
 	}
+}
+
+void ATenchuCharacter::StealthAttack()
+{
+	if (EnemyToStealthAttack)
+	{
+		PlayStealthAttackAnimation();
+		EnemyToStealthAttack->StealthAttackAction();
+	}
+}
+
+void ATenchuCharacter::PlayStealthAttackAnimation()
+{
+
 }

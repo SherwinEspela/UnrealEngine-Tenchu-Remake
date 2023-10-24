@@ -31,8 +31,8 @@ void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* Overlapped
 	ATenchuCharacter* Player = Cast<ATenchuCharacter>(OtherActor);
 	if (Player)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OnPlayerBeginOverlap........%s"), *OtherActor->GetName());
 		EnemyCloseWidget->SetVisibility(true);
+		Player->SetEnemyToStealthAttack(this);
 	}
 }
 
@@ -41,7 +41,12 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	ATenchuCharacter* Player = Cast<ATenchuCharacter>(OtherActor);
 	if (Player)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("OnPlayerEndOverlap........%s"), *OtherActor->GetName());
 		EnemyCloseWidget->SetVisibility(false);
+		Player->RemoveEnemyToStealthAttack();
 	}
+}
+
+void ATenchuEnemyCharacter::StealthAttackAction()
+{
+
 }

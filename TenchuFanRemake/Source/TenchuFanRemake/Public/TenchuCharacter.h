@@ -9,6 +9,7 @@
 class USpringArmComponent;
 class UCameraComponent;
 class AWeapon;
+class ATenchuEnemyCharacter;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -25,9 +26,13 @@ public:
 
 	virtual void Jump() override;
 	void ToggleCrouch();
+	void StealthAttack();
+	
 
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
+	FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
+	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -43,16 +48,25 @@ private:
 	TSubclassOf<AWeapon> WeaponClass;
 
 private:
-	/* Private Functions */
-	void AttachSword();
+	/* Private Members / Properties */
 
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
-
-	FVector CrouchEyeOffset;
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrouchSpeed;
 
 	float WalkSpeed;
+	FVector CrouchEyeOffset;
+
+	/*
+	* The Enemy to which the Player
+	* can perform the Stealth attack to
+	*/
+	TObjectPtr<ATenchuEnemyCharacter> EnemyToStealthAttack;
+
+private:
+	/* Private Functions */
+	void AttachSword();
+	void PlayStealthAttackAnimation();
 };
