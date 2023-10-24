@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/TenchuBaseCharacter.h"
+#include "CustomEnums.h"
 #include "TenchuEnemyCharacter.generated.h"
 
 class USphereComponent;
@@ -21,6 +22,9 @@ public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
 	void StealthDeath();
+
+	UPROPERTY(BlueprintReadWrite)
+	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

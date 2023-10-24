@@ -77,7 +77,6 @@ void ATenchuPlayerController::PlayStealthAttack()
 {
 	if (PlayerCharacter && PlayerCharacter->CanStealthAttack())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Play Stealth Attack...."));
 		PlayerCharacter->StealthAttack();
 	}
 }

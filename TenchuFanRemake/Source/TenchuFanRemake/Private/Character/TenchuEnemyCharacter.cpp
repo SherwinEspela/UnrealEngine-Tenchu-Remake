@@ -54,5 +54,8 @@ void ATenchuEnemyCharacter::StealthDeath()
 	{
 		AnimInstance->Montage_Play(MontageStealthDeath);
 		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthDeath);
+		EnemyCloseWidget->SetVisibility(false);
+		SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		SphereComponent->SetVisibility(false);
 	}
 }
