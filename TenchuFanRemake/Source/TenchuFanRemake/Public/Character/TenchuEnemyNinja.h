@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Character/TenchuBaseCharacter.h"
-#include "TenchuEnemyCharacter.generated.h"
+#include "TenchuEnemyNinja.generated.h"
 
 class USphereComponent;
 class UWidgetComponent;
@@ -13,17 +13,17 @@ class UWidgetComponent;
  * 
  */
 UCLASS()
-class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter
+class TENCHUFANREMAKE_API ATenchuEnemyNinja : public ATenchuBaseCharacter
 {
 	GENERATED_BODY()
 public:
-	ATenchuEnemyCharacter();
+	ATenchuEnemyNinja();
 
 	virtual void BeginPlay() override;
 
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	USphereComponent* SphereComponent;
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USphereComponent* SphereComponent;*/
 
 	UPROPERTY(EditAnywhere)
 	UWidgetComponent* EnemyCloseWidget;
