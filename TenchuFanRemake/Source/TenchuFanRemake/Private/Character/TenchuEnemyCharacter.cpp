@@ -6,6 +6,7 @@
 #include "Components/WidgetComponent.h"
 #include "TenchuCharacter.h"
 #include "Animation/AnimMontage.h"
+#include "Components/SceneComponent.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -19,6 +20,9 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	EnemyCloseWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Enemy Close Widget"));
 	EnemyCloseWidget->SetupAttachment(GetRootComponent());
 	EnemyCloseWidget->SetVisibility(false);
+
+	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Player Stealth Kill Position"));
+	PlayerSteathKillPosition->SetupAttachment(GetRootComponent());
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
@@ -58,4 +62,14 @@ void ATenchuEnemyCharacter::StealthDeath()
 		SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SphereComponent->SetVisibility(false);
 	}
+}
+
+FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation()
+{
+	return PlayerSteathKillPosition->GetComponentLocation();
+}
+
+FRotator ATenchuEnemyCharacter::GetPlayerStealthKillRotation()
+{
+	return PlayerSteathKillPosition->GetComponentRotation();
 }

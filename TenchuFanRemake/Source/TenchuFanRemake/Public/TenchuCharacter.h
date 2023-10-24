@@ -67,6 +67,7 @@ private:
 	* The Enemy to which the Player
 	* can perform the Stealth attack to
 	*/
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<ATenchuEnemyCharacter> EnemyToStealthAttack;
 
 private:

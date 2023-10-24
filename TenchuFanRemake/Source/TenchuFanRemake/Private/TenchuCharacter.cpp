@@ -128,6 +128,11 @@ void ATenchuCharacter::StealthAttack()
 {
 	if (EnemyToStealthAttack)
 	{
+		SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
+		const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
+		SetActorRotation(EnemyRotation);
+		GetController()->SetControlRotation(EnemyRotation);
+
 		PlayStealthAttackAnimation();
 		EnemyToStealthAttack->StealthDeath();
 	}
