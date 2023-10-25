@@ -3,10 +3,14 @@
 
 #include "Character/TenchuEnemyCharacter.h"
 #include "Components/SphereComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "TenchuCharacter.h"
 #include "Animation/AnimMontage.h"
 #include "Components/SceneComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
+#include "Math/UnrealMathUtility.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -23,6 +27,12 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 
 	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Player Stealth Kill Position"));
 	PlayerSteathKillPosition->SetupAttachment(GetRootComponent());
+
+	StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
+	StealthKillCameraBoom->SetupAttachment(GetRootComponent());
+
+	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
+	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
@@ -56,11 +66,20 @@ void ATenchuEnemyCharacter::StealthDeath()
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
 	{
-		AnimInstance->Montage_Play(MontageStealthDeath);
-		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthDeath);
 		EnemyCloseWidget->SetVisibility(false);
 		SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SphereComponent->SetVisibility(false);
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		GetCapsuleComponent()->SetVisibility(false);
+		
+		
+		FRandomStream Stream(FMath::Rand());
+		float RandomYaw = Stream.FRandRange(0.f, 360.f);
+		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
+		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
+
+		AnimInstance->Montage_Play(MontageStealthDeath);
+		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthDeath);
 	}
 }
 

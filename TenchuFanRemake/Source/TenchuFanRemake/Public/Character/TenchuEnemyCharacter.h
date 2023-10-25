@@ -11,6 +11,8 @@ class USphereComponent;
 class UWidgetComponent;
 class UAnimMontage;
 class USceneComponent;
+class UCameraComponent;
+class USpringArmComponent;
 
 /**
  * 
@@ -45,6 +47,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPosition;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
+	TObjectPtr<UCameraComponent> StealthKillCamera;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Combat)
+	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;
 
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

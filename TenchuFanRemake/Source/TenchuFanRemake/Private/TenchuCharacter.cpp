@@ -10,6 +10,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Character/TenchuEnemyCharacter.h"
 #include "Animation/AnimMontage.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/CapsuleComponent.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -129,6 +131,9 @@ void ATenchuCharacter::StealthAttack()
 	if (EnemyToStealthAttack)
 	{
 		TenchuPlayerState = ETenchuPlayerStates::EPS_StealthAttacking;
+
+		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		PlayerController->SetViewTarget(EnemyToStealthAttack);
 
 		SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
 		const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
