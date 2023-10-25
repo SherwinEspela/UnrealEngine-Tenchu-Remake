@@ -82,7 +82,6 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 		AnimInstance->Montage_JumpToSection(SectionName, MontageStealthDeath);
 
 		DeathPose = NewDeathPose;
-		OnDeathPoseUpdated();
 	}
 }
 

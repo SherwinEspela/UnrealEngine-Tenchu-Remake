@@ -30,16 +30,13 @@ public:
 	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
 
 	UPROPERTY(BlueprintReadOnly)
-	EEnemyDeathPose DeathPose;
+	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
 
 	UFUNCTION()
 	FVector GetPlayerStealthKillLocation();
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void OnDeathPoseUpdated();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
