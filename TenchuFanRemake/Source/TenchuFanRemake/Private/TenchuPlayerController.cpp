@@ -66,7 +66,7 @@ void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 void ATenchuPlayerController::Jump()
 {
 	ATenchuCharacter* TenchuPlayer = Cast<ATenchuCharacter>(GetPawn());
-	TenchuPlayer->Jump();
+	TenchuPlayer->PlayerJump();
 }
 
 void ATenchuPlayerController::ToggleCrouch()

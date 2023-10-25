@@ -26,7 +26,7 @@ public:
 	void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
-	virtual void Jump() override;
+	void PlayerJump();
 	void ToggleCrouch();
 	void StealthAttack();
 
