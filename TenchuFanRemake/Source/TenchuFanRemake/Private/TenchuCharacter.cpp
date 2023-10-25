@@ -12,6 +12,7 @@
 #include "Animation/AnimMontage.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
+#include "GameUtilities.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -141,7 +142,6 @@ void ATenchuCharacter::StealthAttack()
 		GetController()->SetControlRotation(EnemyRotation);
 
 		PlayStealthAttackAnimation();
-		EnemyToStealthAttack->StealthDeath();
 	}
 }
 
@@ -150,7 +150,12 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
 	{
+		int SectionIndex = FMath::RandRange(1, 2);
+		FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex);
 		AnimInstance->Montage_Play(MontageStealthAttacks);
-		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthAttacks);
+		AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+
+		EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex);
+		EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
 	}
 }

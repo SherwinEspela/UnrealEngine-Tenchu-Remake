@@ -24,16 +24,22 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter
 public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
-	void StealthDeath();
+	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose);
 
 	UPROPERTY(BlueprintReadWrite)
 	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
+
+	UPROPERTY(BlueprintReadOnly)
+	EEnemyDeathPose DeathPose;
 
 	UFUNCTION()
 	FVector GetPlayerStealthKillLocation();
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnDeathPoseUpdated();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

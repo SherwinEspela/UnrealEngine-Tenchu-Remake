@@ -11,6 +11,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
+#include "GameUtilities.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -61,7 +62,7 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ATenchuEnemyCharacter::StealthDeath()
+void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose)
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
@@ -72,14 +73,16 @@ void ATenchuEnemyCharacter::StealthDeath()
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetCapsuleComponent()->SetVisibility(false);
 		
-		
 		FRandomStream Stream(FMath::Rand());
 		float RandomYaw = Stream.FRandRange(0.f, 360.f);
 		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
 		AnimInstance->Montage_Play(MontageStealthDeath);
-		AnimInstance->Montage_JumpToSection(FName("Behind1"), MontageStealthDeath);
+		AnimInstance->Montage_JumpToSection(SectionName, MontageStealthDeath);
+
+		DeathPose = NewDeathPose;
+		OnDeathPoseUpdated();
 	}
 }
 
