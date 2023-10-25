@@ -55,6 +55,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthAttacks;
 
+	UPROPERTY(EditAnywhere, Category = Movement)
+	TObjectPtr<UAnimMontage> MontageJump;
+
 private:
 	/* Private Members / Properties */
 

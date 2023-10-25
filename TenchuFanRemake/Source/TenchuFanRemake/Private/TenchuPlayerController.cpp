@@ -28,7 +28,7 @@ void ATenchuPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(InputActionMovement, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Move);
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
-	//EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
 	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
 	
 	if (InputActionStealthAttack)
@@ -65,8 +65,8 @@ void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 
 void ATenchuPlayerController::Jump()
 {
-	//ATenchuCharacter* PlayerCharacter = Cast<ATenchuCharacter>(GetPawn());
-	//PlayerCharacter->Jump();
+	ATenchuCharacter* TenchuPlayer = Cast<ATenchuCharacter>(GetPawn());
+	TenchuPlayer->Jump();
 }
 
 void ATenchuPlayerController::ToggleCrouch()

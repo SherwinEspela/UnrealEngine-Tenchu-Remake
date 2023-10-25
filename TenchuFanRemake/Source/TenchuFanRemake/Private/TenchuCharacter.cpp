@@ -108,12 +108,17 @@ void ATenchuCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 
 void ATenchuCharacter::Jump()
 {
-	//if (bIsJumping == false)
-	//{
-	//	Jump();
-	//	bIsJumping = true;
-	//}
-	Jump();
+	if (!GetCharacterMovement()->IsFalling())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Jump invoked......."))
+		Super::Jump();
+		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+		if (AnimInstance)
+		{
+			AnimInstance->Montage_Play(MontageJump);
+			AnimInstance->Montage_JumpToSection("JumpLong", MontageJump);
+		}
+	}
 }
 
 void ATenchuCharacter::ToggleCrouch()
