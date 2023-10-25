@@ -128,6 +128,8 @@ void ATenchuCharacter::StealthAttack()
 {
 	if (EnemyToStealthAttack)
 	{
+		TenchuPlayerState = ETenchuPlayerStates::EPS_StealthAttacking;
+
 		SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
 		const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 		SetActorRotation(EnemyRotation);

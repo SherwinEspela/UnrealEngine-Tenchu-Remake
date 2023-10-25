@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "CustomEnums.h"
 #include "TenchuCharacter.generated.h"
 
 class USpringArmComponent;
@@ -28,6 +29,9 @@ public:
 	virtual void Jump() override;
 	void ToggleCrouch();
 	void StealthAttack();
+
+	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
+	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
 
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }

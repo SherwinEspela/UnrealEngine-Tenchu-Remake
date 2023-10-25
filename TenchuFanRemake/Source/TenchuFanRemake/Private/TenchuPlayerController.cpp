@@ -39,6 +39,8 @@ void ATenchuPlayerController::SetupInputComponent()
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
 {
+	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
 	const FRotator Rotation = GetControlRotation();
@@ -67,6 +69,8 @@ void ATenchuPlayerController::Jump()
 
 void ATenchuPlayerController::ToggleCrouch()
 {
+	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->ToggleCrouch();
@@ -75,6 +79,7 @@ void ATenchuPlayerController::ToggleCrouch()
 
 void ATenchuPlayerController::PlayStealthAttack()
 {
+	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
 	if (PlayerCharacter && PlayerCharacter->CanStealthAttack())
 	{
 		PlayerCharacter->StealthAttack();
