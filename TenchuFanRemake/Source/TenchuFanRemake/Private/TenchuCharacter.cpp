@@ -108,10 +108,10 @@ void ATenchuCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 
 void ATenchuCharacter::PlayerJump()
 {
-	if (!GetCharacterMovement()->IsFalling())
+	UE_LOG(LogTemp, Warning, TEXT("Jump invoked......."));
+	if (!bIsJumping)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Jump invoked......."))
-		//Super::Jump();
+		bIsJumping = true;
 		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 		if (AnimInstance)
 		{
