@@ -13,6 +13,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
+#include "Environment/TakeCoverBox.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -50,6 +51,7 @@ void ATenchuCharacter::BeginPlay()
 	Super::BeginPlay();
 	AnimInstance = GetMesh()->GetAnimInstance();
 	AttachSword();
+	bTakeCoverBoxInterpCompleted = false;
 }
 
 void ATenchuCharacter::AttachSword()
@@ -71,7 +73,23 @@ void ATenchuCharacter::Tick(float DeltaTime)
 
 	float CrouchInterpTime = FMath::Min(1.f, CrouchSpeed * DeltaTime);
 	CrouchEyeOffset = (1.f - CrouchInterpTime) * CrouchEyeOffset;
+
 	WalkSpeed = UKismetMathLibrary::VSizeXY(GetMovementComponent()->Velocity);
+
+	TakeCoverBoxInterp(DeltaTime);
+}
+
+void ATenchuCharacter::TakeCoverBoxInterp(float DeltaTime)
+{
+	if (TenchuPlayerState != ETenchuPlayerStates::EPS_TakingCover) return;
+
+	const FVector PlayerBoxLocation = TakeCoverBox->PlayerLocation->GetComponentLocation();
+	const FVector CurrentPlayerLocation = GetActorLocation();
+	const FVector TargetLocation(PlayerBoxLocation.X, PlayerBoxLocation.Y, CurrentPlayerLocation.Z);
+	
+	float InterpLocationX = FMath::FInterpTo(CurrentPlayerLocation.X, TargetLocation.X, DeltaTime, TakeCoverInterpSpeed);
+	float InterpLocationY = FMath::FInterpTo(CurrentPlayerLocation.Y, TargetLocation.Y, DeltaTime, TakeCoverInterpSpeed);
+	SetActorLocation(FVector(InterpLocationX, InterpLocationY, CurrentPlayerLocation.Z));
 }
 
 void ATenchuCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -169,11 +187,17 @@ void ATenchuCharacter::TakeCover()
 {
 	if (!CanInteract()) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_TakingCover) return;
+	bTakeCoverBoxInterpCompleted = false;
 	TenchuPlayerState = ETenchuPlayerStates::EPS_TakingCover;
 
 	if (AnimInstance && MontageTakeCover)
 	{
-		AnimInstance->Montage_Play(MontageTakeCover);
-		AnimInstance->Montage_JumpToSection("TakeCoverKneeLeft", MontageTakeCover);
+		TakeCoverBox = Cast<ATakeCoverBox>(ActorToInteract);
+		
+		const FRotator TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
+		SetActorRotation(TakeCoverBoxRotation);
+
+		/*AnimInstance->Montage_Play(MontageTakeCover);
+		AnimInstance->Montage_JumpToSection("TakeCoverKneeLeft", MontageTakeCover);*/
 	}
 }

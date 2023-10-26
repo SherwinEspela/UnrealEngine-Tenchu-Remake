@@ -13,6 +13,7 @@ class AWeapon;
 class ATenchuEnemyCharacter;
 class UAnimMontage;
 class UAnimInstance;
+class ATakeCoverBox;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -47,6 +48,8 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	void TakeCoverBoxInterp(float DeltaTime);
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -79,6 +82,9 @@ private:
 	FVector CrouchEyeOffset;
 
 	UAnimInstance* AnimInstance;
+	ATakeCoverBox* TakeCoverBox;
+
+	bool bTakeCoverBoxInterpCompleted = false;
 
 	/*
 	* The Enemy to which the Player
@@ -89,6 +95,9 @@ private:
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	AActor* ActorToInteract;
+
+	UPROPERTY(EditAnywhere, Category = Stealth, meta = (AllowPrivateAccess = "true"))
+	float TakeCoverInterpSpeed = 10.f;
 
 private:
 	/* Private Functions */
