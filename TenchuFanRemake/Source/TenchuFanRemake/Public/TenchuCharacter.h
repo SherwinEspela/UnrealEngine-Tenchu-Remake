@@ -29,6 +29,7 @@ public:
 	void PlayerJump();
 	void ToggleCrouch();
 	void StealthAttack();
+	void TakeCover();
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
@@ -57,6 +58,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Movement)
 	TObjectPtr<UAnimMontage> MontageJump;
+
+	UPROPERTY(EditAnywhere, Category = Stealth)
+	TObjectPtr<UAnimMontage> MontageTakeCover;
 
 private:
 	/* Private Members / Properties */

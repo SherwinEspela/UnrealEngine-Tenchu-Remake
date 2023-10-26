@@ -164,3 +164,8 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 		EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
 	}
 }
+
+void ATenchuCharacter::TakeCover()
+{
+
+}
