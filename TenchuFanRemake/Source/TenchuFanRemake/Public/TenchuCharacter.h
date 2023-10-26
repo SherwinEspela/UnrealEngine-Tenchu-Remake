@@ -12,6 +12,7 @@ class UCameraComponent;
 class AWeapon;
 class ATenchuEnemyCharacter;
 class UAnimMontage;
+class UAnimInstance;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -39,6 +40,9 @@ public:
 	FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
 	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }
 	FORCEINLINE bool CanStealthAttack() const { return EnemyToStealthAttack != nullptr; }
+	FORCEINLINE void SetActorToInteract(AActor* NewActor) { ActorToInteract = NewActor; }
+	FORCEINLINE void RemoveActorToInteract() { ActorToInteract = nullptr; }
+	FORCEINLINE bool CanInteract() { return ActorToInteract != nullptr; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -74,12 +78,17 @@ private:
 	float WalkSpeed;
 	FVector CrouchEyeOffset;
 
+	UAnimInstance* AnimInstance;
+
 	/*
 	* The Enemy to which the Player
 	* can perform the Stealth attack to
 	*/
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<ATenchuEnemyCharacter> EnemyToStealthAttack;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	AActor* ActorToInteract;
 
 private:
 	/* Private Functions */

@@ -8,6 +8,7 @@
 #include "Wall.generated.h"
 
 class UBoxComponent;
+class ATenchuCharacter;
 
 /**
  * 
@@ -34,4 +35,7 @@ protected:
 	
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+private:
+	ATenchuCharacter* TenchuPlayer;
 };

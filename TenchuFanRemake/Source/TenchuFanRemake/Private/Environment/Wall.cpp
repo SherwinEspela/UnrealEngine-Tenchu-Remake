@@ -3,6 +3,7 @@
 
 #include "Environment/Wall.h"
 #include "Components/BoxComponent.h"
+#include "TenchuCharacter.h"
 
 AWall::AWall()
 {
@@ -19,16 +20,26 @@ AWall::AWall()
 void AWall::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 void AWall::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerBeginOverlap......"));
+	
+	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
+	if (TenchuPlayer)
+	{
+		TenchuPlayer->SetActorToInteract(this);
+	}
 }
 
 void AWall::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerEndOverlap......"));
+
+	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
+	if (TenchuPlayer)
+	{
+		TenchuPlayer->RemoveActorToInteract();
+	}
 }

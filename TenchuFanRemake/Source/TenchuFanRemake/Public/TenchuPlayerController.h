@@ -46,6 +46,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionStealthAttack;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionTakeCover;
+
 	UPROPERTY();
 	TObjectPtr<ATenchuCharacter> PlayerCharacter;
 
@@ -55,4 +58,5 @@ private:
 	void Jump();
 	void ToggleCrouch();
 	void PlayStealthAttack();
+	void TakeCover();
 };

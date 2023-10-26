@@ -48,6 +48,7 @@ ATenchuCharacter::ATenchuCharacter()
 void ATenchuCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	AnimInstance = GetMesh()->GetAnimInstance();
 	AttachSword();
 }
 
@@ -108,11 +109,9 @@ void ATenchuCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult)
 
 void ATenchuCharacter::PlayerJump()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Jump invoked......."));
 	if (!bIsJumping)
 	{
 		bIsJumping = true;
-		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 		if (AnimInstance)
 		{
 			AnimInstance->Montage_Play(MontageJump);
@@ -123,6 +122,8 @@ void ATenchuCharacter::PlayerJump()
 
 void ATenchuCharacter::ToggleCrouch()
 {
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+
 	if (WalkSpeed > 0) return;
 	if (bIsCrouched)
 	{
@@ -134,25 +135,24 @@ void ATenchuCharacter::ToggleCrouch()
 
 void ATenchuCharacter::StealthAttack()
 {
-	if (EnemyToStealthAttack)
-	{
-		TenchuPlayerState = ETenchuPlayerStates::EPS_StealthAttacking;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_TakingCover) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting && EnemyToStealthAttack == nullptr) return;
 
-		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-		PlayerController->SetViewTarget(EnemyToStealthAttack);
+	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
-		SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
-		const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
-		SetActorRotation(EnemyRotation);
-		GetController()->SetControlRotation(EnemyRotation);
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-		PlayStealthAttackAnimation();
-	}
+	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
+	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
+	SetActorRotation(EnemyRotation);
+	GetController()->SetControlRotation(EnemyRotation);
+
+	PlayStealthAttackAnimation();
 }
 
 void ATenchuCharacter::PlayStealthAttackAnimation()
 {
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
 	{
 		int SectionIndex = FMath::RandRange(1, 2);
@@ -167,5 +167,13 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 
 void ATenchuCharacter::TakeCover()
 {
+	if (!CanInteract()) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_TakingCover) return;
+	TenchuPlayerState = ETenchuPlayerStates::EPS_TakingCover;
 
+	if (AnimInstance && MontageTakeCover)
+	{
+		AnimInstance->Montage_Play(MontageTakeCover);
+		AnimInstance->Montage_JumpToSection("TakeCoverKneeLeft", MontageTakeCover);
+	}
 }
