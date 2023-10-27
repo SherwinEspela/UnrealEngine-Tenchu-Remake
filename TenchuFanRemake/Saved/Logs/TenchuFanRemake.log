@@ -1224,3 +1224,61 @@ LogConfig: Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
 [2023.10.27-17.44.44:495][913]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
 [2023.10.27-17.44.44:497][913]LogUObjectHash: Compacting FUObjectHashTables data took   0.47ms
 [2023.10.27-17.44.44:563][916]LogPlayLevel: Display: Destroying online subsystem :Context_1
+[2023.10.27-17.46.15:835][861]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2023.10.27-17.46.15:842][861]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2023.10.27-17.46.15:842][861]PIE: New page: PIE session: SetupMap (Oct. 27, 2023, 3:46:15 a.m.)
+[2023.10.27-17.46.15:878][861]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-17.46.15:883][861]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004747s)
+[2023.10.27-17.46.15:883][861]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.004786s)
+[2023.10.27-17.46.15:883][861]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-17.46.15:883][861]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-17.46.15:884][861]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-17.46.15:884][861]LogPlayLevel: PIE: World Init took: (0.000572s)
+[2023.10.27-17.46.15:891][861]LogUObjectHash: Compacting FUObjectHashTables data took   0.60ms
+[2023.10.27-17.46.15:891][861]LogAudio: Display: Creating Audio Device:                 Id: 3, Scope: Unique, Realtime: True
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Max Channels (voices):				  0
+[2023.10.27-17.46.15:891][861]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2023.10.27-17.46.15:891][861]LogAudio: Display: AudioDevice MaxSources: 32
+[2023.10.27-17.46.15:892][861]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2023.10.27-17.46.15:892][861]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2023.10.27-17.46.15:892][861]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2023.10.27-17.46.15:893][861]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2023.10.27-17.46.15:919][861]LogAudioMixer: Display: Using Audio Hardware Device Speakers (G560 Gaming Speaker)
+[2023.10.27-17.46.15:919][861]LogAudioMixer: Display: Initializing Sound Submixes...
+[2023.10.27-17.46.15:919][861]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2023.10.27-17.46.15:919][861]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2023.10.27-17.46.15:920][861]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=3
+[2023.10.27-17.46.15:920][861]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=3
+[2023.10.27-17.46.15:921][861]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=3
+[2023.10.27-17.46.15:921][861]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=3
+[2023.10.27-17.46.15:921][861]LogInit: FAudioDevice initialized with ID 3.
+[2023.10.27-17.46.15:921][861]LogAudio: Display: Audio Device (ID: 3) registered with world 'SetupMap'.
+[2023.10.27-17.46.15:921][861]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 3
+[2023.10.27-17.46.15:923][861]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-17.46.15:930][861]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-10.46.15
+[2023.10.27-17.46.15:930][861]LogWorld: Bringing up level for play took: 0.006953
+[2023.10.27-17.46.15:932][861]LogOnline: OSS: Created online subsystem instance for: :Context_2
+[2023.10.27-17.46.15:934][861]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-17.46.15:934][861]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-17.46.15:935][861]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-17.46.15:935][861]PIE: Server logged in
+[2023.10.27-17.46.15:936][861]PIE: Play in editor total start time 0.095 seconds.
+[2023.10.27-17.46.22:279][620]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-17.46.23:519][764]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-17.46.23:519][764]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-17.46.23:519][764]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-17.46.23:519][764]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-17.46.23:523][764]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2023.10.27-17.46.23:525][764]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-17.46.23:533][764]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-17.46.23:533][764]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 3
+[2023.10.27-17.46.23:533][764]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=3
+[2023.10.27-17.46.23:535][764]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=3
+[2023.10.27-17.46.23:540][764]LogUObjectHash: Compacting FUObjectHashTables data took   0.44ms
+[2023.10.27-17.46.23:597][767]LogPlayLevel: Display: Destroying online subsystem :Context_2
+[2023.10.27-17.47.10:050][815]LogDerivedDataCache: C:/Users/sherw/AppData/Local/UnrealEngine/Common/DerivedDataCache: Maintenance finished in +00:01:56.407 and deleted 0 files with total size 0 MiB and 0 empty folders. Scanned 61502 files in 60384 folders with total size 15126 MiB.
