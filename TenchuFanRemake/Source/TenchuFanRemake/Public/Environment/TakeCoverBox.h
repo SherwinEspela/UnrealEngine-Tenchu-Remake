@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Environment/TenchuEnvironmentBase.h"
+#include "CustomEnums.h"
 #include "TakeCoverBox.generated.h"
 
 class UBoxComponent;
@@ -28,6 +29,12 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = Interact)
 	USceneComponent* PlayerLocation;
+
+	UPROPERTY(EditAnywhere, Category = Interact)
+	bool bIsStanding = true;
+
+	UPROPERTY(EditAnywhere, Category = Interact)
+	bool bIsFacingLeft = true;
 
 protected:
 	UFUNCTION()

@@ -24,8 +24,6 @@ void ATakeCoverBox::BeginPlay()
 
 void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerBeginOverlap......"));
-
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
@@ -35,8 +33,6 @@ void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponen
 
 void ATakeCoverBox::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerEndOverlap......"));
-
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{

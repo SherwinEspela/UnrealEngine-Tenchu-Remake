@@ -34,3 +34,10 @@ enum class EInteractableType : uint8
 	EIT_Enemy	UMETA(DisplayName = "Enemy"),
 	EIT_Wall	UMETA(DisplayName = "Wall")
 };
+
+UENUM(BlueprintType)
+enum class ETakeCoverType : uint8
+{
+	ETC_FacingLeft	UMETA(DisplayName = "Facing Left"),
+	ETC_FacingRight	UMETA(DisplayName = "Facing Right")
+};

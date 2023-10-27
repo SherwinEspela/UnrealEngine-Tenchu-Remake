@@ -36,6 +36,15 @@ public:
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
 
+	UPROPERTY(BlueprintReadOnly)
+	ETakeCoverType TakeCoverType = ETakeCoverType::ETC_FacingLeft;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsStandingWhenTakingCover = true;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsTakingCoverFacingLeft = true;
+
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }

@@ -141,8 +141,9 @@ void ATenchuCharacter::PlayerJump()
 void ATenchuCharacter::ToggleCrouch()
 {
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
-
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
 	if (WalkSpeed > 0) return;
+
 	if (bIsCrouched)
 	{
 		UnCrouch();
@@ -193,9 +194,22 @@ void ATenchuCharacter::TakeCover()
 	if (AnimInstance && MontageTakeCover)
 	{
 		TakeCoverBox = Cast<ATakeCoverBox>(ActorToInteract);
+		bIsStandingWhenTakingCover = TakeCoverBox->bIsStanding;
+		bIsTakingCoverFacingLeft = TakeCoverBox->bIsFacingLeft;
 		
-		const FRotator TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
+		FRotator TakeCoverBoxRotation = TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
 		SetActorRotation(TakeCoverBoxRotation);
+		
+		/*	FRotator TakeCoverBoxRotation;
+		if (bIsCrouched)
+		{
+			TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
+		}
+		else {
+			TakeCoverBoxRotation = TakeCoverBox->PlayerLocationStanding->GetComponentRotation();
+		}
+		
+		SetActorRotation(TakeCoverBoxRotation);*/
 
 		/*AnimInstance->Montage_Play(MontageTakeCover);
 		AnimInstance->Montage_JumpToSection("TakeCoverKneeLeft", MontageTakeCover);*/
