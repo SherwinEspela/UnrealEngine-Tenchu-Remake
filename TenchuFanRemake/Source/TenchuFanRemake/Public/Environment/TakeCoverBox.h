@@ -10,6 +10,7 @@
 class UBoxComponent;
 class ATenchuCharacter;
 class USceneComponent;
+class UWidgetComponent;
 
 /**
  * 
@@ -36,12 +37,18 @@ public:
 	UPROPERTY(EditAnywhere, Category = Interact)
 	bool bIsFacingLeft = true;
 
+public:
+	void TurnOffIndicatorWidgetVisibility();
+
 protected:
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UPROPERTY(EditDefaultsOnly)
+	UWidgetComponent* IndicatorWidget;
 
 private:
 	ATenchuCharacter* TenchuPlayer;

@@ -4,22 +4,35 @@
 #include "Environment/TakeCoverBox.h"
 #include "Components/BoxComponent.h"
 #include "TenchuCharacter.h"
+#include "Components/WidgetComponent.h"
 
 ATakeCoverBox::ATakeCoverBox()
 {
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
-	SetRootComponent(BoxComponent);
-
+	BoxComponent->SetupAttachment(GetRootComponent());
+	
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerBeginOverlap);
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerEndOverlap);
 
 	PlayerLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Player Location"));
 	PlayerLocation->SetupAttachment(GetRootComponent());
+
+	IndicatorWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Indicator Widget"));
+	IndicatorWidget->SetupAttachment(GetRootComponent());
+	IndicatorWidget->SetDrawSize(FVector2D(40.f, 40.f));
+	IndicatorWidget->SetWidgetSpace(EWidgetSpace::Screen);
 }
 
 void ATakeCoverBox::BeginPlay()
 {
 	Super::BeginPlay();
+
+	IndicatorWidget->SetVisibility(false);
+}
+
+void ATakeCoverBox::TurnOffIndicatorWidgetVisibility()
+{
+	IndicatorWidget->SetVisibility(false);
 }
 
 void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -27,6 +40,7 @@ void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponen
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
+		IndicatorWidget->SetVisibility(true);
 		TenchuPlayer->SetActorToInteract(this);
 	}
 }
@@ -36,6 +50,7 @@ void ATakeCoverBox::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent,
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
+		IndicatorWidget->SetVisibility(false);
 		TenchuPlayer->RemoveActorToInteract();
 	}
 }

@@ -194,24 +194,11 @@ void ATenchuCharacter::TakeCover()
 	if (AnimInstance && MontageTakeCover)
 	{
 		TakeCoverBox = Cast<ATakeCoverBox>(ActorToInteract);
+		TakeCoverBox->TurnOffIndicatorWidgetVisibility();
 		bIsStandingWhenTakingCover = TakeCoverBox->bIsStanding;
 		bIsTakingCoverFacingLeft = TakeCoverBox->bIsFacingLeft;
-		
+
 		FRotator TakeCoverBoxRotation = TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
 		SetActorRotation(TakeCoverBoxRotation);
-		
-		/*	FRotator TakeCoverBoxRotation;
-		if (bIsCrouched)
-		{
-			TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
-		}
-		else {
-			TakeCoverBoxRotation = TakeCoverBox->PlayerLocationStanding->GetComponentRotation();
-		}
-		
-		SetActorRotation(TakeCoverBoxRotation);*/
-
-		/*AnimInstance->Montage_Play(MontageTakeCover);
-		AnimInstance->Montage_JumpToSection("TakeCoverKneeLeft", MontageTakeCover);*/
 	}
 }
