@@ -3774,3 +3774,553 @@ LogConfig: Set CVar [[r.Shadow.DetectVertexShaderLayerAtRuntime:1]]
 [2023.10.27-21.17.53:415][652]LogUObjectHash: Compacting FUObjectHashTables data took   1.10ms
 [2023.10.27-21.17.53:492][653]LogPlayLevel: Display: Destroying online subsystem :Context_41
 [2023.10.27-21.17.53:502][653]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.19.56:880][131]LogAssetEditorSubsystem: Opening Asset editor for AnimSequence /Game/Ninja_Anims/RetargetedAnimationsv3/SneakAttack/Tenchu_v3_Chudan_Attack_StabChest_Victim.Tenchu_v3_Chudan_Attack_StabChest_Victim
+[2023.10.27-21.19.56:881][131]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.19.56:882][131]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.19.56:887][131]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_13:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2023.10.27-21.19.57:050][131]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.19.57:050][131]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.19.57:137][131]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.19.57:137][131]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.19.57:149][131]LogViewport: Scene viewport resized to 1544x718, mode Windowed.
+[2023.10.27-21.19.57:167][131]LogContentBrowser: Verbose: The majority of assets in the view are of type: /Script/Engine.AnimSequence
+[2023.10.27-21.19.57:648][150]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.20.00:433][274]LogViewport: Scene viewport resized to 1542x732, mode Windowed.
+[2023.10.27-21.20.00:517][276]LogViewport: Scene viewport resized to 398x142, mode Windowed.
+[2023.10.27-21.20.00:556][277]LogViewport: Scene viewport resized to 377x131, mode Windowed.
+[2023.10.27-21.20.00:581][278]LogViewport: Scene viewport resized to 1863x397, mode Windowed.
+[2023.10.27-21.20.01:016][323]LogSlate: Window 'Tenchu_v3_Chudan_Attack_StabChest_Victim' being destroyed
+[2023.10.27-21.20.01:027][323]LogViewport: Scene viewport resized to 1863x429, mode Windowed.
+[2023.10.27-21.20.01:044][324]LogViewport: Scene viewport resized to 1863x424, mode Windowed.
+[2023.10.27-21.20.01:061][325]LogViewport: Scene viewport resized to 1863x421, mode Windowed.
+[2023.10.27-21.20.01:080][326]LogViewport: Scene viewport resized to 1863x416, mode Windowed.
+[2023.10.27-21.20.01:098][327]LogViewport: Scene viewport resized to 1863x412, mode Windowed.
+[2023.10.27-21.20.01:115][328]LogViewport: Scene viewport resized to 1863x408, mode Windowed.
+[2023.10.27-21.20.01:131][329]LogViewport: Scene viewport resized to 1863x404, mode Windowed.
+[2023.10.27-21.20.01:147][330]LogViewport: Scene viewport resized to 1863x401, mode Windowed.
+[2023.10.27-21.20.01:164][331]LogViewport: Scene viewport resized to 1863x397, mode Windowed.
+[2023.10.27-21.20.32:645][855]LogSlate: Window 'Create a New Animation Asset' being destroyed
+[2023.10.27-21.20.32:662][855]LogAnimationCompression: Display: Building compressed animation data for AnimSequence /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs.deathposesdfs
+[2023.10.27-21.20.32:668][855]LogAnimationCompression: Display: Storing compressed animation data for /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs.deathposesdfs, at AnimationSequence/8003fef4a6bb6ad14dbb81e44ff28e25f154848d
+[2023.10.27-21.20.32:685][855]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.20.32:685][855]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.20.32:709][855]LogWorld: UWorld::CleanupWorld for World_15, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.20.32:709][855]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.20.35:530][189]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.20.35:590][189]LogSavePackage: Moving output files for package: /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs
+[2023.10.27-21.20.35:590][189]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/deathposesdfs3A7CDE0F4AB23225A26B9CB68AAC03CD.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs.uasset'
+[2023.10.27-21.20.35:601][189]LogFileHelpers: InternalPromptForCheckoutAndSave took 71 ms (total: 1.26 sec)
+[2023.10.27-21.20.35:607][189]AssetCheck: New page: Asset Save: deathposesdfs
+[2023.10.27-21.20.35:607][189]LogContentValidation: Display: Validating /Script/Engine.AnimSequence /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs.deathposesdfs
+[2023.10.27-21.20.36:481][290]LogWorld: UWorld::CleanupWorld for World_16, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.20.36:481][290]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.20.36:487][290]LogWorld: UWorld::CleanupWorld for World_13, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.20.36:487][290]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.20.36:524][290]LogWorld: UWorld::CleanupWorld for World_14, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.20.36:524][290]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.20.36:544][290]LogViewport: Scene viewport resized to 1615x881, mode Windowed.
+[2023.10.27-21.20.36:567][291]LogViewport: Scene viewport resized to 1615x866, mode Windowed.
+[2023.10.27-21.20.36:589][291]LogViewport: Scene viewport resized to 636x348, mode Windowed.
+[2023.10.27-21.20.36:620][292]LogViewport: Scene viewport resized to 1615x848, mode Windowed.
+[2023.10.27-21.20.36:633][292]LogViewport: Scene viewport resized to 636x342, mode Windowed.
+[2023.10.27-21.20.36:659][293]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.20.47:711][212]LogContentBrowser: Attempting asset rename: EnemyStealthDeathPose2 -> EnemyStealthDeathPose2
+[2023.10.27-21.20.52:468][612]LogContentBrowser: Attempting asset rename: deathposesdfs -> EnemyStealthDeathPose3
+[2023.10.27-21.20.52:491][612]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.20.52:542][612]LogSavePackage: Moving output files for package: /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/EnemyStealthDeathPose3
+[2023.10.27-21.20.52:542][612]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/EnemyStealthDeathPose39E8E2FB746BA8A0CEBDCD9908388A47B.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/EnemyStealthDeathPose3.uasset'
+[2023.10.27-21.20.52:552][612]LogFileHelpers: InternalPromptForCheckoutAndSave took 61 ms (total: 1.32 sec)
+[2023.10.27-21.20.52:587][612]LogUObjectHash: Compacting FUObjectHashTables data took   1.02ms
+[2023.10.27-21.20.52:609][612]LogUObjectHash: Compacting FUObjectHashTables data took   0.99ms
+[2023.10.27-21.20.52:630][612]LogUObjectHash: Compacting FUObjectHashTables data took   0.49ms
+[2023.10.27-21.20.52:635][612]AssetCheck: New page: Asset Save: EnemyStealthDeathPose3
+[2023.10.27-21.20.52:635][612]LogContentValidation: Display: Validating /Script/Engine.AnimSequence /Game/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/EnemyStealthDeathPose3.EnemyStealthDeathPose3
+[2023.10.27-21.20.54:786][790]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.20.54:812][790]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/SetupMap" FILE="../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2023.10.27-21.20.54:831][790]LogUObjectHash: Compacting FUObjectHashTables data took   0.47ms
+[2023.10.27-21.20.54:849][790]LogSavePackage: Moving output files for package: /Game/Maps/SetupMap
+[2023.10.27-21.20.54:850][790]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/SetupMap16B4AEC449AC88E3C17B9A9538632E85.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap'
+[2023.10.27-21.20.54:859][790]LogFileHelpers: Saving map 'SetupMap' took 0.047
+[2023.10.27-21.20.54:863][790]LogFileHelpers: InternalPromptForCheckoutAndSave took 76 ms (total: 1.39 sec)
+[2023.10.27-21.20.54:868][790]AssetCheck: New page: Asset Save: SetupMap
+[2023.10.27-21.20.54:868][790]LogContentValidation: Display: Validating /Script/Engine.World /Game/Maps/SetupMap.SetupMap
+[2023.10.27-21.21.03:691][526]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.03:698][526]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.21.03:698][526]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.21.04:215][567]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.04:235][568]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.04:245][568]LogScript: Warning: Accessed None trying to read property Character Movement
+	ABP_Rikimaru_C /Engine/Transient.World_19:PersistentLevel.SkeletalMeshActor_0.SkeletalMeshComponent0.ABP_Rikimaru_C_0
+	Function /Game/Blueprints/Animation/ABP_Rikimaru.ABP_Rikimaru_C:HandleUpdateAnimation:013F
+[2023.10.27-21.21.04:245][568]LogScript: Warning: Accessed None trying to read property BPTenchuRikimaru
+	ABP_Rikimaru_C /Engine/Transient.World_19:PersistentLevel.SkeletalMeshActor_0.SkeletalMeshComponent0.ABP_Rikimaru_C_0
+	Function /Game/Blueprints/Animation/ABP_Rikimaru.ABP_Rikimaru_C:HandleUpdateAnimation:0183
+[2023.10.27-21.21.04:245][568]LogScript: Warning: Accessed None trying to read property BPTenchuRikimaru
+	ABP_Rikimaru_C /Engine/Transient.World_19:PersistentLevel.SkeletalMeshActor_0.SkeletalMeshComponent0.ABP_Rikimaru_C_0
+	Function /Game/Blueprints/Animation/ABP_Rikimaru.ABP_Rikimaru_C:HandleUpdateAnimation:01B7
+[2023.10.27-21.21.04:245][568]LogScript: Warning: Accessed None trying to read property BPTenchuRikimaru
+	ABP_Rikimaru_C /Engine/Transient.World_19:PersistentLevel.SkeletalMeshActor_0.SkeletalMeshComponent0.ABP_Rikimaru_C_0
+	Function /Game/Blueprints/Animation/ABP_Rikimaru.ABP_Rikimaru_C:HandleUpdateAnimation:0042
+[2023.10.27-21.21.04:245][568]LogScript: Warning: Accessed None trying to read property BPTenchuRikimaru
+	ABP_Rikimaru_C /Engine/Transient.World_19:PersistentLevel.SkeletalMeshActor_0.SkeletalMeshComponent0.ABP_Rikimaru_C_0
+	Function /Game/Blueprints/Animation/ABP_Rikimaru.ABP_Rikimaru_C:HandleUpdateAnimation:006D
+[2023.10.27-21.21.05:741][691]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.06:560][756]LogAssetEditorSubsystem: Opening Asset editor for AnimBlueprint /Game/Blueprints/Animation/Enemy/ABP_EnemyNinja.ABP_EnemyNinja
+[2023.10.27-21.21.06:560][756]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.06:560][756]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.21.06:569][756]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.06:569][756]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.21.06:574][756]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_22:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2023.10.27-21.21.06:745][756]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.06:745][756]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.21.06:809][756]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.06:830][756]LogViewport: Scene viewport resized to 791x715, mode Windowed.
+[2023.10.27-21.21.06:868][756]LogContentBrowser: Verbose: The majority of assets in the view are of type: /Script/Engine.AnimSequence
+[2023.10.27-21.21.14:124][129]LogViewport: Scene viewport resized to 790x730, mode Windowed.
+[2023.10.27-21.21.14:146][130]LogViewport: Scene viewport resized to 954x374, mode Windowed.
+[2023.10.27-21.21.14:463][164]LogSlate: Window 'ABP_EnemyNinja' being destroyed
+[2023.10.27-21.21.14:471][164]LogViewport: Scene viewport resized to 954x408, mode Windowed.
+[2023.10.27-21.21.14:489][165]LogViewport: Scene viewport resized to 954x403, mode Windowed.
+[2023.10.27-21.21.14:504][166]LogViewport: Scene viewport resized to 954x400, mode Windowed.
+[2023.10.27-21.21.14:520][167]LogViewport: Scene viewport resized to 954x396, mode Windowed.
+[2023.10.27-21.21.14:539][168]LogViewport: Scene viewport resized to 954x391, mode Windowed.
+[2023.10.27-21.21.14:558][169]LogViewport: Scene viewport resized to 954x387, mode Windowed.
+[2023.10.27-21.21.14:578][170]LogViewport: Scene viewport resized to 954x382, mode Windowed.
+[2023.10.27-21.21.14:594][171]LogViewport: Scene viewport resized to 954x379, mode Windowed.
+[2023.10.27-21.21.14:612][172]LogViewport: Scene viewport resized to 954x374, mode Windowed.
+[2023.10.27-21.21.32:734][308]LogContentBrowser: Verbose: The majority of assets in the view are of type: None
+[2023.10.27-21.21.33:373][384]LogContentBrowser: Verbose: The majority of assets in the view are of type: /Script/Engine.AnimSequence
+[2023.10.27-21.21.34:612][530]LogViewport: Scene viewport resized to 160x160, mode Windowed.
+[2023.10.27-21.21.39:706][117]BlueprintLog: New page: Compile ABP_EnemyNinja
+[2023.10.27-21.21.39:751][117]LogUObjectHash: Compacting FUObjectHashTables data took   0.97ms
+[2023.10.27-21.21.40:450][195]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.21.40:513][195]LogSavePackage: Moving output files for package: /Game/Blueprints/Animation/Enemy/ABP_EnemyNinja
+[2023.10.27-21.21.40:514][195]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/ABP_EnemyNinjaD0CA26EA4E632DC433DE3A811F4F32FB.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/Enemy/ABP_EnemyNinja.uasset'
+[2023.10.27-21.21.40:521][195]LogFileHelpers: InternalPromptForCheckoutAndSave took 71 ms (total: 1.46 sec)
+[2023.10.27-21.21.40:526][195]AssetCheck: New page: Asset Save: ABP_EnemyNinja
+[2023.10.27-21.21.40:526][195]LogContentValidation: Display: Validating /Script/Engine.AnimBlueprint /Game/Blueprints/Animation/Enemy/ABP_EnemyNinja.ABP_EnemyNinja
+[2023.10.27-21.21.42:117][346]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2023.10.27-21.21.42:124][346]BlueprintLog: New page: Pre-Play auto-recompile
+[2023.10.27-21.21.42:125][346]LogPlayLevel: [PlayLevel] Compiling ABP_EnemyNinja before play...
+[2023.10.27-21.21.42:126][346]LogPlayLevel: [PlayLevel]   Compiling BP_TenchuEnemyBase as a dependent...
+[2023.10.27-21.21.42:247][346]LogUObjectHash: Compacting FUObjectHashTables data took   0.99ms
+[2023.10.27-21.21.42:249][346]LogPlayLevel: PlayLevel: Blueprint regeneration took 124 ms (2 blueprints)
+[2023.10.27-21.21.42:249][346]PIE: New page: PIE session: SetupMap (Oct. 27, 2023, 7:21:42 a.m.)
+[2023.10.27-21.21.42:249][346]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.21.42:254][346]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004923s)
+[2023.10.27-21.21.42:254][346]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.004950s)
+[2023.10.27-21.21.42:254][346]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.21.42:254][346]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.21.42:254][346]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.21.42:255][346]LogPlayLevel: PIE: World Init took: (0.000609s)
+[2023.10.27-21.21.42:275][346]LogUObjectHash: Compacting FUObjectHashTables data took   0.98ms
+[2023.10.27-21.21.42:276][346]LogAudio: Display: Creating Audio Device:                 Id: 30, Scope: Unique, Realtime: True
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Max Channels (voices):				  0
+[2023.10.27-21.21.42:276][346]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2023.10.27-21.21.42:276][346]LogAudio: Display: AudioDevice MaxSources: 32
+[2023.10.27-21.21.42:276][346]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2023.10.27-21.21.42:276][346]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2023.10.27-21.21.42:276][346]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2023.10.27-21.21.42:278][346]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2023.10.27-21.21.42:301][346]LogAudioMixer: Display: Using Audio Hardware Device Speakers (G560 Gaming Speaker)
+[2023.10.27-21.21.42:301][346]LogAudioMixer: Display: Initializing Sound Submixes...
+[2023.10.27-21.21.42:301][346]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2023.10.27-21.21.42:301][346]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2023.10.27-21.21.42:302][346]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=30
+[2023.10.27-21.21.42:302][346]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=30
+[2023.10.27-21.21.42:304][346]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=30
+[2023.10.27-21.21.42:304][346]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=30
+[2023.10.27-21.21.42:304][346]LogInit: FAudioDevice initialized with ID 30.
+[2023.10.27-21.21.42:304][346]LogAudio: Display: Audio Device (ID: 30) registered with world 'SetupMap'.
+[2023.10.27-21.21.42:304][346]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 30
+[2023.10.27-21.21.42:306][346]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.21.42:313][346]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.21.42
+[2023.10.27-21.21.42:314][346]LogWorld: Bringing up level for play took: 0.007349
+[2023.10.27-21.21.42:315][346]LogOnline: OSS: Created online subsystem instance for: :Context_54
+[2023.10.27-21.21.42:317][346]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.21.42:317][346]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.21.42:319][346]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.21.42:319][346]PIE: Server logged in
+[2023.10.27-21.21.42:320][346]PIE: Play in editor total start time 0.195 seconds.
+[2023.10.27-21.21.44:711][628]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.21.49:841][243]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.21.50:018][263]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.21.57:069][101]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.21.57:069][101]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.21.57:069][101]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.21.57:069][101]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.21.57:072][101]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2023.10.27-21.21.57:076][101]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.21.57:097][101]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.21.57:097][101]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 30
+[2023.10.27-21.21.57:097][101]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=30
+[2023.10.27-21.21.57:100][101]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=30
+[2023.10.27-21.21.57:105][101]LogUObjectHash: Compacting FUObjectHashTables data took   1.02ms
+[2023.10.27-21.21.57:183][102]LogPlayLevel: Display: Destroying online subsystem :Context_54
+[2023.10.27-21.21.57:194][102]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.22.03:627][600]LogAssetEditorSubsystem: Opening Asset editor for AnimMontage /Game/Animations/Montages/Enemy/AM_EnemyStealthDeath.AM_EnemyStealthDeath
+[2023.10.27-21.22.03:627][600]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.22.03:627][600]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.22.03:633][600]LogActorComponent: RegisterComponentWithWorld: (/Engine/Transient.World_25:PersistentLevel.AnimationEditorPreviewActor_0.DebugSkelMeshComponent_0) Already registered. Aborting.
+[2023.10.27-21.22.03:760][600]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.22.03:760][600]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.22.03:839][600]LogViewport: Scene viewport resized to 1863x397, mode Windowed.
+[2023.10.27-21.22.15:799][  9]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.22.15:840][  9]LogSavePackage: Moving output files for package: /Game/Animations/Montages/Enemy/AM_EnemyStealthDeath
+[2023.10.27-21.22.15:841][  9]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/AM_EnemyStealthDeath0D8AA7654B5463C2B7825D9BAE83D0C1.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/Montages/Enemy/AM_EnemyStealthDeath.uasset'
+[2023.10.27-21.22.15:847][  9]LogFileHelpers: InternalPromptForCheckoutAndSave took 48 ms (total: 1.51 sec)
+[2023.10.27-21.22.15:852][  9]AssetCheck: New page: Asset Save: AM_EnemyStealthDeath
+[2023.10.27-21.22.15:852][  9]LogContentValidation: Display: Validating /Script/Engine.AnimMontage /Game/Animations/Montages/Enemy/AM_EnemyStealthDeath.AM_EnemyStealthDeath
+[2023.10.27-21.22.17:623][186]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.22.17:650][186]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/SetupMap" FILE="../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2023.10.27-21.22.17:672][186]LogUObjectHash: Compacting FUObjectHashTables data took   1.18ms
+[2023.10.27-21.22.17:691][186]LogSavePackage: Moving output files for package: /Game/Maps/SetupMap
+[2023.10.27-21.22.17:691][186]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/SetupMapEE72C2704E072AE1F63F75A9C3FD89D8.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap'
+[2023.10.27-21.22.17:700][186]LogFileHelpers: Saving map 'SetupMap' took 0.050
+[2023.10.27-21.22.17:705][186]LogFileHelpers: InternalPromptForCheckoutAndSave took 82 ms (total: 1.59 sec)
+[2023.10.27-21.22.17:711][186]AssetCheck: New page: Asset Save: SetupMap
+[2023.10.27-21.22.17:711][186]LogContentValidation: Display: Validating /Script/Engine.World /Game/Maps/SetupMap.SetupMap
+[2023.10.27-21.22.18:505][248]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2023.10.27-21.22.18:513][248]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2023.10.27-21.22.18:513][248]PIE: New page: PIE session: SetupMap (Oct. 27, 2023, 7:22:18 a.m.)
+[2023.10.27-21.22.18:538][248]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.22.18:543][248]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004918s)
+[2023.10.27-21.22.18:543][248]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.004953s)
+[2023.10.27-21.22.18:543][248]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.22.18:543][248]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.22.18:543][248]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.22.18:544][248]LogPlayLevel: PIE: World Init took: (0.000631s)
+[2023.10.27-21.22.18:563][248]LogUObjectHash: Compacting FUObjectHashTables data took   0.94ms
+[2023.10.27-21.22.18:565][248]LogAudio: Display: Creating Audio Device:                 Id: 31, Scope: Unique, Realtime: True
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Max Channels (voices):				  0
+[2023.10.27-21.22.18:565][248]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2023.10.27-21.22.18:565][248]LogAudio: Display: AudioDevice MaxSources: 32
+[2023.10.27-21.22.18:565][248]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2023.10.27-21.22.18:565][248]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2023.10.27-21.22.18:565][248]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2023.10.27-21.22.18:567][248]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2023.10.27-21.22.18:589][248]LogAudioMixer: Display: Using Audio Hardware Device Speakers (G560 Gaming Speaker)
+[2023.10.27-21.22.18:590][248]LogAudioMixer: Display: Initializing Sound Submixes...
+[2023.10.27-21.22.18:590][248]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2023.10.27-21.22.18:590][248]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2023.10.27-21.22.18:590][248]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=31
+[2023.10.27-21.22.18:590][248]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=31
+[2023.10.27-21.22.18:592][248]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=31
+[2023.10.27-21.22.18:592][248]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=31
+[2023.10.27-21.22.18:592][248]LogInit: FAudioDevice initialized with ID 31.
+[2023.10.27-21.22.18:592][248]LogAudio: Display: Audio Device (ID: 31) registered with world 'SetupMap'.
+[2023.10.27-21.22.18:592][248]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 31
+[2023.10.27-21.22.18:594][248]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.22.18:601][248]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.22.18
+[2023.10.27-21.22.18:601][248]LogWorld: Bringing up level for play took: 0.007033
+[2023.10.27-21.22.18:603][248]LogOnline: OSS: Created online subsystem instance for: :Context_57
+[2023.10.27-21.22.18:605][248]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.22.18:605][248]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.22.18:606][248]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.22.18:606][248]PIE: Server logged in
+[2023.10.27-21.22.18:607][248]PIE: Play in editor total start time 0.095 seconds.
+[2023.10.27-21.22.20:319][449]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.20:785][504]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.25:112][ 23]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.26:102][141]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.30:254][639]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.30:491][666]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.22.36:808][420]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.22.36:808][420]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.22.36:808][420]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.22.36:809][420]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.22.36:811][420]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2023.10.27-21.22.36:816][420]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.22.36:836][420]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.22.36:837][420]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 31
+[2023.10.27-21.22.36:837][420]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=31
+[2023.10.27-21.22.36:838][420]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=31
+[2023.10.27-21.22.36:844][420]LogUObjectHash: Compacting FUObjectHashTables data took   1.02ms
+[2023.10.27-21.22.36:921][421]LogPlayLevel: Display: Destroying online subsystem :Context_57
+[2023.10.27-21.22.36:930][421]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.23.01:137][766]Candidate modules for hot reload:
+[2023.10.27-21.23.01:137][766]  TenchuFanRemake
+[2023.10.27-21.23.01:142][766]Launching UnrealBuildTool... [C:/Program Files/Epic Games/UE_5.2/Engine/Build/BatchFiles/Build.bat  -ModuleWithSuffix=TenchuFanRemake,0832 TenchuFanRemakeEditor Win64 Development -Project="C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/TenchuFanRemake.uproject" "C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/TenchuFanRemake.uproject"  -IgnoreJunk]
+[2023.10.27-21.23.01:151][766]Warning: Starting HotReload took  0.0s.
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: New page: Compilation - Oct. 27, 2023, 7:23:08 a.m.
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Using bundled DotNet SDK version: 6.0.302
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" -ModuleWithSuffix=TenchuFanRemake,0832 TenchuFanRemakeEditor Win64 Development -Project="C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/TenchuFanRemake.uproject" "C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/TenchuFanRemake.uproject"  -IgnoreJunk
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Log file: C:\Users\sherw\AppData\Local\UnrealBuildTool\Log.txt
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Using 'git status' to determine working set for adaptive non-unity build (C:\PROJECTS\UnrealEngine\NINJA_PROJECT_2).
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Invalidating makefile for TenchuFanRemakeEditor (working set of source files changed)
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Building TenchuFanRemakeEditor...
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Using Visual Studio 2022 14.37.32825 toolchain (C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822) and Windows 10.0.22621.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade]
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade] Using backward-compatible include order. The latest version of UE has changed the order of includes, which may require code changes. The current setting is:
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade]     IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_1
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade] Suppress this message by setting 'IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_2;' in TenchuFanRemakeEditor.Target.cs.
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade] Alternatively you can set this to 'EngineIncludeOrderVersion.Latest' to always use the latest include order. This will potentially cause compile errors when integrating new versions of the engine.
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Upgrade]
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [Adaptive Build] Excluded from TenchuFanRemake unity file: TenchuEnemyCharacter.cpp
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Determining max actions to execute in parallel (8 physical cores, 16 logical cores)
+[2023.10.27-21.23.08:789][302]CompilerResultsLog:   Executing up to 8 processes, one per physical core
+[2023.10.27-21.23.08:789][302]CompilerResultsLog:   Requested 1.5 GB free memory per action, 11.46 GB available: limiting max parallel actions to 7
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: Building 5 actions with 5 processes...
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [1/5] Compile [x64] TenchuEnemyCharacter.cpp
+[2023.10.27-21.23.08:789][302]CompilerResultsLog: [2/5] Compile [x64] Module.TenchuFanRemake.cpp
+[2023.10.27-21.23.08:790][302]CompilerResultsLog: [3/5] Link [x64] UnrealEditor-TenchuFanRemake-0832.lib
+[2023.10.27-21.23.08:790][302]CompilerResultsLog:    Creating library C:\PROJECTS\UnrealEngine\NINJA_PROJECT_2\TenchuFanRemake\Intermediate\Build\Win64\x64\UnrealEditor\Development\TenchuFanRemake\UnrealEditor-TenchuFanRemake-0832.lib and object C:\PROJECTS\UnrealEngine\NINJA_PROJECT_2\TenchuFanRemake\Intermediate\Build\Win64\x64\UnrealEditor\Development\TenchuFanRemake\UnrealEditor-TenchuFanRemake-0832.exp
+[2023.10.27-21.23.08:790][302]CompilerResultsLog: [4/5] Link [x64] UnrealEditor-TenchuFanRemake-0832.dll
+[2023.10.27-21.23.08:790][302]CompilerResultsLog:    Creating library C:\PROJECTS\UnrealEngine\NINJA_PROJECT_2\TenchuFanRemake\Intermediate\Build\Win64\x64\UnrealEditor\Development\TenchuFanRemake\UnrealEditor-TenchuFanRemake-0832.suppressed.lib and object C:\PROJECTS\UnrealEngine\NINJA_PROJECT_2\TenchuFanRemake\Intermediate\Build\Win64\x64\UnrealEditor\Development\TenchuFanRemake\UnrealEditor-TenchuFanRemake-0832.suppressed.exp
+[2023.10.27-21.23.08:790][302]CompilerResultsLog: [5/5] WriteMetadata TenchuFanRemakeEditor.target
+[2023.10.27-21.23.08:790][302]CompilerResultsLog: Total time in Parallel executor: 5.30 seconds
+[2023.10.27-21.23.08:790][302]CompilerResultsLog: Total execution time: 7.47 seconds
+[2023.10.27-21.23.08:790][302]LogMainFrame: MainFrame: Module compiling took 7.662 seconds
+[2023.10.27-21.23.08:813][302]LogUObjectHash: Compacting FUObjectHashTables data took   1.04ms
+[2023.10.27-21.23.09:256][302]LogUObjectHash: Compacting FUObjectHashTables data took   1.00ms
+[2023.10.27-21.23.09:282][302]Display: HotReload took  8.2s.
+[2023.10.27-21.23.09:282][302]Display: Reload/Re-instancing Complete: 1 package changed, 18 classes unchanged, 5 enums unchanged, 14 functions remapped
+[2023.10.27-21.23.11:793][469]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.23.27:968][ 27]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.23.28:004][ 27]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/SetupMap" FILE="../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2023.10.27-21.23.28:076][ 27]LogUObjectHash: Compacting FUObjectHashTables data took   1.44ms
+[2023.10.27-21.23.28:093][ 27]LogSavePackage: Moving output files for package: /Game/Maps/SetupMap
+[2023.10.27-21.23.28:094][ 27]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/SetupMap10C30F944B02B7EC2EDC5AA9A7C20FAF.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap'
+[2023.10.27-21.23.28:102][ 27]LogFileHelpers: Saving map 'SetupMap' took 0.099
+[2023.10.27-21.23.28:109][ 27]LogFileHelpers: InternalPromptForCheckoutAndSave took 140 ms (total: 1.73 sec)
+[2023.10.27-21.23.28:115][ 27]AssetCheck: New page: Asset Save: SetupMap
+[2023.10.27-21.23.28:115][ 27]LogContentValidation: Display: Validating /Script/Engine.World /Game/Maps/SetupMap.SetupMap
+[2023.10.27-21.23.30:812][282]LogActorComponent: UnregisterComponent: (/Game/Blueprints/Characters/Enemy/BP_TenchuEnemyBase.Default__BP_TenchuEnemyBase_C:Stealth Kill Position Front) Not registered. Aborting.
+[2023.10.27-21.23.30:957][282]LogUObjectHash: Compacting FUObjectHashTables data took   1.14ms
+[2023.10.27-21.23.31:185][284]LogViewport: Scene viewport resized to 636x335, mode Windowed.
+[2023.10.27-21.23.32:787][400]LogFileHelpers: InternalPromptForCheckoutAndSave started...
+[2023.10.27-21.23.32:817][400]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/SetupMap" FILE="../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2023.10.27-21.23.32:839][400]LogUObjectHash: Compacting FUObjectHashTables data took   1.06ms
+[2023.10.27-21.23.32:863][400]LogSavePackage: Moving output files for package: /Game/Maps/SetupMap
+[2023.10.27-21.23.32:863][400]LogSavePackage: Moving '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Saved/SetupMap1619029647D344F31134A5A28E042355.tmp' to '../../../../../../PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap'
+[2023.10.27-21.23.32:872][400]LogFileHelpers: Saving map 'SetupMap' took 0.056
+[2023.10.27-21.23.32:878][400]LogFileHelpers: InternalPromptForCheckoutAndSave took 91 ms (total: 1.83 sec)
+[2023.10.27-21.23.32:887][400]AssetCheck: New page: Asset Save: SetupMap
+[2023.10.27-21.23.32:887][400]LogContentValidation: Display: Validating /Script/Engine.World /Game/Maps/SetupMap.SetupMap
+[2023.10.27-21.23.33:788][470]LogDebuggerCommands: Repeating last play command: Selected Viewport
+[2023.10.27-21.23.33:796][470]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2023.10.27-21.23.33:796][470]PIE: New page: PIE session: SetupMap (Oct. 27, 2023, 7:23:33 a.m.)
+[2023.10.27-21.23.33:828][470]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.23.33:833][470]LogPlayLevel: PIE: StaticDuplicateObject took: (0.005017s)
+[2023.10.27-21.23.33:833][470]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.005051s)
+[2023.10.27-21.23.33:833][470]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.23.33:833][470]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.23.33:833][470]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.23.33:833][470]LogPlayLevel: PIE: World Init took: (0.000637s)
+[2023.10.27-21.23.33:854][470]LogUObjectHash: Compacting FUObjectHashTables data took   0.95ms
+[2023.10.27-21.23.33:855][470]LogAudio: Display: Creating Audio Device:                 Id: 32, Scope: Unique, Realtime: True
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Number of buffers to queue:			  1
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Max Channels (voices):				  0
+[2023.10.27-21.23.33:855][470]LogAudioMixer: Display: 	Number of Async Source Workers:		  4
+[2023.10.27-21.23.33:855][470]LogAudio: Display: AudioDevice MaxSources: 32
+[2023.10.27-21.23.33:856][470]LogAudio: Display: Audio Spatialization Plugin: None (built-in).
+[2023.10.27-21.23.33:856][470]LogAudio: Display: Audio Reverb Plugin: None (built-in).
+[2023.10.27-21.23.33:856][470]LogAudio: Display: Audio Occlusion Plugin: None (built-in).
+[2023.10.27-21.23.33:858][470]LogAudioMixer: Display: Initializing audio mixer using platform API: 'XAudio2'
+[2023.10.27-21.23.33:881][470]LogAudioMixer: Display: Using Audio Hardware Device Speakers (G560 Gaming Speaker)
+[2023.10.27-21.23.33:881][470]LogAudioMixer: Display: Initializing Sound Submixes...
+[2023.10.27-21.23.33:881][470]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2023.10.27-21.23.33:881][470]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2023.10.27-21.23.33:882][470]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called. InstanceID=32
+[2023.10.27-21.23.33:882][470]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048, InstanceID=32
+[2023.10.27-21.23.33:883][470]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal(), InstanceID=32
+[2023.10.27-21.23.33:883][470]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time. InstanceID=32
+[2023.10.27-21.23.33:883][470]LogInit: FAudioDevice initialized with ID 32.
+[2023.10.27-21.23.33:883][470]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.23.33:883][470]LogAudioMixer: Initializing Audio Bus Subsystem for audio device with ID 32
+[2023.10.27-21.23.33:886][470]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.23.33:893][470]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.23.33
+[2023.10.27-21.23.33:894][470]LogWorld: Bringing up level for play took: 0.007557
+[2023.10.27-21.23.33:896][470]LogOnline: OSS: Created online subsystem instance for: :Context_58
+[2023.10.27-21.23.33:898][470]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.23.33:898][470]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.23.33:899][470]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.23.33:899][470]PIE: Server logged in
+[2023.10.27-21.23.33:900][470]PIE: Play in editor total start time 0.105 seconds.
+[2023.10.27-21.23.35:266][629]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.36:322][754]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.40:940][308]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.43:216][580]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.46:257][945]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.46:978][ 30]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.47:670][113]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.48:155][170]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.48:263][183]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.48:434][203]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.51:127][526]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.51:303][546]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.58:489][408]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.23.58:724][435]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.01:417][758]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.01:650][785]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.02:657][906]LogNet: Browse: /Game/Maps/SetupMap
+[2023.10.27-21.24.02:657][906]LogLoad: LoadMap: /Game/Maps/SetupMap
+[2023.10.27-21.24.02:657][906]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.02:658][906]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.24.02:658][906]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.24.02:727][906]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2023.10.27-21.24.02:730][906]LogUObjectHash: Compacting FUObjectHashTables data took   0.99ms
+[2023.10.27-21.24.02:732][906]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.02:738][906]LogPlayLevel: PIE: StaticDuplicateObject took: (0.005658s)
+[2023.10.27-21.24.02:738][906]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.005708s)
+[2023.10.27-21.24.02:738][906]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.24.02:738][906]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.24.02:738][906]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.24.02:738][906]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.24.02:738][906]LogPlayLevel: PIE: World Init took: (0.000655s)
+[2023.10.27-21.24.02:738][906]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.24.02:745][906]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.24.02
+[2023.10.27-21.24.02:745][906]LogWorld: Bringing up level for play took: 0.006898
+[2023.10.27-21.24.02:747][906]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.24.02:747][906]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.24.02:748][906]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.24.02:748][906]LogLoad: Took 0.091866 seconds to LoadMap(/Game/Maps/UEDPIE_0_SetupMap)
+[2023.10.27-21.24.02:807][912]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.04:791][149]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.09:582][724]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.09:993][772]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.13:559][200]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.13:965][248]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.14:791][347]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.14:986][367]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.16:162][508]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.16:391][535]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.20:719][ 54]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.20:951][ 81]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.26:851][789]LogNet: Browse: /Game/Maps/SetupMap
+[2023.10.27-21.24.26:851][789]LogLoad: LoadMap: /Game/Maps/SetupMap
+[2023.10.27-21.24.26:851][789]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.26:852][789]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.24.26:852][789]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.24.26:898][789]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2023.10.27-21.24.26:901][789]LogUObjectHash: Compacting FUObjectHashTables data took   1.09ms
+[2023.10.27-21.24.26:902][789]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.26:907][789]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004991s)
+[2023.10.27-21.24.26:907][789]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.005026s)
+[2023.10.27-21.24.26:907][789]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.24.26:907][789]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.24.26:908][789]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.24.26:908][789]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.24.26:908][789]LogPlayLevel: PIE: World Init took: (0.000771s)
+[2023.10.27-21.24.26:908][789]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.24.26:915][789]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.24.26
+[2023.10.27-21.24.26:915][789]LogWorld: Bringing up level for play took: 0.006753
+[2023.10.27-21.24.26:917][789]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.24.26:917][789]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.24.26:918][789]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.24.26:918][789]LogLoad: Took 0.067173 seconds to LoadMap(/Game/Maps/UEDPIE_0_SetupMap)
+[2023.10.27-21.24.28:027][921]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.28:198][941]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.34:217][663]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.34:991][755]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.39:190][258]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.39:377][280]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.44:152][853]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.48:740][401]LogNet: Browse: /Game/Maps/SetupMap
+[2023.10.27-21.24.48:740][401]LogLoad: LoadMap: /Game/Maps/SetupMap
+[2023.10.27-21.24.48:740][401]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.48:741][401]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.24.48:741][401]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.24.48:810][401]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2023.10.27-21.24.48:812][401]LogUObjectHash: Compacting FUObjectHashTables data took   1.16ms
+[2023.10.27-21.24.48:814][401]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.24.48:820][401]LogPlayLevel: PIE: StaticDuplicateObject took: (0.005268s)
+[2023.10.27-21.24.48:820][401]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.005347s)
+[2023.10.27-21.24.48:820][401]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.24.48:820][401]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.24.48:820][401]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.24.48:821][401]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.24.48:821][401]LogPlayLevel: PIE: World Init took: (0.000687s)
+[2023.10.27-21.24.48:821][401]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.24.48:827][401]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.24.48
+[2023.10.27-21.24.48:828][401]LogWorld: Bringing up level for play took: 0.007073
+[2023.10.27-21.24.48:829][401]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.24.48:829][401]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.24.48:831][401]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.24.48:831][401]LogLoad: Took 0.090635 seconds to LoadMap(/Game/Maps/UEDPIE_0_SetupMap)
+[2023.10.27-21.24.50:345][581]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.54:903][128]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.55:313][176]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.24.59:581][688]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.00:693][820]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.00:816][835]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.01:718][941]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.02:001][975]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.04:273][247]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.15:455][588]LogNet: Browse: /Game/Maps/SetupMap
+[2023.10.27-21.25.15:455][588]LogLoad: LoadMap: /Game/Maps/SetupMap
+[2023.10.27-21.25.15:455][588]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.25.15:456][588]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.25.15:457][588]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.25.15:519][588]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2023.10.27-21.25.15:521][588]LogUObjectHash: Compacting FUObjectHashTables data took   1.23ms
+[2023.10.27-21.25.15:524][588]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.25.15:528][588]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004863s)
+[2023.10.27-21.25.15:528][588]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.004898s)
+[2023.10.27-21.25.15:528][588]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.25.15:528][588]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.25.15:528][588]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.25.15:529][588]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.25.15:529][588]LogPlayLevel: PIE: World Init took: (0.000587s)
+[2023.10.27-21.25.15:529][588]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.25.15:536][588]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.25.15
+[2023.10.27-21.25.15:536][588]LogWorld: Bringing up level for play took: 0.006927
+[2023.10.27-21.25.15:538][588]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.25.15:538][588]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.25.15:539][588]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.25.15:539][588]LogLoad: Took 0.084560 seconds to LoadMap(/Game/Maps/UEDPIE_0_SetupMap)
+[2023.10.27-21.25.16:785][734]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.21:273][272]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.21:458][294]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.21:688][321]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.31:317][476]LogNet: Browse: /Game/Maps/SetupMap
+[2023.10.27-21.25.31:317][476]LogLoad: LoadMap: /Game/Maps/SetupMap
+[2023.10.27-21.25.31:317][476]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.25.31:317][476]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.25.31:318][476]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.25.31:368][476]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2023.10.27-21.25.31:371][476]LogUObjectHash: Compacting FUObjectHashTables data took   0.96ms
+[2023.10.27-21.25.31:373][476]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.25.31:378][476]LogPlayLevel: PIE: StaticDuplicateObject took: (0.004913s)
+[2023.10.27-21.25.31:378][476]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/SetupMap.SetupMap to /Game/Maps/UEDPIE_0_SetupMap.SetupMap (0.004944s)
+[2023.10.27-21.25.31:378][476]LogAudio: Display: Audio Device (ID: 32) registered with world 'SetupMap'.
+[2023.10.27-21.25.31:378][476]LogWorldSubsystemInput: UEnhancedInputDeveloperSettings::bEnableWorldSubsystem is false, the world subsystem will not be created!
+[2023.10.27-21.25.31:378][476]LogChaos: FPhysicsSolverBase::AsyncDt:-1.000000
+[2023.10.27-21.25.31:378][476]LogAIModule: Creating AISystem for world SetupMap
+[2023.10.27-21.25.31:378][476]LogPlayLevel: PIE: World Init took: (0.000591s)
+[2023.10.27-21.25.31:378][476]LogLoad: Game class is 'BP_TenchuGameMode_C'
+[2023.10.27-21.25.31:384][476]LogWorld: Bringing World /Game/Maps/UEDPIE_0_SetupMap.SetupMap up for play (max tick rate 0) at 2023.10.27-14.25.31
+[2023.10.27-21.25.31:385][476]LogWorld: Bringing up level for play took: 0.006764
+[2023.10.27-21.25.31:387][476]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: [ClothingSimulationFactoryNv] is currently unable to provide a fully functional simulation for each of this SkeletalMesh's clothing assets.
+[2023.10.27-21.25.31:387][476]LogSkeletalMesh: Display: OnRegister[/Game/ArashiAkuma/Meshes/Characters/Separates/Acessories/SK_FabricMask.SK_FabricMask]: The ClothingSimulationFactory property will now be automatically updated to use the most functional simulation that can be found.
+[2023.10.27-21.25.31:388][476]LogActor: Warning: BP_Katana_C /Game/Maps/UEDPIE_0_SetupMap.SetupMap:PersistentLevel.BP_Katana_C_0 has natively added scene component(s), but none of them were set as the actor's RootComponent - picking one arbitrarily
+[2023.10.27-21.25.31:388][476]LogLoad: Took 0.071478 seconds to LoadMap(/Game/Maps/UEDPIE_0_SetupMap)
+[2023.10.27-21.25.32:380][594]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.32:616][621]LogD3D12RHI: Display: Temp texture streaming buffer not large enough, needed 16777216 bytes
+[2023.10.27-21.25.38:508][325]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.25.38:508][325]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_SetupMap
+[2023.10.27-21.25.38:508][325]LogWorld: UWorld::CleanupWorld for SetupMap, bSessionEnded=true, bCleanupResources=true
+[2023.10.27-21.25.38:509][325]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.25.38:512][325]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2023.10.27-21.25.38:517][325]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2023.10.27-21.25.38:537][325]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2023.10.27-21.25.38:538][325]LogAudioMixer: Deinitializing Audio Bus Subsystem for audio device with ID 32
+[2023.10.27-21.25.38:538][325]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=32
+[2023.10.27-21.25.38:540][325]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called. InstanceID=32
+[2023.10.27-21.25.38:546][325]LogUObjectHash: Compacting FUObjectHashTables data took   1.02ms
+[2023.10.27-21.25.38:624][326]LogPlayLevel: Display: Destroying online subsystem :Context_58
+[2023.10.27-21.25.38:633][326]LogViewport: Scene viewport resized to 636x335, mode Windowed.

@@ -137,7 +137,7 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 
 	bIsStealthAttackFromBack = Theta > 0.f; // Positive values
 
-	if (GEngine)
+	/*if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(
 			1,
@@ -148,5 +148,5 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 	}
 
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
-	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);*/
 }
