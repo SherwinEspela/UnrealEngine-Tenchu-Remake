@@ -73,10 +73,7 @@ Plugins/*/Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 ReferenceImages/
-TenchuFanRemake/Binaries/
-TenchuFanRemake/Config/
 TenchuFanRemake/Intermediate/
-TenchuFanRemake/Saved/
 TenchuFanRemake/UpgradeLog.htm
 TenchuFanRemake/.vsconfig
 TenchuFanRemake/Content/ArashiAkuma/
@@ -85,3 +82,4 @@ TenchuFanRemake/Content/Ninja_Anims/
 TenchuFanRemake/Content/ParagonMurdock/Placeholder.txt
 TenchuFanRemake/Content/japanese_house/
 TenchuFanRemake/Content/MarketplaceAssets/
+TenchuFanRemake/Binaries/Win64/UnrealEditor-TenchuFanRemake.pdb
