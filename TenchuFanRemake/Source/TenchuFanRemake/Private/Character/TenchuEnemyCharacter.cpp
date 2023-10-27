@@ -12,6 +12,7 @@
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "GameUtilities.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -48,6 +49,7 @@ void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* Overlapped
 	ATenchuCharacter* Player = Cast<ATenchuCharacter>(OtherActor);
 	if (Player)
 	{
+		GetStealthPosition(OtherActor);
 		EnemyCloseWidget->SetVisibility(true);
 		Player->SetActorToInteract(this);
 	}
@@ -103,4 +105,40 @@ void ATenchuEnemyCharacter::Interact()
 EInteractableType ATenchuEnemyCharacter::GetInteractableType()
 {
 	return InteractableType;
+}
+
+void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
+{
+	UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
+
+	const FVector Right = GetActorRightVector();
+	const FVector ToHit = (Player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+
+	// Right * ToHit = |Right||ToHit| * cos(theta)
+	const double CosTheta = FVector::DotProduct(Right, ToHit);
+	// Take the inverse cosine (arc-cosine) of cos(theta) to get theta
+	double Theta = FMath::Acos(CosTheta);
+	// convert from radians to degrees
+	Theta = FMath::RadiansToDegrees(Theta);
+	
+	const FVector CrossProduct = FVector::CrossProduct(Right, ToHit);
+	if (CrossProduct.Z < 0)
+	{
+		Theta *= -1.f;
+	}
+
+	bIsStealthAttackFromBack = Theta > 0.f; // Positive values
+
+	/*if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			1,
+			5.f,
+			FColor::Red,
+			FString::Printf(TEXT("Theta: %f"), Theta)
+		);
+	}*/
+
+	//UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
+	//UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);
 }

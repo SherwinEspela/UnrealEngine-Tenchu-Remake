@@ -179,13 +179,22 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 {
 	if (AnimInstance)
 	{
-		int SectionIndex = FMath::RandRange(1, 2);
-		FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex);
-		AnimInstance->Montage_Play(MontageStealthAttacks);
-		AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+		ATenchuEnemyCharacter* Enemy = Cast<ATenchuEnemyCharacter>(Interactable);
+		if (Enemy->bIsStealthAttackFromBack)
+		{
+			int SectionIndex = FMath::RandRange(1, 2);
+			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex);
 
-		EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex);
-		EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
+			AnimInstance->Montage_Play(MontageStealthAttacks);
+			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+
+			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex);
+			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
+		}
+		else {
+			AnimInstance->Montage_Play(MontageStealthAttacksFront);
+			AnimInstance->Montage_JumpToSection(FName("Front1"), MontageStealthAttacksFront);
+		}
 	}
 }
 

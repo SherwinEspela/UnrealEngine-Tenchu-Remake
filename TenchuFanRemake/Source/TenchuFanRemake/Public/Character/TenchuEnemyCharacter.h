@@ -42,6 +42,8 @@ public:
 	virtual void Interact() override;
 	virtual EInteractableType GetInteractableType();
 
+	bool bIsStealthAttackFromBack = true;
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USphereComponent* SphereComponent;
@@ -70,4 +72,6 @@ protected:
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
 	EInteractableType InteractableType = EInteractableType::EIT_Enemy;
+
+	void GetStealthPosition(AActor* Player);
 };
