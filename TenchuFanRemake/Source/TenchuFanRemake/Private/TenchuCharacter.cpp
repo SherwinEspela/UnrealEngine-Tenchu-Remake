@@ -52,6 +52,7 @@ void ATenchuCharacter::BeginPlay()
 	AnimInstance = GetMesh()->GetAnimInstance();
 	AttachSword();
 	bTakeCoverBoxInterpCompleted = false;
+	Interactable = nullptr;
 }
 
 void ATenchuCharacter::AttachSword()
@@ -154,8 +155,12 @@ void ATenchuCharacter::ToggleCrouch()
 
 void ATenchuCharacter::StealthAttack()
 {
+	if (!CanInteract()) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_TakingCover) return;
-	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting && EnemyToStealthAttack == nullptr) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+
+	EnemyToStealthAttack = Cast<ATenchuEnemyCharacter>(Interactable);
+	if (EnemyToStealthAttack == nullptr) return;
 
 	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
@@ -186,19 +191,38 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 
 void ATenchuCharacter::TakeCover()
 {
-	if (!CanInteract()) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_TakingCover) return;
+
 	bTakeCoverBoxInterpCompleted = false;
 	TenchuPlayerState = ETenchuPlayerStates::EPS_TakingCover;
 
 	if (AnimInstance && MontageTakeCover)
 	{
-		TakeCoverBox = Cast<ATakeCoverBox>(ActorToInteract);
-		TakeCoverBox->TurnOffIndicatorWidgetVisibility();
+		TakeCoverBox = Cast<ATakeCoverBox>(Interactable);
+		Interactable->Interact();
 		bIsStandingWhenTakingCover = TakeCoverBox->bIsStanding;
 		bIsTakingCoverFacingLeft = TakeCoverBox->bIsFacingLeft;
 
 		FRotator TakeCoverBoxRotation = TakeCoverBoxRotation = TakeCoverBox->PlayerLocation->GetComponentRotation();
 		SetActorRotation(TakeCoverBoxRotation);
+	}
+}
+
+void ATenchuCharacter::Interact()
+{
+	if (!CanInteract()) return;
+
+	switch (Interactable->GetInteractableType())
+	{	
+		case EInteractableType::EIT_Enemy:
+			StealthAttack();
+			break;
+
+		case EInteractableType::EIT_TakeCoverBox:
+			TakeCover();
+			break;
+
+		default:
+			break;
 	}
 }

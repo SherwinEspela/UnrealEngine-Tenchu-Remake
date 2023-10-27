@@ -19,7 +19,7 @@ class TENCHUFANREMAKE_API ATenchuPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 public:
-	ATenchuPlayerController();
+	//ATenchuPlayerController();
 
 	UPROPERTY(EditAnywhere)
 	float MovementSpeedMultiplier = 2.f;
@@ -43,11 +43,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionToggleCrouch;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	/*UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionStealthAttack;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
-	UInputAction* InputActionTakeCover;
+	UInputAction* InputActionTakeCover;*/
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionInteract;
 
 	UPROPERTY();
 	TObjectPtr<ATenchuCharacter> PlayerCharacter;
@@ -57,6 +60,7 @@ private:
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
 	void ToggleCrouch();
-	void PlayStealthAttack();
-	void TakeCover();
+	/*void PlayStealthAttack();
+	void TakeCover();*/
+	void Interact();
 };

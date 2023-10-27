@@ -29,15 +29,15 @@ enum class EEnemyDeathPose : uint8
 };
 
 UENUM(BlueprintType)
-enum class EInteractableType : uint8
-{
-	EIT_Enemy	UMETA(DisplayName = "Enemy"),
-	EIT_Wall	UMETA(DisplayName = "Wall")
-};
-
-UENUM(BlueprintType)
 enum class ETakeCoverType : uint8
 {
 	ETC_FacingLeft	UMETA(DisplayName = "Facing Left"),
 	ETC_FacingRight	UMETA(DisplayName = "Facing Right")
+};
+
+UENUM(Blueprinttype)
+enum class EInteractableType : uint8
+{
+	EIT_Enemy			UMETA(DisplayName = "Enemy"),
+	EIT_TakeCoverBox	UMETA(DisplayName = "Take Cover Box")
 };

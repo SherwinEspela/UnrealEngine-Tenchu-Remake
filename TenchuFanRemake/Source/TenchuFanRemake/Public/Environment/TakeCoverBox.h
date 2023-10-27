@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Environment/TenchuEnvironmentBase.h"
 #include "CustomEnums.h"
+#include "Interface/InteractableInterface.h"
 #include "TakeCoverBox.generated.h"
 
 class UBoxComponent;
@@ -16,7 +17,7 @@ class UWidgetComponent;
  * 
  */
 UCLASS()
-class TENCHUFANREMAKE_API ATakeCoverBox : public ATenchuEnvironmentBase
+class TENCHUFANREMAKE_API ATakeCoverBox : public ATenchuEnvironmentBase, public IInteractableInterface
 {
 	GENERATED_BODY()
 	
@@ -37,8 +38,8 @@ public:
 	UPROPERTY(EditAnywhere, Category = Interact)
 	bool bIsFacingLeft = true;
 
-public:
-	void TurnOffIndicatorWidgetVisibility();
+	virtual void Interact() override;
+	virtual EInteractableType GetInteractableType() override;
 
 protected:
 	UFUNCTION()
@@ -52,4 +53,7 @@ protected:
 
 private:
 	ATenchuCharacter* TenchuPlayer;
+
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	EInteractableType InteractableType = EInteractableType::EIT_TakeCoverBox;
 };

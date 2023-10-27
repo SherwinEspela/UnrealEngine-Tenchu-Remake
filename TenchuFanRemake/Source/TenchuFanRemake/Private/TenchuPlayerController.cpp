@@ -7,10 +7,10 @@
 #include "GameFramework/Character.h"
 #include "TenchuCharacter.h"
 
-ATenchuPlayerController::ATenchuPlayerController()
-{
-	
-}
+//ATenchuPlayerController::ATenchuPlayerController()
+//{
+//	
+//}
 
 void ATenchuPlayerController::BeginPlay()
 {
@@ -31,8 +31,7 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
 	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
 	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
-	EnhancedInputComponent->BindAction(InputActionTakeCover, ETriggerEvent::Triggered, this, &ATenchuPlayerController::TakeCover);
-	EnhancedInputComponent->BindAction(InputActionStealthAttack, ETriggerEvent::Triggered, this, &ATenchuPlayerController::PlayStealthAttack);
+	EnhancedInputComponent->BindAction(InputActionInteract, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Interact);
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -75,16 +74,24 @@ void ATenchuPlayerController::ToggleCrouch()
 	}
 }
 
-void ATenchuPlayerController::PlayStealthAttack()
-{
-	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-	if (PlayerCharacter && PlayerCharacter->CanStealthAttack())
-	{
-		PlayerCharacter->StealthAttack();
-	}
-}
+//void ATenchuPlayerController::PlayStealthAttack()
+//{
+//	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+//	if (PlayerCharacter)
+//	{
+//		PlayerCharacter->StealthAttack();
+//	}
+//}
+//
+//void ATenchuPlayerController::TakeCover()
+//{
+//	if (PlayerCharacter) PlayerCharacter->TakeCover();
+//}
 
-void ATenchuPlayerController::TakeCover()
+void ATenchuPlayerController::Interact()
 {
-	if (PlayerCharacter) PlayerCharacter->TakeCover();
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->Interact();
+	}
 }

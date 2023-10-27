@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Character/TenchuBaseCharacter.h"
 #include "CustomEnums.h"
+#include "Interface/InteractableInterface.h"
 #include "TenchuEnemyCharacter.generated.h"
 
 class USphereComponent;
@@ -18,7 +19,7 @@ class USpringArmComponent;
  * 
  */
 UCLASS()
-class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter
+class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter, public IInteractableInterface
 {
 	GENERATED_BODY()
 public:
@@ -37,6 +38,9 @@ public:
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
+
+	virtual void Interact() override;
+	virtual EInteractableType GetInteractableType();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -62,4 +66,8 @@ protected:
 
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+private:
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
+	EInteractableType InteractableType = EInteractableType::EIT_Enemy;
 };

@@ -40,6 +40,7 @@ void ATenchuEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	EnemyCloseWidget->SetVisibility(false);
+	InteractableType = EInteractableType::EIT_Enemy;
 }
 
 void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -48,7 +49,7 @@ void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* Overlapped
 	if (Player)
 	{
 		EnemyCloseWidget->SetVisibility(true);
-		Player->SetEnemyToStealthAttack(this);
+		Player->SetActorToInteract(this);
 	}
 }
 
@@ -58,7 +59,7 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	if (Player)
 	{
 		EnemyCloseWidget->SetVisibility(false);
-		Player->RemoveEnemyToStealthAttack();
+		Player->RemoveActorToInteract();
 	}
 }
 
@@ -93,4 +94,13 @@ FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation()
 FRotator ATenchuEnemyCharacter::GetPlayerStealthKillRotation()
 {
 	return PlayerSteathKillPosition->GetComponentRotation();
+}
+
+void ATenchuEnemyCharacter::Interact()
+{
+}
+
+EInteractableType ATenchuEnemyCharacter::GetInteractableType()
+{
+	return InteractableType;
 }

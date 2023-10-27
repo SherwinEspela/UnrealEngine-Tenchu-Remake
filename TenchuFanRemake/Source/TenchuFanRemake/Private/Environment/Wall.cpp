@@ -26,20 +26,20 @@ void AWall::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 {
 	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerBeginOverlap......"));
 	
-	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
+	/*if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
 		TenchuPlayer->SetActorToInteract(this);
-	}
+	}*/
 }
 
 void AWall::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Wall OnPlayerEndOverlap......"));
 
-	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
-	if (TenchuPlayer)
-	{
-		TenchuPlayer->RemoveActorToInteract();
-	}
+	//if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
+	//if (TenchuPlayer)
+	//{
+	//	TenchuPlayer->RemoveActorToInteract();
+	//}
 }

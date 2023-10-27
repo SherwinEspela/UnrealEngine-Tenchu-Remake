@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "CustomEnums.h"
+#include "Interface/InteractableInterface.h"
 #include "TenchuCharacter.generated.h"
 
 class USpringArmComponent;
@@ -32,6 +33,7 @@ public:
 	void ToggleCrouch();
 	void StealthAttack();
 	void TakeCover();
+	void Interact();
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
@@ -47,12 +49,12 @@ public:
 
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
-	FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
-	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }
-	FORCEINLINE bool CanStealthAttack() const { return EnemyToStealthAttack != nullptr; }
-	FORCEINLINE void SetActorToInteract(AActor* NewActor) { ActorToInteract = NewActor; }
-	FORCEINLINE void RemoveActorToInteract() { ActorToInteract = nullptr; }
-	FORCEINLINE bool CanInteract() { return ActorToInteract != nullptr; }
+	/*FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
+	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }*/
+	//FORCEINLINE bool CanStealthAttack() const { return EnemyToStealthAttack != nullptr; }
+	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
+	FORCEINLINE void RemoveActorToInteract() { Interactable = nullptr; }
+	FORCEINLINE bool CanInteract() { return Interactable != nullptr; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -102,8 +104,8 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<ATenchuEnemyCharacter> EnemyToStealthAttack;
 
-	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	AActor* ActorToInteract;
+	//UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	IInteractableInterface* Interactable;
 
 	UPROPERTY(EditAnywhere, Category = Stealth, meta = (AllowPrivateAccess = "true"))
 	float TakeCoverInterpSpeed = 10.f;
