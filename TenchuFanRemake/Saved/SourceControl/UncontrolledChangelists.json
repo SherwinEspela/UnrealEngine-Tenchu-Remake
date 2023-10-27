@@ -6,7 +6,9 @@
 			"description": "Default Uncontrolled Changelist",
 			"files": [
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/Enemy/BP_TenchuEnemyBase.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap"
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/SneakAttack/Tenchu_v3_Chudan_Attack_StabChest_Attacker.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/SneakAttack/Tenchu_v3_Chudan_Attack_StabChest_Victim.uasset"
 			]
 		}
 	]

@@ -85,3 +85,6 @@ TenchuFanRemake/Content/MarketplaceAssets/
 TenchuFanRemake/Binaries/Win64/UnrealEditor-TenchuFanRemake.pdb
 TenchuFanRemake/Saved/Config/WindowsEditor/
 TenchuFanRemake/Binaries/
+TenchuFanRemake/Saved/Config/CrashReportClient/
+TenchuFanRemake/Saved/Crashes/
+TenchuFanRemake/Saved/Logs/

@@ -42,7 +42,7 @@ public:
 	virtual void Interact() override;
 	virtual EInteractableType GetInteractableType();
 
-	bool bIsStealthAttackFromBack = true;
+	FORCEINLINE bool GetIsStealthAttackFromBack() const { return bIsStealthAttackFromBack; }
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
@@ -56,6 +56,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPosition;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
+	TObjectPtr<USceneComponent> PlayerSteathKillPositionFront;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
+	TObjectPtr<USceneComponent> PlayerSteathKillPositionBack;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<UCameraComponent> StealthKillCamera;
@@ -74,4 +80,5 @@ private:
 	EInteractableType InteractableType = EInteractableType::EIT_Enemy;
 
 	void GetStealthPosition(AActor* Player);
+	bool bIsStealthAttackFromBack = true;
 };

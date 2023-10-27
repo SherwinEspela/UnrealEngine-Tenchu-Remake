@@ -13,6 +13,10 @@ FName GameUtilities::GetStealthEventSectionName(int SectionIndex)
 	case 2:
 		SectionName = "Behind2";
 		break;
+	case 3:
+		SectionName = "Front1";
+		break;
+
 	default:
 		break;
 	}
@@ -34,6 +38,9 @@ EEnemyDeathPose GameUtilities::GetDeathPose(int SectionIndex)
 	
 		case 2:
 			return EEnemyDeathPose::EDP_Pose2;
+
+		case 3:
+			return EEnemyDeathPose::EDP_Pose3;
 
 		default:
 			break;

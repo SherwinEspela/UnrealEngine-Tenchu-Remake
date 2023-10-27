@@ -27,8 +27,14 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	EnemyCloseWidget->SetupAttachment(GetRootComponent());
 	EnemyCloseWidget->SetVisibility(false);
 
-	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Player Stealth Kill Position"));
+	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position"));
 	PlayerSteathKillPosition->SetupAttachment(GetRootComponent());
+
+	PlayerSteathKillPositionFront = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Front"));
+	PlayerSteathKillPositionFront->SetupAttachment(GetRootComponent());
+
+	PlayerSteathKillPositionBack = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Behind"));
+	PlayerSteathKillPositionBack->SetupAttachment(GetRootComponent());
 
 	StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
 	StealthKillCameraBoom->SetupAttachment(GetRootComponent());
@@ -90,12 +96,14 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 
 FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation()
 {
-	return PlayerSteathKillPosition->GetComponentLocation();
+	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
+	return StealthLocation;
 }
 
 FRotator ATenchuEnemyCharacter::GetPlayerStealthKillRotation()
 {
-	return PlayerSteathKillPosition->GetComponentRotation();
+	FRotator StealthRotation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentRotation() : PlayerSteathKillPositionFront->GetComponentRotation();
+	return StealthRotation;
 }
 
 void ATenchuEnemyCharacter::Interact()
@@ -129,7 +137,7 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 
 	bIsStealthAttackFromBack = Theta > 0.f; // Positive values
 
-	/*if (GEngine)
+	if (GEngine)
 	{
 		GEngine->AddOnScreenDebugMessage(
 			1,
@@ -137,8 +145,8 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 			FColor::Red,
 			FString::Printf(TEXT("Theta: %f"), Theta)
 		);
-	}*/
+	}
 
-	//UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
-	//UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);
 }

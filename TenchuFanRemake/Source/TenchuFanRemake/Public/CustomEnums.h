@@ -25,7 +25,8 @@ UENUM(BlueprintType)
 enum class EEnemyDeathPose : uint8
 {
 	EDP_Pose1	UMETA(DisplayName = "Death Pose 1"),
-	EDP_Pose2	UMETA(DisplayName = "Death Pose 2")
+	EDP_Pose2	UMETA(DisplayName = "Death Pose 2"),
+	EDP_Pose3	UMETA(DisplayName = "Death Pose 3")
 };
 
 UENUM(BlueprintType)
