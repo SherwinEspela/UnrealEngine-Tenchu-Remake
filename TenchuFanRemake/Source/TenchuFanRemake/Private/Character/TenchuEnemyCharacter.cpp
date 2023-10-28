@@ -12,6 +12,7 @@
 #include "Camera/CameraComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "GameUtilities.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
@@ -26,8 +27,14 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	EnemyCloseWidget->SetupAttachment(GetRootComponent());
 	EnemyCloseWidget->SetVisibility(false);
 
-	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Player Stealth Kill Position"));
+	PlayerSteathKillPosition = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position"));
 	PlayerSteathKillPosition->SetupAttachment(GetRootComponent());
+
+	PlayerSteathKillPositionFront = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Front"));
+	PlayerSteathKillPositionFront->SetupAttachment(GetRootComponent());
+
+	PlayerSteathKillPositionBack = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Behind"));
+	PlayerSteathKillPositionBack->SetupAttachment(GetRootComponent());
 
 	StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
 	StealthKillCameraBoom->SetupAttachment(GetRootComponent());
@@ -48,6 +55,7 @@ void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* Overlapped
 	ATenchuCharacter* Player = Cast<ATenchuCharacter>(OtherActor);
 	if (Player)
 	{
+		GetStealthPosition(OtherActor);
 		EnemyCloseWidget->SetVisibility(true);
 		Player->SetActorToInteract(this);
 	}
@@ -88,12 +96,14 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 
 FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation()
 {
-	return PlayerSteathKillPosition->GetComponentLocation();
+	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
+	return StealthLocation;
 }
 
 FRotator ATenchuEnemyCharacter::GetPlayerStealthKillRotation()
 {
-	return PlayerSteathKillPosition->GetComponentRotation();
+	FRotator StealthRotation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentRotation() : PlayerSteathKillPositionFront->GetComponentRotation();
+	return StealthRotation;
 }
 
 void ATenchuEnemyCharacter::Interact()
@@ -103,4 +113,40 @@ void ATenchuEnemyCharacter::Interact()
 EInteractableType ATenchuEnemyCharacter::GetInteractableType()
 {
 	return InteractableType;
+}
+
+void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
+{
+	UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
+
+	const FVector Right = GetActorRightVector();
+	const FVector ToHit = (Player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
+
+	// Right * ToHit = |Right||ToHit| * cos(theta)
+	const double CosTheta = FVector::DotProduct(Right, ToHit);
+	// Take the inverse cosine (arc-cosine) of cos(theta) to get theta
+	double Theta = FMath::Acos(CosTheta);
+	// convert from radians to degrees
+	Theta = FMath::RadiansToDegrees(Theta);
+	
+	const FVector CrossProduct = FVector::CrossProduct(Right, ToHit);
+	if (CrossProduct.Z < 0)
+	{
+		Theta *= -1.f;
+	}
+
+	bIsStealthAttackFromBack = Theta > 0.f; // Positive values
+
+	/*if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(
+			1,
+			5.f,
+			FColor::Red,
+			FString::Printf(TEXT("Theta: %f"), Theta)
+		);
+	}
+
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
+	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);*/
 }

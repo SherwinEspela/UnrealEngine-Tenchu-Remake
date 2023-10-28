@@ -49,9 +49,6 @@ public:
 
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
-	/*FORCEINLINE void SetEnemyToStealthAttack(ATenchuEnemyCharacter* NewEnemy) { EnemyToStealthAttack = NewEnemy; }
-	FORCEINLINE void RemoveEnemyToStealthAttack() { EnemyToStealthAttack = nullptr; }*/
-	//FORCEINLINE bool CanStealthAttack() const { return EnemyToStealthAttack != nullptr; }
 	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
 	FORCEINLINE void RemoveActorToInteract() { Interactable = nullptr; }
 	FORCEINLINE bool CanInteract() { return Interactable != nullptr; }
@@ -73,6 +70,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthAttacks;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthAttacksFront;
 
 	UPROPERTY(EditAnywhere, Category = Movement)
 	TObjectPtr<UAnimMontage> MontageJump;
@@ -104,7 +104,6 @@ private:
 	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<ATenchuEnemyCharacter> EnemyToStealthAttack;
 
-	//UPROPERTY(EditInstanceOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	IInteractableInterface* Interactable;
 
 	UPROPERTY(EditAnywhere, Category = Stealth, meta = (AllowPrivateAccess = "true"))

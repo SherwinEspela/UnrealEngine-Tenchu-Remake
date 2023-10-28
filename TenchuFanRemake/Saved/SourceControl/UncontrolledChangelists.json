@@ -1,0 +1,22 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/Enemy/BP_TenchuEnemyBase.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/SneakAttack/Tenchu_v3_Chudan_Attack_StabChest_Attacker.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/SneakAttack/Tenchu_v3_Chudan_Attack_StabChest_Victim.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/deathposesdfs.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Ninja_Anims/RetargetedAnimationsv3/DeathPose/Enemy/EnemyStealthDeathPose3.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/Enemy/ABP_EnemyNinja.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/Montages/Enemy/AM_EnemyStealthDeath.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/BS_Run.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/BP_TenchuRikimaru.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/ABP_Rikimaru.uasset"
+			]
+		}
+	]
+}
