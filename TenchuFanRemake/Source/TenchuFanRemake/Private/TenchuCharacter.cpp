@@ -53,18 +53,15 @@ void ATenchuCharacter::BeginPlay()
 	AttachSword();
 	bTakeCoverBoxInterpCompleted = false;
 	Interactable = nullptr;
+	bIsSwordEquipped = true;
 }
 
 void ATenchuCharacter::AttachSword()
 {
 	if (WeaponClass)
 	{
-		AWeapon* Katana = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
-		if (Katana)
-		{
-			FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
-			Katana->AttachToComponent(GetMesh(), TransformRules, FName("WEAPON_R"));
-		}
+		Katana = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+		AttachSwordToSocket(FName("WEAPON_R"));
 	}
 }
 
@@ -74,9 +71,7 @@ void ATenchuCharacter::Tick(float DeltaTime)
 
 	float CrouchInterpTime = FMath::Min(1.f, CrouchSpeed * DeltaTime);
 	CrouchEyeOffset = (1.f - CrouchInterpTime) * CrouchEyeOffset;
-
 	WalkSpeed = UKismetMathLibrary::VSizeXY(GetMovementComponent()->Velocity);
-
 	TakeCoverBoxInterp(DeltaTime);
 }
 
@@ -167,7 +162,7 @@ void ATenchuCharacter::StealthAttack()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
+	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(bIsSwordEquipped));
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
@@ -182,22 +177,32 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 		if (EnemyToStealthAttack->GetIsStealthAttackFromBack())
 		{
 			int SectionIndex = FMath::RandRange(1, 2);
-			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex);
+			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
 
-			AnimInstance->Montage_Play(MontageStealthAttacks);
-			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+			if (bIsSwordEquipped)
+			{
+				AnimInstance->Montage_Play(MontageStealthAttacks);
+				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+			}
+			else {
+				AnimInstance->Montage_Play(MontageStealthKillBackNoSword);
+				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthKillBackNoSword);
+			}
 
-			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex);
-			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
+			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex, bIsSwordEquipped);
+			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, bIsSwordEquipped);
 		}
 		else {
-			FName SectionName = GameUtilities::GetStealthEventSectionName(3);
+			if (bIsSwordEquipped)
+			{
+				FName SectionName = GameUtilities::GetStealthEventSectionName(3);
 
-			AnimInstance->Montage_Play(MontageStealthAttacksFront);
-			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
-			
-			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3);
-			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
+				AnimInstance->Montage_Play(MontageStealthAttacksFront);
+				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+
+				EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
+				EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, true);
+			}
 		}
 	}
 }
@@ -237,5 +242,38 @@ void ATenchuCharacter::Interact()
 
 		default:
 			break;
+	}
+}
+
+void ATenchuCharacter::SwordInteract()
+{
+	if (WalkSpeed > 0.f) return;
+	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
+
+	if (AnimInstance && MontageSwordInteraction)
+	{
+		FName SectionName = bIsSwordEquipped ? FName("Sheathe") : FName("Unsheathe");
+		AnimInstance->Montage_Play(MontageSwordInteraction);
+		AnimInstance->Montage_JumpToSection(SectionName, MontageSwordInteraction);
+		bIsSwordEquipped = !bIsSwordEquipped;
+	}
+}
+
+void ATenchuCharacter::HandleSwordUnsheatingCompleted()
+{
+	AttachSwordToSocket(FName("WEAPON_R"));
+}
+
+void ATenchuCharacter::HandleSwordSheatingCompleted()
+{
+	AttachSwordToSocket(FName("SWORDCASE"));
+}
+
+void ATenchuCharacter::AttachSwordToSocket(FName SocketName)
+{
+	if (Katana)
+	{
+		FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
+		Katana->AttachToComponent(GetMesh(), TransformRules, SocketName);
 	}
 }

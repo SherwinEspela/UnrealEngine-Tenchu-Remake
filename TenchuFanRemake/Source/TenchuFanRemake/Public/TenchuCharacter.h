@@ -34,6 +34,7 @@ public:
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
+	void SwordInteract();
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
@@ -47,6 +48,12 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsTakingCoverFacingLeft = true;
 
+	UFUNCTION(BlueprintCallable)
+	void HandleSwordUnsheatingCompleted();
+
+	UFUNCTION(BlueprintCallable)
+	void HandleSwordSheatingCompleted();
+
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
@@ -55,8 +62,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
 	void TakeCoverBoxInterp(float DeltaTime);
+	AWeapon* Katana;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -74,11 +81,17 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthAttacksFront;
 
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthKillBackNoSword;
+
 	UPROPERTY(EditAnywhere, Category = Movement)
 	TObjectPtr<UAnimMontage> MontageJump;
 
 	UPROPERTY(EditAnywhere, Category = Stealth)
 	TObjectPtr<UAnimMontage> MontageTakeCover;
+
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageSwordInteraction;
 
 private:
 	/* Private Members / Properties */
@@ -109,8 +122,12 @@ private:
 	UPROPERTY(EditAnywhere, Category = Stealth, meta = (AllowPrivateAccess = "true"))
 	float TakeCoverInterpSpeed = 10.f;
 
+	UPROPERTY(BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"));
+	bool bIsSwordEquipped = true;
+
 private:
 	/* Private Functions */
 	void AttachSword();
 	void PlayStealthAttackAnimation();
+	void AttachSwordToSocket(FName SocketName);
 };
