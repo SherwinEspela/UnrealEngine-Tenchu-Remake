@@ -49,7 +49,6 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 
 void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 {
-	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	GetPawn()->AddControllerYawInput(LookAxisVector.X);
 	GetPawn()->AddControllerPitchInput(LookAxisVector.Y);
