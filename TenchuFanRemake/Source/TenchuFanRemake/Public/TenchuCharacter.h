@@ -34,6 +34,7 @@ public:
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
+	void SwordInteract();
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
@@ -80,6 +81,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = Stealth)
 	TObjectPtr<UAnimMontage> MontageTakeCover;
 
+	UPROPERTY(EditAnywhere, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageSwordInteraction;
+
 private:
 	/* Private Members / Properties */
 
@@ -108,6 +112,9 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Stealth, meta = (AllowPrivateAccess = "true"))
 	float TakeCoverInterpSpeed = 10.f;
+
+	UPROPERTY(BlueprintReadWrite, Category = Combat, meta = (AllowPrivateAccess = "true"));
+	bool bIsSwordEquipped = true;
 
 private:
 	/* Private Functions */

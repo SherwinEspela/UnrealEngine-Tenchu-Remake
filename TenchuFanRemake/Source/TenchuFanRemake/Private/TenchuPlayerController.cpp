@@ -7,11 +7,6 @@
 #include "GameFramework/Character.h"
 #include "TenchuCharacter.h"
 
-//ATenchuPlayerController::ATenchuPlayerController()
-//{
-//	
-//}
-
 void ATenchuPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -32,6 +27,7 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
 	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
 	EnhancedInputComponent->BindAction(InputActionInteract, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Interact);
+	EnhancedInputComponent->BindAction(InputActionYButton, ETriggerEvent::Triggered, this, &ATenchuPlayerController::SwordInteract);
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -44,9 +40,8 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
-
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
 	GetPawn()->AddMovementInput(RightDirection, MovementVector.X);
 
 	PlayerCharacter->TenchuPlayerState = ETenchuPlayerStates::EPS_Moving;
@@ -55,7 +50,6 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 {
 	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
-	
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
 	GetPawn()->AddControllerYawInput(LookAxisVector.X);
 	GetPawn()->AddControllerPitchInput(LookAxisVector.Y);
@@ -74,24 +68,18 @@ void ATenchuPlayerController::ToggleCrouch()
 	}
 }
 
-//void ATenchuPlayerController::PlayStealthAttack()
-//{
-//	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-//	if (PlayerCharacter)
-//	{
-//		PlayerCharacter->StealthAttack();
-//	}
-//}
-//
-//void ATenchuPlayerController::TakeCover()
-//{
-//	if (PlayerCharacter) PlayerCharacter->TakeCover();
-//}
-
 void ATenchuPlayerController::Interact()
 {
 	if (PlayerCharacter)
 	{
 		PlayerCharacter->Interact();
+	}
+}
+
+void ATenchuPlayerController::SwordInteract()
+{
+	if (PlayerCharacter)
+	{
+		PlayerCharacter->SwordInteract();
 	}
 }

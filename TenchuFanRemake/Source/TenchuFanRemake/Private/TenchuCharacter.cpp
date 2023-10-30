@@ -53,6 +53,7 @@ void ATenchuCharacter::BeginPlay()
 	AttachSword();
 	bTakeCoverBoxInterpCompleted = false;
 	Interactable = nullptr;
+	bIsSwordEquipped = true;
 }
 
 void ATenchuCharacter::AttachSword()
@@ -74,9 +75,7 @@ void ATenchuCharacter::Tick(float DeltaTime)
 
 	float CrouchInterpTime = FMath::Min(1.f, CrouchSpeed * DeltaTime);
 	CrouchEyeOffset = (1.f - CrouchInterpTime) * CrouchEyeOffset;
-
 	WalkSpeed = UKismetMathLibrary::VSizeXY(GetMovementComponent()->Velocity);
-
 	TakeCoverBoxInterp(DeltaTime);
 }
 
@@ -237,5 +236,19 @@ void ATenchuCharacter::Interact()
 
 		default:
 			break;
+	}
+}
+
+void ATenchuCharacter::SwordInteract()
+{
+	if (WalkSpeed > 0.f) return;
+	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
+
+	if (AnimInstance && MontageSwordInteraction)
+	{
+		FName SectionName = bIsSwordEquipped ? FName("Sheathe") : FName("Unsheathe");
+		AnimInstance->Montage_Play(MontageSwordInteraction);
+		AnimInstance->Montage_JumpToSection(SectionName, MontageSwordInteraction);
+		bIsSwordEquipped = !bIsSwordEquipped;
 	}
 }
