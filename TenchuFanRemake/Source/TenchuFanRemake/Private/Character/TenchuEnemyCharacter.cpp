@@ -71,7 +71,7 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose)
+void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
 {
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	if (AnimInstance)
@@ -83,19 +83,21 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 		GetCapsuleComponent()->SetVisibility(false);
 		
 		FRandomStream Stream(FMath::Rand());
-		float RandomYaw = Stream.FRandRange(0.f, 360.f);
+		float RandomYaw = Stream.FRandRange(60.f, 300.f);
 		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
-		AnimInstance->Montage_Play(MontageStealthDeath);
-		AnimInstance->Montage_JumpToSection(SectionName, MontageStealthDeath);
+		UAnimMontage* MontageToPlay = bWithSword ? MontageStealthDeath : MontageStealthDeathBackNoSword;
+		AnimInstance->Montage_Play(MontageToPlay);
+		AnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
 
 		DeathPose = NewDeathPose;
 	}
 }
 
-FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation()
+FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(bool bWithSword)
 {
+	PlayerSteathKillPositionBack->SetRelativeLocation(bWithSword ? PlayerSteathKillBackLocationWithSword : PlayerSteathKillBackLocationNoSword);
 	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
 	return StealthLocation;
 }

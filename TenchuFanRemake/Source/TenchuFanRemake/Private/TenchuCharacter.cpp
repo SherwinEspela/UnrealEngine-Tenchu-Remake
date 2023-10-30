@@ -162,7 +162,7 @@ void ATenchuCharacter::StealthAttack()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation());
+	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(bIsSwordEquipped));
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
@@ -179,21 +179,18 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 			int SectionIndex = FMath::RandRange(1, 2);
 			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
 
-			
-
 			if (bIsSwordEquipped)
 			{
 				AnimInstance->Montage_Play(MontageStealthAttacks);
 				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
 			}
 			else {
-				UE_LOG(LogTemp, Warning, TEXT("SectionName ====== %s"), *SectionName.ToString());
 				AnimInstance->Montage_Play(MontageStealthKillBackNoSword);
 				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthKillBackNoSword);
 			}
 
-	/*		EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex);
-			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);*/
+			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex, bIsSwordEquipped);
+			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, bIsSwordEquipped);
 		}
 		else {
 			if (bIsSwordEquipped)
@@ -203,8 +200,8 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 				AnimInstance->Montage_Play(MontageStealthAttacksFront);
 				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
 
-				EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3);
-				EnemyToStealthAttack->StealthDeath(SectionName, DeathPose);
+				EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
+				EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, true);
 			}
 		}
 	}

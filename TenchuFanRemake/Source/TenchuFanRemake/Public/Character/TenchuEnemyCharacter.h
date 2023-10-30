@@ -25,7 +25,7 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter, p
 public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
-	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose);
+	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
 	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
@@ -34,7 +34,7 @@ public:
 	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
 
 	UFUNCTION()
-	FVector GetPlayerStealthKillLocation();
+	FVector GetPlayerStealthKillLocation(bool bWithSword);
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
@@ -54,6 +54,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthDeath;
 
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthDeathBackNoSword;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPosition;
 
@@ -68,6 +71,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Combat)
 	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;
+
+	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
+	FVector PlayerSteathKillBackLocationWithSword;
+
+	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
+	FVector PlayerSteathKillBackLocationNoSword;
 
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
