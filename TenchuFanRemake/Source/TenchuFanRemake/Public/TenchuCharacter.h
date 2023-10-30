@@ -48,6 +48,12 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	bool bIsTakingCoverFacingLeft = true;
 
+	UFUNCTION(BlueprintCallable)
+	void HandleSwordUnsheatingCompleted();
+
+	UFUNCTION(BlueprintCallable)
+	void HandleSwordSheatingCompleted();
+
 public:
 	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
@@ -56,8 +62,8 @@ public:
 
 protected:
 	virtual void BeginPlay() override;
-
 	void TakeCoverBoxInterp(float DeltaTime);
+	AWeapon* Katana;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -120,4 +126,5 @@ private:
 	/* Private Functions */
 	void AttachSword();
 	void PlayStealthAttackAnimation();
+	void AttachSwordToSocket(FName SocketName);
 };

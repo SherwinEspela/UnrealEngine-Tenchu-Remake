@@ -60,12 +60,8 @@ void ATenchuCharacter::AttachSword()
 {
 	if (WeaponClass)
 	{
-		AWeapon* Katana = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
-		if (Katana)
-		{
-			FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
-			Katana->AttachToComponent(GetMesh(), TransformRules, FName("WEAPON_R"));
-		}
+		Katana = GetWorld()->SpawnActor<AWeapon>(WeaponClass);
+		AttachSwordToSocket(FName("WEAPON_R"));
 	}
 }
 
@@ -250,5 +246,24 @@ void ATenchuCharacter::SwordInteract()
 		AnimInstance->Montage_Play(MontageSwordInteraction);
 		AnimInstance->Montage_JumpToSection(SectionName, MontageSwordInteraction);
 		bIsSwordEquipped = !bIsSwordEquipped;
+	}
+}
+
+void ATenchuCharacter::HandleSwordUnsheatingCompleted()
+{
+	AttachSwordToSocket(FName("WEAPON_R"));
+}
+
+void ATenchuCharacter::HandleSwordSheatingCompleted()
+{
+	AttachSwordToSocket(FName("SWORDCASE"));
+}
+
+void ATenchuCharacter::AttachSwordToSocket(FName SocketName)
+{
+	if (Katana)
+	{
+		FAttachmentTransformRules TransformRules(EAttachmentRule::SnapToTarget, true);
+		Katana->AttachToComponent(GetMesh(), TransformRules, SocketName);
 	}
 }
