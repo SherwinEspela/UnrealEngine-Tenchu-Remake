@@ -205,7 +205,7 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 			AnimInstance->Montage_Play(MontageStealthAttacksFront);
 			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
 
-			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
+			EEnemyDeathPose DeathPose = GameUtilities::GetStealthDeathFrontPose(SectionIndex);
 			EnemyToStealthAttack->StealthDeathFront(SectionName, DeathPose, true);
 		}
 	}

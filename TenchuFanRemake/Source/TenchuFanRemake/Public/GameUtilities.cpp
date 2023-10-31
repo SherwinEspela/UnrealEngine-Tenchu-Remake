@@ -83,3 +83,20 @@ EEnemyDeathPose GameUtilities::GetDeathPose(int SectionIndex, bool WithSword)
 
 	return EEnemyDeathPose::EDP_Pose1;
 }
+
+EEnemyDeathPose GameUtilities::GetStealthDeathFrontPose(int SectionIndex)
+{
+	switch (SectionIndex)
+	{
+	case 1:
+		return EEnemyDeathPose::EDP_Pose3;
+
+	case 2:
+		return EEnemyDeathPose::EDP_4XSlashPose;
+
+	default:
+		break;
+	}
+
+	return EEnemyDeathPose::EDP_Pose3;
+}
