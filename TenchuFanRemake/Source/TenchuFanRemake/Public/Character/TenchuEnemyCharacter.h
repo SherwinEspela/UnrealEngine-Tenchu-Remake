@@ -86,7 +86,7 @@ protected:
 	UPROPERTY(EditInstanceOnly, Category = "Enemy AI")
 	TArray<AActor*> NavigationWaypoints;
 
-	UPROPERTY(EditInstanceOnly, Category = "Enemy AI")
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Enemy AI")
 	bool bIsPatrolling;
 
 	UPROPERTY(EditAnywhere, Category = "Enemy AI")

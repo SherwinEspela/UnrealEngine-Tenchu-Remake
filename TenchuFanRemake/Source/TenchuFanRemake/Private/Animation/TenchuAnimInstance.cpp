@@ -10,7 +10,8 @@ void UTenchuAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	ATenchuCharacter* Character = Cast<ATenchuCharacter>(TryGetPawnOwner());
+	//ATenchuCharacter* Character = Cast<ATenchuCharacter>(TryGetPawnOwner());
+	ACharacter* Character = Cast<ATenchuCharacter>(TryGetPawnOwner());
 	if (Character) MovementComponent = Character->GetCharacterMovement();
 }
 
