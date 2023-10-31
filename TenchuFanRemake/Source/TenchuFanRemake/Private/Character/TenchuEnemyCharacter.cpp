@@ -51,6 +51,7 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 void ATenchuEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	bIsWaypointReached = true;
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
 
@@ -64,7 +65,7 @@ void ATenchuEnemyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	HandleWaypointReached();
+	ObserveIfWaypointReached();
 }
 
 void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -190,13 +191,13 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);*/
 }
 
-void ATenchuEnemyCharacter::HandleWaypointReached()
+void ATenchuEnemyCharacter::ObserveIfWaypointReached()
 {
-	if (!bIsPatrolling) return;
+	if (bIsWaypointReached) return;
 	const double Distance = (CurrentWayPoint->GetActorLocation() - GetActorLocation()).Size();
 	if (Distance <= PatrolAcceptanceRadius)
 	{
-		bIsPatrolling = false;
+		bIsWaypointReached = true;
 		float RandomTime = FMath::RandRange(3.f, 7.f);
 		GetWorldTimerManager().SetTimer(PatrolTimer, this, &ATenchuEnemyCharacter::PatrolIdlingTimeFinished, RandomTime);
 	}
@@ -220,6 +221,7 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 			FNavPathSharedPtr NavPath;
 			EnemyAIController->MoveTo(MoveRequest, &NavPath);
 			TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+			bIsWaypointReached = false;
 		}
 		else {
 			SelectNextWaypoint();

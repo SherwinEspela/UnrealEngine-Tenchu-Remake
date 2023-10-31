@@ -121,8 +121,10 @@ private:
 
 	AActor* CurrentWayPoint;
 
-	void HandleWaypointReached();
+	void ObserveIfWaypointReached();
 	void SelectNextWaypoint();
+
+	bool bIsWaypointReached = false;
 
 	FTimerHandle PatrolTimer;
 	void PatrolIdlingTimeFinished();
