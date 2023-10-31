@@ -28,7 +28,8 @@ enum class EEnemyDeathPose : uint8
 	EDP_Pose2			UMETA(DisplayName = "Death Pose 2"),
 	EDP_Pose3			UMETA(DisplayName = "Death Pose 3"),
 	EDP_ChockedPose		UMETA(DisplayName = "Death Chocked Pose"),
-	EDP_BrokenNeckPose	UMETA(DisplayName = "Death Broken Neck Pose")
+	EDP_BrokenNeckPose	UMETA(DisplayName = "Death Broken Neck Pose"),
+	EDP_4XSlashPose		UMETA(DisplayName = "Death 4X Slash Pose")
 };
 
 UENUM(BlueprintType)
@@ -43,4 +44,13 @@ enum class EInteractableType : uint8
 {
 	EIT_Enemy			UMETA(DisplayName = "Enemy"),
 	EIT_TakeCoverBox	UMETA(DisplayName = "Take Cover Box")
+};
+
+UENUM(Blueprinttype)
+enum class EEnemyIdleType : uint8
+{
+	EIT_Normal		UMETA(DisplayName = "Normal"),
+	EIT_LoosenUp1	UMETA(DisplayName = "Loosen Up 1"),
+	EIT_LoosenUp2	UMETA(DisplayName = "Loosen Up 2"),
+	EIT_LoosenUp3	UMETA(DisplayName = "Loosen Up 3")
 };

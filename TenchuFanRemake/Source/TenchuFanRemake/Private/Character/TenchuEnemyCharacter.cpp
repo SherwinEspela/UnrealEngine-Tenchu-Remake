@@ -13,9 +13,12 @@
 #include "Math/UnrealMathUtility.h"
 #include "GameUtilities.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "AIController.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Component"));
 	SphereComponent->SetupAttachment(GetRootComponent());
 	SphereComponent->SetSphereRadius(150.f);
@@ -41,13 +44,28 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 
 	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
 	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
+
+	bIsPatrolling = true;
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	bIsWaypointReached = true;
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
+
+	EnemyAnimInstance = GetMesh()->GetAnimInstance();
+
+	EnemyAIController = Cast<AAIController>(GetController());
+	SelectNextWaypoint();
+}
+
+void ATenchuEnemyCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	ObserveIfWaypointReached();
 }
 
 void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -71,11 +89,12 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
+void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 {
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance)
+	if (EnemyAnimInstance)
 	{
+		bIsPatrolling = false;
+
 		EnemyCloseWidget->SetVisibility(false);
 		SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SphereComponent->SetVisibility(false);
@@ -87,16 +106,35 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
-		UAnimMontage* MontageToPlay = bWithSword ? MontageStealthDeath : MontageStealthDeathBackNoSword;
-		AnimInstance->Montage_Play(MontageToPlay);
-		AnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
-
 		DeathPose = NewDeathPose;
 	}
 }
 
-FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(bool bWithSword)
+void ATenchuEnemyCharacter::StealthDeathFront(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
 {
+	if (EnemyAnimInstance)
+	{
+		StealthDeath(NewDeathPose);
+		EnemyAnimInstance->Montage_Play(MontageStealthDeathFront);
+		EnemyAnimInstance->Montage_JumpToSection(SectionName, MontageStealthDeathFront);
+	}
+}
+
+void ATenchuEnemyCharacter::StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
+{
+	if (EnemyAnimInstance)
+	{
+		StealthDeath(NewDeathPose);
+		UAnimMontage* MontageToPlay = bWithSword ? MontageStealthDeath : MontageStealthDeathBackNoSword;
+		EnemyAnimInstance->Montage_Play(MontageToPlay);
+		EnemyAnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
+	}
+}
+
+FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(FName SectionName, bool bWithSword)
+{
+	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -150.f : -180.f;
+
 	PlayerSteathKillPositionBack->SetRelativeLocation(bWithSword ? PlayerSteathKillBackLocationWithSword : PlayerSteathKillBackLocationNoSword);
 	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
 	return StealthLocation;
@@ -151,4 +189,57 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);*/
+}
+
+void ATenchuEnemyCharacter::ObserveIfWaypointReached()
+{
+	if (bIsWaypointReached) return;
+	const double Distance = (CurrentWayPoint->GetActorLocation() - GetActorLocation()).Size();
+	if (Distance <= PatrolAcceptanceRadius)
+	{
+		bIsWaypointReached = true;
+		float RandomTime = FMath::RandRange(3.f, 7.f);
+		GetWorldTimerManager().SetTimer(PatrolTimer, this, &ATenchuEnemyCharacter::PatrolIdlingTimeFinished, RandomTime);
+	}
+}
+
+void ATenchuEnemyCharacter::SelectNextWaypoint()
+{
+	if (!bIsPatrolling) return;
+
+	if (EnemyAIController && !NavigationWaypoints.IsEmpty())
+	{
+		int RandomIndex = FMath::RandRange(0, NavigationWaypoints.Num() - 1);
+		AActor* NextWayPoint = NavigationWaypoints[RandomIndex];
+
+		if (NextWayPoint != CurrentWayPoint)
+		{
+			CurrentWayPoint = NextWayPoint;
+			FAIMoveRequest MoveRequest;
+			MoveRequest.SetGoalActor(CurrentWayPoint);
+			MoveRequest.SetAcceptanceRadius(10.f);
+			FNavPathSharedPtr NavPath;
+			EnemyAIController->MoveTo(MoveRequest, &NavPath);
+			TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+			bIsWaypointReached = false;
+		}
+		else {
+			SelectNextWaypoint();
+		}
+	}
+}
+
+void ATenchuEnemyCharacter::PatrolIdlingTimeFinished()
+{
+	if (!bIsPatrolling) return;
+	if (EnemyAnimInstance && MontageIdleTurn)
+	{
+		EnemyAnimInstance->Montage_Play(MontageIdleTurn);
+	}
+}
+
+void ATenchuEnemyCharacter::HandleIdleTurningComplete()
+{
+	bIsPatrolling = true;
+	SelectNextWaypoint();
 }

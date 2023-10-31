@@ -5,7 +5,7 @@
 
 ATenchuBaseCharacter::ATenchuBaseCharacter()
 {
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 }
 

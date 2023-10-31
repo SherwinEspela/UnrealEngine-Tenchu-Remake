@@ -14,6 +14,7 @@ class UAnimMontage;
 class USceneComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class AAIController;
 
 /**
  * 
@@ -25,7 +26,10 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter, p
 public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
-	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
+	virtual void Tick(float DeltaTime) override;
+	
+	void StealthDeathFront(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
+	void StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
 	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
@@ -34,7 +38,7 @@ public:
 	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
 
 	UFUNCTION()
-	FVector GetPlayerStealthKillLocation(bool bWithSword);
+	FVector GetPlayerStealthKillLocation(FName SectionName, bool bWithSword);
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
@@ -55,7 +59,13 @@ protected:
 	TObjectPtr<UAnimMontage> MontageStealthDeath;
 
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthDeathFront;
+
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthDeathBackNoSword;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Enemy AI")
+	TObjectPtr<UAnimMontage> MontageIdleTurn;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPosition;
@@ -78,11 +88,29 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
 	FVector PlayerSteathKillBackLocationNoSword;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Enemy AI")
+	AAIController* EnemyAIController;
+
+	UPROPERTY(EditInstanceOnly, Category = "Enemy AI")
+	TArray<AActor*> NavigationWaypoints;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadOnly, Category = "Enemy AI")
+	bool bIsPatrolling;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy AI")
+	float PatrolAcceptanceRadius = 120.f;
+
+	UPROPERTY(BlueprintReadOnly)
+	UAnimInstance* EnemyAnimInstance;
+
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION(BlueprintCallable)
+	void HandleIdleTurningComplete();
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
@@ -90,4 +118,16 @@ private:
 
 	void GetStealthPosition(AActor* Player);
 	bool bIsStealthAttackFromBack = true;
+
+	AActor* CurrentWayPoint;
+
+	void ObserveIfWaypointReached();
+	void SelectNextWaypoint();
+
+	bool bIsWaypointReached = false;
+
+	FTimerHandle PatrolTimer;
+	void PatrolIdlingTimeFinished();
+
+	void StealthDeath(EEnemyDeathPose NewDeathPose);
 };

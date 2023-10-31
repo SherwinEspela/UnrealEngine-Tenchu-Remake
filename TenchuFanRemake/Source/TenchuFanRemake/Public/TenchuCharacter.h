@@ -65,6 +65,12 @@ protected:
 	void TakeCoverBoxInterp(float DeltaTime);
 	AWeapon* Katana;
 
+	UPROPERTY(EditAnywhere, Category = Debug)
+	bool bIsStealthDebugEnabled = false;
+
+	UPROPERTY(EditAnywhere, Category = Debug)
+	int StealthSectionIndexToDebug = 1;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -128,6 +134,6 @@ private:
 private:
 	/* Private Functions */
 	void AttachSword();
-	void PlayStealthAttackAnimation();
+	void PlayStealthAttackAnimation(FName SectionName, int SectionIndex);
 	void AttachSwordToSocket(FName SocketName);
 };

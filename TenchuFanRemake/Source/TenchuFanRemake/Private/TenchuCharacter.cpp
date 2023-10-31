@@ -162,23 +162,23 @@ void ATenchuCharacter::StealthAttack()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(bIsSwordEquipped));
+	int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
+	FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
+
+	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(SectionName, bIsSwordEquipped));
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
 
-	PlayStealthAttackAnimation();
+	PlayStealthAttackAnimation(SectionName, SectionIndex);
 }
 
-void ATenchuCharacter::PlayStealthAttackAnimation()
+void ATenchuCharacter::PlayStealthAttackAnimation(FName SectionName, int SectionIndex)
 {
 	if (AnimInstance)
 	{
 		if (EnemyToStealthAttack->GetIsStealthAttackFromBack())
 		{
-			int SectionIndex = FMath::RandRange(1, 2);
-			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
-
 			if (bIsSwordEquipped)
 			{
 				AnimInstance->Montage_Play(MontageStealthAttacks);
@@ -190,19 +190,21 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 			}
 
 			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex, bIsSwordEquipped);
-			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, bIsSwordEquipped);
+			EnemyToStealthAttack->StealthDeathBack(SectionName, DeathPose, bIsSwordEquipped);
 		}
 		else {
-			if (bIsSwordEquipped)
-			{
-				FName SectionName = GameUtilities::GetStealthEventSectionName(3);
+			AttachSwordToSocket(FName("WEAPON_R"));
+			bIsSwordEquipped = true;
 
-				AnimInstance->Montage_Play(MontageStealthAttacksFront);
-				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+			FString FrontString("Front");
+			FrontString.Append(FString::FromInt(SectionIndex));
+			FName SectionName(*FrontString);
 
-				EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
-				EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, true);
-			}
+			AnimInstance->Montage_Play(MontageStealthAttacksFront);
+			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+
+			EEnemyDeathPose DeathPose = GameUtilities::GetStealthDeathFrontPose(SectionIndex);
+			EnemyToStealthAttack->StealthDeathFront(SectionName, DeathPose, true);
 		}
 	}
 }
