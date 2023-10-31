@@ -88,7 +88,7 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 	}
 }
 
-void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
+void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 {
 	if (EnemyAnimInstance)
 	{
@@ -105,11 +105,28 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
+		DeathPose = NewDeathPose;
+	}
+}
+
+void ATenchuEnemyCharacter::StealthDeathFront(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
+{
+	if (EnemyAnimInstance)
+	{
+		StealthDeath(NewDeathPose);
+		EnemyAnimInstance->Montage_Play(MontageStealthDeathFront);
+		EnemyAnimInstance->Montage_JumpToSection(SectionName, MontageStealthDeathFront);
+	}
+}
+
+void ATenchuEnemyCharacter::StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
+{
+	if (EnemyAnimInstance)
+	{
+		StealthDeath(NewDeathPose);
 		UAnimMontage* MontageToPlay = bWithSword ? MontageStealthDeath : MontageStealthDeathBackNoSword;
 		EnemyAnimInstance->Montage_Play(MontageToPlay);
 		EnemyAnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
-
-		DeathPose = NewDeathPose;
 	}
 }
 

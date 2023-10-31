@@ -190,19 +190,23 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 			}
 
 			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex, bIsSwordEquipped);
-			EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, bIsSwordEquipped);
+			EnemyToStealthAttack->StealthDeathBack(SectionName, DeathPose, bIsSwordEquipped);
 		}
 		else {
-			if (bIsSwordEquipped)
-			{
-				FName SectionName = GameUtilities::GetStealthEventSectionName(3);
+			AttachSwordToSocket(FName("WEAPON_R"));
+			bIsSwordEquipped = true;
 
-				AnimInstance->Montage_Play(MontageStealthAttacksFront);
-				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+			int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
 
-				EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
-				EnemyToStealthAttack->StealthDeath(SectionName, DeathPose, true);
-			}
+			FString FrontString("Front");
+			FrontString.Append(FString::FromInt(SectionIndex));
+			FName SectionName(*FrontString);
+
+			AnimInstance->Montage_Play(MontageStealthAttacksFront);
+			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+
+			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(3, bIsSwordEquipped);
+			EnemyToStealthAttack->StealthDeathFront(SectionName, DeathPose, true);
 		}
 	}
 }

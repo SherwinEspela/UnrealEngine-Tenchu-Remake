@@ -27,7 +27,9 @@ public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
+	
+	void StealthDeathFront(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
+	void StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
 	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
@@ -55,6 +57,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthDeath;
+
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TObjectPtr<UAnimMontage> MontageStealthDeathFront;
 
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthDeathBackNoSword;
@@ -121,4 +126,6 @@ private:
 
 	FTimerHandle PatrolTimer;
 	void PatrolIdlingTimeFinished();
+
+	void StealthDeath(EEnemyDeathPose NewDeathPose);
 };
