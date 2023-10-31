@@ -13,9 +13,12 @@
 #include "Math/UnrealMathUtility.h"
 #include "GameUtilities.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "AIController.h"
 
 ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 {
+	PrimaryActorTick.bCanEverTick = true;
+
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Component"));
 	SphereComponent->SetupAttachment(GetRootComponent());
 	SphereComponent->SetSphereRadius(150.f);
@@ -41,6 +44,8 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 
 	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
 	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
+
+	bIsPatrolling = true;
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
@@ -48,6 +53,16 @@ void ATenchuEnemyCharacter::BeginPlay()
 	Super::BeginPlay();
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
+
+	EnemyAIController = Cast<AAIController>(GetController());
+	SelectNextWaypoint();
+}
+
+void ATenchuEnemyCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	HandleWaypointReached();
 }
 
 void ATenchuEnemyCharacter::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -151,4 +166,36 @@ void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + Right * 100.f, 5.f, FColor::Blue, 5.f);
 	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + ToHit * 100.f, 5.f, FColor::Green, 5.f);*/
+}
+
+void ATenchuEnemyCharacter::HandleWaypointReached()
+{
+	if (!bIsPatrolling) return;
+	const double Distance = (CurrentWayPoint->GetActorLocation() - GetActorLocation()).Size();
+	if (Distance <= PatrolAcceptanceRadius) SelectNextWaypoint();
+}
+
+void ATenchuEnemyCharacter::SelectNextWaypoint()
+{
+	if (!bIsPatrolling) return;
+
+	if (EnemyAIController && !NavigationWaypoints.IsEmpty())
+	{
+		int RandomIndex = FMath::RandRange(0, NavigationWaypoints.Num() - 1);
+		AActor* NextWayPoint = NavigationWaypoints[RandomIndex];
+
+		if (NextWayPoint != CurrentWayPoint)
+		{
+			CurrentWayPoint = NextWayPoint;
+			FAIMoveRequest MoveRequest;
+			MoveRequest.SetGoalActor(CurrentWayPoint);
+			MoveRequest.SetAcceptanceRadius(10.f);
+			FNavPathSharedPtr NavPath;
+			EnemyAIController->MoveTo(MoveRequest, &NavPath);
+			TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+		}
+		else {
+			SelectNextWaypoint();
+		}
+	}
 }

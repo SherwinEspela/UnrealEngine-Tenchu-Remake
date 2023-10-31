@@ -14,6 +14,7 @@ class UAnimMontage;
 class USceneComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class AAIController;
 
 /**
  * 
@@ -25,6 +26,7 @@ class TENCHUFANREMAKE_API ATenchuEnemyCharacter : public ATenchuBaseCharacter, p
 public:
 	ATenchuEnemyCharacter();
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 	void StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
@@ -78,6 +80,18 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
 	FVector PlayerSteathKillBackLocationNoSword;
 
+	UPROPERTY(BlueprintReadOnly, Category = "Enemy AI")
+	AAIController* EnemyAIController;
+
+	UPROPERTY(EditInstanceOnly, Category = "Enemy AI")
+	TArray<AActor*> NavigationWaypoints;
+
+	UPROPERTY(EditInstanceOnly, Category = "Enemy AI")
+	bool bIsPatrolling;
+
+	UPROPERTY(EditAnywhere, Category = "Enemy AI")
+	float PatrolAcceptanceRadius = 120.f;
+
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
@@ -90,4 +104,9 @@ private:
 
 	void GetStealthPosition(AActor* Player);
 	bool bIsStealthAttackFromBack = true;
+
+	AActor* CurrentWayPoint;
+
+	void HandleWaypointReached();
+	void SelectNextWaypoint();
 };
