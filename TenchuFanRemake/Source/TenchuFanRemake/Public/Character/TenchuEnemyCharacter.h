@@ -59,6 +59,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageStealthDeathBackNoSword;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Enemy AI")
+	TObjectPtr<UAnimMontage> MontageIdleTurn;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPosition;
 
@@ -92,11 +95,17 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Enemy AI")
 	float PatrolAcceptanceRadius = 120.f;
 
+	UPROPERTY(BlueprintReadOnly)
+	UAnimInstance* EnemyAnimInstance;
+
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	UFUNCTION()
 	void OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	UFUNCTION(BlueprintCallable)
+	void HandleIdleTurningComplete();
 
 private:
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = "true"))
@@ -109,4 +118,7 @@ private:
 
 	void HandleWaypointReached();
 	void SelectNextWaypoint();
+
+	FTimerHandle PatrolTimer;
+	void PatrolIdlingTimeFinished();
 };

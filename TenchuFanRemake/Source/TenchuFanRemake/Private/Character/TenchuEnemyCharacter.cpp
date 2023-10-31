@@ -54,6 +54,8 @@ void ATenchuEnemyCharacter::BeginPlay()
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
 
+	EnemyAnimInstance = GetMesh()->GetAnimInstance();
+
 	EnemyAIController = Cast<AAIController>(GetController());
 	SelectNextWaypoint();
 }
@@ -88,9 +90,10 @@ void ATenchuEnemyCharacter::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedCo
 
 void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword)
 {
-	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-	if (AnimInstance)
+	if (EnemyAnimInstance)
 	{
+		bIsPatrolling = false;
+
 		EnemyCloseWidget->SetVisibility(false);
 		SphereComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		SphereComponent->SetVisibility(false);
@@ -103,8 +106,8 @@ void ATenchuEnemyCharacter::StealthDeath(FName SectionName, EEnemyDeathPose NewD
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
 		UAnimMontage* MontageToPlay = bWithSword ? MontageStealthDeath : MontageStealthDeathBackNoSword;
-		AnimInstance->Montage_Play(MontageToPlay);
-		AnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
+		EnemyAnimInstance->Montage_Play(MontageToPlay);
+		EnemyAnimInstance->Montage_JumpToSection(SectionName, MontageToPlay);
 
 		DeathPose = NewDeathPose;
 	}
@@ -172,7 +175,12 @@ void ATenchuEnemyCharacter::HandleWaypointReached()
 {
 	if (!bIsPatrolling) return;
 	const double Distance = (CurrentWayPoint->GetActorLocation() - GetActorLocation()).Size();
-	if (Distance <= PatrolAcceptanceRadius) SelectNextWaypoint();
+	if (Distance <= PatrolAcceptanceRadius)
+	{
+		bIsPatrolling = false;
+		float RandomTime = FMath::RandRange(3.f, 7.f);
+		GetWorldTimerManager().SetTimer(PatrolTimer, this, &ATenchuEnemyCharacter::PatrolIdlingTimeFinished, RandomTime);
+	}
 }
 
 void ATenchuEnemyCharacter::SelectNextWaypoint()
@@ -198,4 +206,18 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 			SelectNextWaypoint();
 		}
 	}
+}
+
+void ATenchuEnemyCharacter::PatrolIdlingTimeFinished()
+{
+	if (EnemyAnimInstance && MontageIdleTurn)
+	{
+		EnemyAnimInstance->Montage_Play(MontageIdleTurn);
+	}
+}
+
+void ATenchuEnemyCharacter::HandleIdleTurningComplete()
+{
+	bIsPatrolling = true;
+	SelectNextWaypoint();
 }
