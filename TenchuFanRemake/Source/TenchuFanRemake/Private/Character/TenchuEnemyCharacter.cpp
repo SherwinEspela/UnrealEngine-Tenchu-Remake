@@ -130,8 +130,10 @@ void ATenchuEnemyCharacter::StealthDeathBack(FName SectionName, EEnemyDeathPose 
 	}
 }
 
-FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(bool bWithSword)
+FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(FName SectionName, bool bWithSword)
 {
+	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -150.f : -180.f;
+
 	PlayerSteathKillPositionBack->SetRelativeLocation(bWithSword ? PlayerSteathKillBackLocationWithSword : PlayerSteathKillBackLocationNoSword);
 	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
 	return StealthLocation;

@@ -134,6 +134,6 @@ private:
 private:
 	/* Private Functions */
 	void AttachSword();
-	void PlayStealthAttackAnimation();
+	void PlayStealthAttackAnimation(FName SectionName, int SectionIndex);
 	void AttachSwordToSocket(FName SocketName);
 };

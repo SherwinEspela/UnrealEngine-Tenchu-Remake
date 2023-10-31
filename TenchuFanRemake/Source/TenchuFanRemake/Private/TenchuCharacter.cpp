@@ -162,23 +162,23 @@ void ATenchuCharacter::StealthAttack()
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(bIsSwordEquipped));
+	int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
+	FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
+
+	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(SectionName, bIsSwordEquipped));
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
 
-	PlayStealthAttackAnimation();
+	PlayStealthAttackAnimation(SectionName, SectionIndex);
 }
 
-void ATenchuCharacter::PlayStealthAttackAnimation()
+void ATenchuCharacter::PlayStealthAttackAnimation(FName SectionName, int SectionIndex)
 {
 	if (AnimInstance)
 	{
 		if (EnemyToStealthAttack->GetIsStealthAttackFromBack())
 		{
-			int SectionIndex = FMath::RandRange(1, 2);
-			FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
-
 			if (bIsSwordEquipped)
 			{
 				AnimInstance->Montage_Play(MontageStealthAttacks);
@@ -195,8 +195,6 @@ void ATenchuCharacter::PlayStealthAttackAnimation()
 		else {
 			AttachSwordToSocket(FName("WEAPON_R"));
 			bIsSwordEquipped = true;
-
-			int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
 
 			FString FrontString("Front");
 			FrontString.Append(FString::FromInt(SectionIndex));

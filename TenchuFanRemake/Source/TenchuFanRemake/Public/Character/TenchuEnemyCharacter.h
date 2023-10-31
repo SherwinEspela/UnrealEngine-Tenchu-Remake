@@ -38,7 +38,7 @@ public:
 	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
 
 	UFUNCTION()
-	FVector GetPlayerStealthKillLocation(bool bWithSword);
+	FVector GetPlayerStealthKillLocation(FName SectionName, bool bWithSword);
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
