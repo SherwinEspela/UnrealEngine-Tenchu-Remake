@@ -44,3 +44,12 @@ enum class EInteractableType : uint8
 	EIT_Enemy			UMETA(DisplayName = "Enemy"),
 	EIT_TakeCoverBox	UMETA(DisplayName = "Take Cover Box")
 };
+
+UENUM(Blueprinttype)
+enum class EEnemyIdleType : uint8
+{
+	EIT_Normal		UMETA(DisplayName = "Normal"),
+	EIT_LoosenUp1	UMETA(DisplayName = "Loosen Up 1"),
+	EIT_LoosenUp2	UMETA(DisplayName = "Loosen Up 2"),
+	EIT_LoosenUp3	UMETA(DisplayName = "Loosen Up 3")
+};

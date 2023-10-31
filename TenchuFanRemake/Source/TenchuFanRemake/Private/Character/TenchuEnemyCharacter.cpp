@@ -210,6 +210,7 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 
 void ATenchuEnemyCharacter::PatrolIdlingTimeFinished()
 {
+	if (!bIsPatrolling) return;
 	if (EnemyAnimInstance && MontageIdleTurn)
 	{
 		EnemyAnimInstance->Montage_Play(MontageIdleTurn);
