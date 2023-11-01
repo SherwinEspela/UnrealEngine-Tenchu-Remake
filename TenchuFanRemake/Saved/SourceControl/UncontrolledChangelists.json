@@ -7,14 +7,22 @@
 			"files": [
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/Level1DemoMap.umap",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_HideBox.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/Enemy/BP_TenchuEnemyBase.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Props/BP_FoxStatue.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Megascans/3D_Assets/Japanese_Statue_ve1haetqx/SM_FoxStatue.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/MarketplaceAssets/japanese_house/assets/modular/roof_angle_mesh.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_HouseTest.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_TakeCoverBox_Base.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House1.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House2.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House3.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House4.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House5.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/House/BP_House6.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_HideBox.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Megascans/3D_Assets/Japanese_Statue_ve1haetqx/S_Japanese_Statue_ve1haetqx_lod3_Var1.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_FoxTest.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Props/BP_PropsTest.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/MarketplaceAssets/japanese_house/assets/modular/roof_angle_mesh.uasset"
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Props/BP_PropsTest.uasset"
 			]
 		}
 	]

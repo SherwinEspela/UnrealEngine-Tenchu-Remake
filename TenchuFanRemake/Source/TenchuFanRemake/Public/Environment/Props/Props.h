@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Props.generated.h"
 
+class ATakeCoverBox;
+
 /**
  * 
  */
@@ -18,9 +20,6 @@ public:
 
 protected:
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> PropsActorClass;
-	
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> TakeCoverBoxClass;
+	UPROPERTY(EditAnywhere, Category = "Take Cover Box")
+	ATakeCoverBox* Box1;
 };
