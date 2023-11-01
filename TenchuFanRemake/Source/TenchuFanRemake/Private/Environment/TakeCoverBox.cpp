@@ -15,10 +15,10 @@ ATakeCoverBox::ATakeCoverBox()
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerEndOverlap);
 
 	PlayerLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Player Location"));
-	PlayerLocation->SetupAttachment(GetRootComponent());
+	PlayerLocation->SetupAttachment(BoxComponent);
 
 	IndicatorWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Indicator Widget"));
-	IndicatorWidget->SetupAttachment(GetRootComponent());
+	IndicatorWidget->SetupAttachment(BoxComponent);
 	IndicatorWidget->SetDrawSize(FVector2D(40.f, 40.f));
 	IndicatorWidget->SetWidgetSpace(EWidgetSpace::Screen);
 }

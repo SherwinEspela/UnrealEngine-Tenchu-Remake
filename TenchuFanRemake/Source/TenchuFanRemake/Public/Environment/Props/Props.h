@@ -6,9 +6,6 @@
 #include "GameFramework/Actor.h"
 #include "Props.generated.h"
 
-class UStaticMeshComponent;
-class UBoxComponent;
-
 /**
  * 
  */
@@ -22,8 +19,8 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* Mesh;
+	TSubclassOf<AActor> PropsActorClass;
 	
-	UPROPERTY(EditAnywhere, Category = Collider)
-	UBoxComponent* BoxCollider;
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> TakeCoverBoxClass;
 };

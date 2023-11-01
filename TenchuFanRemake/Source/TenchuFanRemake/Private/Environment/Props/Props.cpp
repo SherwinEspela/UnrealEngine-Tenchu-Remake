@@ -6,9 +6,5 @@
 
 AProps::AProps()
 {
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	Mesh->SetupAttachment(GetRootComponent());
-
-	BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collider"));
-	BoxCollider->SetupAttachment(GetRootComponent());
+	
 }
