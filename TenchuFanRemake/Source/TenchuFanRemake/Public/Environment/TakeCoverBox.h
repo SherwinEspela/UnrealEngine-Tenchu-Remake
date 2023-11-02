@@ -38,6 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = Interact)
 	bool bIsFacingLeft = true;
 
+	UPROPERTY(EditAnywhere, Category = Interact)
+	bool bIsActive = true;
+
 	virtual void Interact() override;
 	virtual EInteractableType GetInteractableType() override;
 

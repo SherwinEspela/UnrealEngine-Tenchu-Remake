@@ -10,15 +10,12 @@ ATakeCoverBox::ATakeCoverBox()
 {
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	BoxComponent->SetupAttachment(GetRootComponent());
-	
-	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerBeginOverlap);
-	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerEndOverlap);
 
 	PlayerLocation = CreateDefaultSubobject<USceneComponent>(TEXT("Player Location"));
-	PlayerLocation->SetupAttachment(GetRootComponent());
+	PlayerLocation->SetupAttachment(BoxComponent);
 
 	IndicatorWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Indicator Widget"));
-	IndicatorWidget->SetupAttachment(GetRootComponent());
+	IndicatorWidget->SetupAttachment(BoxComponent);
 	IndicatorWidget->SetDrawSize(FVector2D(40.f, 40.f));
 	IndicatorWidget->SetWidgetSpace(EWidgetSpace::Screen);
 }
@@ -26,9 +23,14 @@ ATakeCoverBox::ATakeCoverBox()
 void ATakeCoverBox::BeginPlay()
 {
 	Super::BeginPlay();
-
 	IndicatorWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_TakeCoverBox;
+
+	if (bIsActive)
+	{
+		BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerBeginOverlap);
+		BoxComponent->OnComponentEndOverlap.AddDynamic(this, &ATakeCoverBox::OnPlayerEndOverlap);
+	}
 }
 
 void ATakeCoverBox::Interact()
@@ -43,6 +45,7 @@ EInteractableType ATakeCoverBox::GetInteractableType()
 
 void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if (!bIsActive) return;
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
@@ -53,6 +56,7 @@ void ATakeCoverBox::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponen
 
 void ATakeCoverBox::OnPlayerEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	if (!bIsActive) return;
 	if (TenchuPlayer == nullptr) TenchuPlayer = Cast<ATenchuCharacter>(OtherActor);
 	if (TenchuPlayer)
 	{
