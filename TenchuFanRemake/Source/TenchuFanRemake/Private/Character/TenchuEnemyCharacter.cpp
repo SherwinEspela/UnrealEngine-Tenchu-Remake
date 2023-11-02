@@ -45,20 +45,26 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
 	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
 
-	bIsPatrolling = true;
+	bIsPatrolling = false;
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	bIsWaypointReached = true;
+	bIsPatrolling = false;
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
 
 	EnemyAnimInstance = GetMesh()->GetAnimInstance();
 
 	EnemyAIController = Cast<AAIController>(GetController());
-	SelectNextWaypoint();
+
+	if (NavigationWaypoints.Num() > 0)
+	{
+		bIsPatrolling = true;
+		SelectNextWaypoint();
+	}
 }
 
 void ATenchuEnemyCharacter::Tick(float DeltaTime)
@@ -220,7 +226,7 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 			MoveRequest.SetAcceptanceRadius(10.f);
 			FNavPathSharedPtr NavPath;
 			EnemyAIController->MoveTo(MoveRequest, &NavPath);
-			TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+			//TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 			bIsWaypointReached = false;
 		}
 		else {
