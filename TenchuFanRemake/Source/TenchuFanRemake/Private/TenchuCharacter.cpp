@@ -138,7 +138,7 @@ void ATenchuCharacter::ToggleCrouch()
 {
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-	if (WalkSpeed > 0) return;
+	//if (WalkSpeed > 0) return;
 
 	if (bIsCrouched)
 	{
@@ -146,6 +146,29 @@ void ATenchuCharacter::ToggleCrouch()
 	} else {
 		Crouch();
 	}
+}
+
+void ATenchuCharacter::Crouch(bool bClientSimulation)
+{
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
+	if (!bIsCrouched)
+	{
+		Super::Crouch(bClientSimulation);
+	}
+}
+
+void ATenchuCharacter::UnCrouch(bool bClientSimulation)
+{
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
+	if (bIsCrouched)
+	{
+		Super::UnCrouch(bClientSimulation);
+	}
+	
 }
 
 void ATenchuCharacter::StealthAttack()

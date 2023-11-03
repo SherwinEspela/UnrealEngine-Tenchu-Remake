@@ -139,7 +139,7 @@ void ATenchuEnemyCharacter::StealthDeathBack(FName SectionName, EEnemyDeathPose 
 
 FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(FName SectionName, bool bWithSword)
 {
-	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -150.f : -180.f;
+	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -135.f : -180.f;
 
 	PlayerSteathKillPositionBack->SetRelativeLocation(bWithSword ? PlayerSteathKillBackLocationWithSword : PlayerSteathKillBackLocationNoSword);
 	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
@@ -163,7 +163,7 @@ EInteractableType ATenchuEnemyCharacter::GetInteractableType()
 
 void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 {
-	UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
+	//UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
 
 	const FVector Right = GetActorRightVector();
 	const FVector ToHit = (Player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
