@@ -41,17 +41,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	TObjectPtr<UInputAction> InputActionToggleCrouch;
 
-	/*UPROPERTY(EditDefaultsOnly, Category = "Player Input")
-	TObjectPtr<UInputAction> InputActionStealthAttack;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
-	UInputAction* InputActionTakeCover;*/
-
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	UInputAction* InputActionInteract;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	UInputAction* InputActionYButton;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionR2Button;
 
 	UPROPERTY();
 	TObjectPtr<ATenchuCharacter> PlayerCharacter;
@@ -60,7 +57,8 @@ private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
-	void ToggleCrouch();
+	void Crouch();
+	void UnCrouch();
 	void Interact();
 	void SwordInteract();
 };
