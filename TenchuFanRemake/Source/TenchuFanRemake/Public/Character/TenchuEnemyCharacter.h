@@ -16,6 +16,8 @@ class UCameraComponent;
 class USpringArmComponent;
 class AAIController;
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEnemyDiedSignature);
+
 /**
  * 
  */
@@ -32,16 +34,21 @@ public:
 	void StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
-	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
+	EEnemyStates EnemyState = EEnemyStates::ES_Alive;
 
 	UPROPERTY(BlueprintReadOnly)
 	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
+
+	UPROPERTY(BlueprintAssignable)
+	FEnemyDiedSignature OnEnemyDied;
 
 	UFUNCTION()
 	FVector GetPlayerStealthKillLocation(FName SectionName, bool bWithSword);
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
+
+	
 
 	virtual void Interact() override;
 	virtual EInteractableType GetInteractableType();

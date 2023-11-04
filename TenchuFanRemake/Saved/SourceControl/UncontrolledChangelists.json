@@ -86,6 +86,8 @@
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/Tenchu_Sneak_Walk_Forward_baked.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/BlendSpace/BS_RikiCrouch.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/BP_TenchuRikimaru.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/GameMode/BP_TenchuGameMode.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/Enemy/ABP_EnemyNinja.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Sounds/MetaSounds/MS_SwordSlash.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Props/BP_FoxStatue.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Environment/Colliders/BP_HouseTest.uasset",

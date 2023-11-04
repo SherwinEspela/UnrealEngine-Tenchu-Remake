@@ -99,6 +99,8 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 {
 	if (EnemyAnimInstance)
 	{
+		OnEnemyDied.Broadcast();
+		EnemyState = EEnemyStates::ES_Dead;
 		bIsPatrolling = false;
 
 		EnemyCloseWidget->SetVisibility(false);
