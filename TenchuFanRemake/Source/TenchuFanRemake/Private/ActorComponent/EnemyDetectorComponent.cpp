@@ -1,14 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TenchuGameMode.h"
+#include "ActorComponent/EnemyDetectorComponent.h"
 #include "EngineUtils.h"
 #include "Character/TenchuEnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "TenchuCharacter.h"
 
-void ATenchuGameMode::BeginPlay()
+UEnemyDetectorComponent::UEnemyDetectorComponent()
 {
+	PrimaryComponentTick.bCanEverTick = true;
+}
+
+void UEnemyDetectorComponent::BeginPlay()
+{
+	Super::BeginPlay();	
+
+	UE_LOG(LogTemp, Warning, TEXT("UEnemyDetectorComponent::BeginPlay..."));
+
 	TArray<AActor*> FoundActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATenchuCharacter::StaticClass(), FoundActors);
 
@@ -20,17 +29,17 @@ void ATenchuGameMode::BeginPlay()
 	GetAllEnemies();
 }
 
-void ATenchuGameMode::Tick(float DeltaTime)
+void UEnemyDetectorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::Tick(DeltaTime);
-	
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
 	FindClosestEnemy();
 	if (ClosestEnemy && ClosestEnemy->EnemyState != EEnemyStates::ES_Dead)
 	{
 		double DistanceFromEnemy = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
 		float PercentDistanceFloat = DistanceFromEnemy / ClosestDistanceTotal * 100.f;
 		int DeltaDistance = FMath::Floor(PercentDistanceFloat) - PercentDistanceOffset;
-		int Range = 100 - DeltaDistance; 
+		int Range = 100 - DeltaDistance;
 		if (Range <= 100 && Range > 0)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Distance ==== %i"), Range);
@@ -38,7 +47,7 @@ void ATenchuGameMode::Tick(float DeltaTime)
 	}
 }
 
-void ATenchuGameMode::GetAllEnemies()
+void UEnemyDetectorComponent::GetAllEnemies()
 {
 	TArray<AActor*> FoundEnemyActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATenchuEnemyCharacter::StaticClass(), FoundEnemyActors);
@@ -50,7 +59,7 @@ void ATenchuGameMode::GetAllEnemies()
 			auto Enemy = Cast<ATenchuEnemyCharacter>(EnemyActor);
 			if (Enemy->EnemyState != EEnemyStates::ES_Dead)
 			{
-				Enemy->OnEnemyDied.AddDynamic(this, &ATenchuGameMode::GetAllEnemies);
+				Enemy->OnEnemyDied.AddDynamic(this, &UEnemyDetectorComponent::GetAllEnemies);
 				Enemies.Add(Enemy);
 			}
 		}
@@ -60,10 +69,10 @@ void ATenchuGameMode::GetAllEnemies()
 			ClosestEnemy = Enemies[0];
 			ClosestDistanceTotal = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
 		}
-	}	
+	}
 }
 
-void ATenchuGameMode::FindClosestEnemy()
+void UEnemyDetectorComponent::FindClosestEnemy()
 {
 	for (ATenchuEnemyCharacter* Enemy : Enemies)
 	{

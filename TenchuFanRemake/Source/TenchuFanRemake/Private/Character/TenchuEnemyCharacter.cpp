@@ -228,7 +228,6 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 			MoveRequest.SetAcceptanceRadius(10.f);
 			FNavPathSharedPtr NavPath;
 			EnemyAIController->MoveTo(MoveRequest, &NavPath);
-			//TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 			bIsWaypointReached = false;
 		}
 		else {
