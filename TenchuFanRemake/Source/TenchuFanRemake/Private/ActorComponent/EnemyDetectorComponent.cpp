@@ -52,7 +52,7 @@ void UEnemyDetectorComponent::GetAllEnemies()
 	TArray<AActor*> FoundEnemyActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATenchuEnemyCharacter::StaticClass(), FoundEnemyActors);
 
-	if (FoundEnemyActors.Num() > 0)
+	/*if (FoundEnemyActors.Num() > 0)
 	{
 		for (AActor* EnemyActor : FoundEnemyActors)
 		{
@@ -69,7 +69,7 @@ void UEnemyDetectorComponent::GetAllEnemies()
 			ClosestEnemy = Enemies[0];
 			ClosestDistanceTotal = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
 		}
-	}
+	}*/
 }
 
 void UEnemyDetectorComponent::FindClosestEnemy()

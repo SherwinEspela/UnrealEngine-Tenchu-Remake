@@ -35,6 +35,9 @@ private:
 	TArray<ATenchuEnemyCharacter*> Enemies;
 	ATenchuEnemyCharacter* ClosestEnemy;
 
+	UFUNCTION(BlueprintCallable)
+	void HandleEnemyDied(ATenchuEnemyCharacter* Enemy);
+
 	double ClosestDistanceTotal;
 	const int PercentDistanceOffset = 30;
 	

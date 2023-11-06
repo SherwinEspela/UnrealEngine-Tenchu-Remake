@@ -20,7 +20,6 @@ void ATenchuGameMode::BeginPlay()
 	}
 
 	TenchuHUD = Cast<ATenchuHUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
-
 	GetAllEnemies();
 }
 
@@ -40,16 +39,15 @@ void ATenchuGameMode::Tick(float DeltaTime)
 		EnemyDetectorWidget->DisplayIndicators(DeltaDistance < 100);
 
 		int Range = 100 - DeltaDistance; 
-		if (Range > 0 && Range < 100)
+		if (Range > 0 && Range <= 100)
 		{
-			//EnemyDetectorWidget->SetTextRangeValue(FString::FromInt(Range));
 			EnemyDetectorWidget->UpdateDisplayFromRangeValue(Range);
 		}
 	}
 }
 
 void ATenchuGameMode::GetAllEnemies()
-{
+{	
 	TArray<AActor*> FoundEnemyActors;
 	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATenchuEnemyCharacter::StaticClass(), FoundEnemyActors);
 
@@ -57,10 +55,10 @@ void ATenchuGameMode::GetAllEnemies()
 	{
 		for (AActor* EnemyActor : FoundEnemyActors)
 		{
-			auto Enemy = Cast<ATenchuEnemyCharacter>(EnemyActor);
+			ATenchuEnemyCharacter* Enemy = Cast<ATenchuEnemyCharacter>(EnemyActor);
 			if (Enemy->EnemyState != EEnemyStates::ES_Dead)
 			{
-				Enemy->OnEnemyDied.AddDynamic(this, &ATenchuGameMode::GetAllEnemies);
+				Enemy->OnEnemyDied.AddDynamic(this, &ATenchuGameMode::HandleEnemyDied);
 				Enemies.Add(Enemy);
 			}
 		}
@@ -70,7 +68,15 @@ void ATenchuGameMode::GetAllEnemies()
 			ClosestEnemy = Enemies[0];
 			ClosestDistanceTotal = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
 		}
-	}	
+	}
+}
+
+void ATenchuGameMode::HandleEnemyDied(ATenchuEnemyCharacter* Enemy)
+{
+	if (EnemyDetectorWidget == nullptr) EnemyDetectorWidget = TenchuHUD->GetEnemyDetectorWidget();
+	if (EnemyDetectorWidget) EnemyDetectorWidget->DisplayIndicators(false);
+	Enemy->OnEnemyDied.RemoveAll(this);
+	GetAllEnemies();
 }
 
 void ATenchuGameMode::FindClosestEnemy()

@@ -99,7 +99,6 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 {
 	if (EnemyAnimInstance)
 	{
-		OnEnemyDied.Broadcast();
 		EnemyState = EEnemyStates::ES_Dead;
 		bIsPatrolling = false;
 
@@ -115,6 +114,7 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
 		DeathPose = NewDeathPose;
+		OnEnemyDied.Broadcast(this);
 	}
 }
 

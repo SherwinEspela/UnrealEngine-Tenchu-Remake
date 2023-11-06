@@ -15,8 +15,9 @@ class USceneComponent;
 class UCameraComponent;
 class USpringArmComponent;
 class AAIController;
+class ATenchuEnemyCharacter;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FEnemyDiedSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEnemyDiedSignature, ATenchuEnemyCharacter*, Enemy);
 
 /**
  * 
