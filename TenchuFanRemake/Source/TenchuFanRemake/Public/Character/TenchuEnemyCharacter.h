@@ -84,12 +84,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPositionBack;
 
-	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
-	TObjectPtr<UCameraComponent> StealthKillCamera;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Combat)
-	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;*/
-
 	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
 	FVector PlayerSteathKillBackLocationWithSword;
 
