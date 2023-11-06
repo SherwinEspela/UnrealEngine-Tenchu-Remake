@@ -8,6 +8,8 @@
 
 class ATenchuCharacter;
 class ATenchuEnemyCharacter;
+class UEnemyDetectorWidget;
+class ATenchuHUD;
 
 /**
  * 
@@ -18,6 +20,9 @@ class TENCHUFANREMAKE_API ATenchuGameMode : public AGameModeBase
 	GENERATED_BODY()
 public:
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, Category = Debugging)
+	bool bIsDebugging = false;
 
 protected:
 	virtual void BeginPlay() override;
@@ -34,4 +39,9 @@ private:
 	const int PercentDistanceOffset = 30;
 	
 	void FindClosestEnemy();
+
+	UEnemyDetectorWidget* EnemyDetectorWidget;
+	void SetEnemyDetectorWidget(UEnemyDetectorWidget* Widget);
+
+	ATenchuHUD* TenchuHUD;
 };

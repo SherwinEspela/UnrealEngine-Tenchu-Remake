@@ -6,6 +6,8 @@
 #include "Character/TenchuEnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "TenchuCharacter.h"
+#include "HUD/TenchuHUD.h"
+#include "HUD/EnemyDetectorWidget.h"
 
 void ATenchuGameMode::BeginPlay()
 {
@@ -17,6 +19,8 @@ void ATenchuGameMode::BeginPlay()
 		Player = Cast<ATenchuCharacter>(FoundActors[0]);
 	}
 
+	TenchuHUD = Cast<ATenchuHUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
+
 	GetAllEnemies();
 }
 
@@ -27,13 +31,18 @@ void ATenchuGameMode::Tick(float DeltaTime)
 	FindClosestEnemy();
 	if (ClosestEnemy && ClosestEnemy->EnemyState != EEnemyStates::ES_Dead)
 	{
+		if (EnemyDetectorWidget == nullptr) EnemyDetectorWidget = TenchuHUD->GetEnemyDetectorWidget();
+
 		double DistanceFromEnemy = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
 		float PercentDistanceFloat = DistanceFromEnemy / ClosestDistanceTotal * 100.f;
+		
 		int DeltaDistance = FMath::Floor(PercentDistanceFloat) - PercentDistanceOffset;
+		EnemyDetectorWidget->DisplayTextRange(DeltaDistance < 100);
+
 		int Range = 100 - DeltaDistance; 
-		if (Range <= 100 && Range > 0)
+		if (Range > 0 && Range < 100)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Distance ==== %i"), Range);
+			EnemyDetectorWidget->SetTextRangeValue(FString::FromInt(Range));
 		}
 	}
 }
@@ -76,8 +85,13 @@ void ATenchuGameMode::FindClosestEnemy()
 			}
 
 			ClosestEnemy = Enemy;
-			DrawDebugSphere(GetWorld(), ClosestEnemy->GetActorLocation(), 100.f, 15.f, FColor::Red, false, 0.2f);
+			if(bIsDebugging) DrawDebugSphere(GetWorld(), ClosestEnemy->GetActorLocation(), 100.f, 15.f, FColor::Red, false, 0.2f);
 			ClosestDistanceTotal = Distance;
 		}
 	}
+}
+
+void ATenchuGameMode::SetEnemyDetectorWidget(UEnemyDetectorWidget* Widget)
+{
+	EnemyDetectorWidget = Widget;
 }
