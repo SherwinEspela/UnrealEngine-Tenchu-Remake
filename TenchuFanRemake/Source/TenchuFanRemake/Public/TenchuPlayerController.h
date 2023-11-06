@@ -10,6 +10,7 @@
 class UInputMappingContext;
 class UInputAction;
 class ATenchuCharacter;
+class ATenchuHUD;
 
 /**
  * 
@@ -50,6 +51,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	UInputAction* InputActionR2Button;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionDPadRight;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionDPadLeft;
+
 	UPROPERTY();
 	TObjectPtr<ATenchuCharacter> PlayerCharacter;
 
@@ -61,4 +68,8 @@ private:
 	void UnCrouch();
 	void Interact();
 	void SwordInteract();
+	void DpadRightClicked();
+	void DpadLeftClicked();
+
+	TObjectPtr<ATenchuHUD> TenchuHUD;
 };

@@ -6,6 +6,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
 #include "TenchuCharacter.h"
+#include "HUD/TenchuHUD.h"
+#include "HUD/InventoryWidget.h"
 
 void ATenchuPlayerController::BeginPlay()
 {
@@ -15,6 +17,8 @@ void ATenchuPlayerController::BeginPlay()
 
 	UEnhancedInputLocalPlayerSubsystem* PlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	PlayerSubsystem->AddMappingContext(InputMappingContextPlayer, 0);
+
+	TenchuHUD = Cast<ATenchuHUD>(GetHUD());
 }
 
 void ATenchuPlayerController::SetupInputComponent()
@@ -29,6 +33,8 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionYButton, ETriggerEvent::Triggered, this, &ATenchuPlayerController::SwordInteract);
 	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
 	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Completed, this, &ATenchuPlayerController::UnCrouch);
+	EnhancedInputComponent->BindAction(InputActionDPadRight, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadRightClicked);
+	EnhancedInputComponent->BindAction(InputActionDPadLeft, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadLeftClicked);
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -90,4 +96,14 @@ void ATenchuPlayerController::SwordInteract()
 	{
 		PlayerCharacter->SwordInteract();
 	}
+}
+
+void ATenchuPlayerController::DpadRightClicked()
+{
+	TenchuHUD->GetInventoryWidget()->SelectRight();
+}
+
+void ATenchuPlayerController::DpadLeftClicked()
+{
+	TenchuHUD->GetInventoryWidget()->SelectLeft();
 }

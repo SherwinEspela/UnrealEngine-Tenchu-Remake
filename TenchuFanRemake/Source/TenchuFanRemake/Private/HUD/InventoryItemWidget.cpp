@@ -39,5 +39,13 @@ void UInventoryItemWidget::SetSelected(bool Selected)
 	float Scale = Selected ? 1.0f : 0.75f;
 	FVector2D RenderScale(Scale, Scale);
 	ImageItem->SetRenderScale(RenderScale);
+	if (Selected)
+	{
+		OnSelected();
+	}
+	else {
+		OnUnselected();
+	}
+
 	bIsSelected = Selected;
 }

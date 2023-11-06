@@ -40,4 +40,5 @@ protected:
 
 public:
 	FORCEINLINE UEnemyDetectorWidget* GetEnemyDetectorWidget() const { return EnemyDetectorWidget; }
+	FORCEINLINE UInventoryWidget* GetInventoryWidget() const { return InventoryWidget; }
 };

@@ -55,4 +55,10 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void SetSelected(bool Selected);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSelected();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnUnselected();
 };
