@@ -37,12 +37,13 @@ void ATenchuGameMode::Tick(float DeltaTime)
 		float PercentDistanceFloat = DistanceFromEnemy / ClosestDistanceTotal * 100.f;
 		
 		int DeltaDistance = FMath::Floor(PercentDistanceFloat) - PercentDistanceOffset;
-		EnemyDetectorWidget->DisplayTextRange(DeltaDistance < 100);
+		EnemyDetectorWidget->DisplayIndicators(DeltaDistance < 100);
 
 		int Range = 100 - DeltaDistance; 
 		if (Range > 0 && Range < 100)
 		{
-			EnemyDetectorWidget->SetTextRangeValue(FString::FromInt(Range));
+			//EnemyDetectorWidget->SetTextRangeValue(FString::FromInt(Range));
+			EnemyDetectorWidget->UpdateDisplayFromRangeValue(Range);
 		}
 	}
 }

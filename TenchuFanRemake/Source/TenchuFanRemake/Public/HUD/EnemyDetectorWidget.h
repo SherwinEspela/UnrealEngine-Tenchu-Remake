@@ -20,7 +20,8 @@ class TENCHUFANREMAKE_API UEnemyDetectorWidget : public UUserWidget
 	
 public:
 	void SetTextRangeValue(FString Value);
-	void DisplayTextRange(bool Display);
+	void DisplayIndicators(bool Display);
+	void UpdateDisplayFromRangeValue(int Value);
 
 protected:
 	void NativeConstruct() override;
