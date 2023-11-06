@@ -29,7 +29,7 @@ void AActionCam::BeginPlay()
 
 void AActionCam::SetRandomView()
 {
-	CameraBoom->SetRelativeLocation(FVector(FMath::FRandRange(-130.f, -170.f), 0.f, 0.f));
+	CameraBoom->SetRelativeLocation(FVector(FMath::FRandRange(-100.f, -150.f), 0.f, 0.f));
 
 	FRandomStream Stream(FMath::Rand());
 	float RandomYaw = Stream.FRandRange(60.f, 300.f);
