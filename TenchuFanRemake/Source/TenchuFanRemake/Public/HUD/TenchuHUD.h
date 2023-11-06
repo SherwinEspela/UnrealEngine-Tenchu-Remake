@@ -7,6 +7,7 @@
 #include "TenchuHUD.generated.h"
 
 class UEnemyDetectorWidget;
+class UInventoryWidget;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEnemyDetectorWidgetAddedSignature, UEnemyDetectorWidget*, EnemyDetectorWidget);
 
@@ -30,6 +31,12 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UEnemyDetectorWidget> EnemyDetectorWidget;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UInventoryWidget> InventoryWidgetClass;
+
+	UPROPERTY()
+	TObjectPtr<UInventoryWidget> InventoryWidget;
 
 public:
 	FORCEINLINE UEnemyDetectorWidget* GetEnemyDetectorWidget() const { return EnemyDetectorWidget; }

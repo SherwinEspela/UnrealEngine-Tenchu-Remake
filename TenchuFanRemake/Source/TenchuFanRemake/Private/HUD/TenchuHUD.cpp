@@ -3,6 +3,7 @@
 
 #include "HUD/TenchuHUD.h"
 #include "HUD/EnemyDetectorWidget.h"
+#include "HUD/InventoryWidget.h"
 
 void ATenchuHUD::BeginPlay()
 {
@@ -11,5 +12,6 @@ void ATenchuHUD::BeginPlay()
 	EnemyDetectorWidget = CreateWidget<UEnemyDetectorWidget>(World, EnemyDetectorWidgetClass);
 	EnemyDetectorWidget->AddToViewport();
 
-	//OnEnemyDetectorWidgetAdded.Broadcast(EnemyDetectorWidget);
+	InventoryWidget = CreateWidget<UInventoryWidget>(World, InventoryWidgetClass);
+	InventoryWidget->AddToViewport();
 }
