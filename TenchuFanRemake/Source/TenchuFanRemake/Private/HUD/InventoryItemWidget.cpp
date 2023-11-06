@@ -5,6 +5,13 @@
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
 
+void UInventoryItemWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	bIsInitialized = false;
+}
+
 void UInventoryItemWidget::DisplayIndicator(bool Display) const
 {
 	if (Display)
@@ -39,13 +46,18 @@ void UInventoryItemWidget::SetSelected(bool Selected)
 	float Scale = Selected ? 1.0f : 0.75f;
 	FVector2D RenderScale(Scale, Scale);
 	ImageItem->SetRenderScale(RenderScale);
-	if (Selected)
+
+	if (bIsInitialized)
 	{
-		OnSelected();
-	}
-	else {
-		OnUnselected();
+		if (Selected)
+		{
+			OnSelected();
+		}
+		else {
+			OnUnselected();
+		}
 	}
 
 	bIsSelected = Selected;
+	bIsInitialized = true;
 }

@@ -61,4 +61,10 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnUnselected();
+
+protected:
+	void NativeConstruct() override;
+
+private:
+	bool bIsInitialized = false;
 };
