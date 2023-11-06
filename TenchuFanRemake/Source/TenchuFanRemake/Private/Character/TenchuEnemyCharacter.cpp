@@ -39,11 +39,11 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	PlayerSteathKillPositionBack = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Behind"));
 	PlayerSteathKillPositionBack->SetupAttachment(GetRootComponent());
 
-	StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
+	/*StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
 	StealthKillCameraBoom->SetupAttachment(GetRootComponent());
 
 	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
-	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
+	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);*/
 
 	bIsPatrolling = false;
 }
@@ -108,10 +108,10 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetCapsuleComponent()->SetVisibility(false);
 		
-		FRandomStream Stream(FMath::Rand());
+		/*FRandomStream Stream(FMath::Rand());
 		float RandomYaw = Stream.FRandRange(60.f, 300.f);
 		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
-		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
+		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));*/
 
 		DeathPose = NewDeathPose;
 		OnEnemyDied.Broadcast(this);

@@ -14,6 +14,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
+#include "Utility/ActionCam.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -54,6 +55,8 @@ void ATenchuCharacter::BeginPlay()
 	bTakeCoverBoxInterpCompleted = false;
 	Interactable = nullptr;
 	bIsSwordEquipped = true;
+
+	ActionCam = GetWorld()->SpawnActor<AActionCam>();
 }
 
 void ATenchuCharacter::AttachSword()
@@ -182,9 +185,6 @@ void ATenchuCharacter::StealthAttack()
 
 	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
-	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PlayerController->SetViewTarget(EnemyToStealthAttack);
-
 	int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
 	FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
 
@@ -192,6 +192,18 @@ void ATenchuCharacter::StealthAttack()
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
+
+	if (ActionCam)
+	{
+		TArray<FVector> Vectors = { GetActorLocation(), EnemyToStealthAttack->GetActorLocation() };
+		FVector Average = UKismetMathLibrary::GetVectorArrayAverage(Vectors);
+		Average.Z = EnemyToStealthAttack->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+		ActionCam->SetActorLocation(Average);
+		ActionCam->SetRandomView();
+		//DrawDebugSphere(GetWorld(), Average, 20.f, 15, FColor::Red, false, 30.f);
+		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		PlayerController->SetViewTarget(ActionCam);
+	}
 
 	PlayStealthAttackAnimation(SectionName, SectionIndex);
 }

@@ -12,8 +12,8 @@ class USphereComponent;
 class UWidgetComponent;
 class UAnimMontage;
 class USceneComponent;
-class UCameraComponent;
-class USpringArmComponent;
+//class UCameraComponent;
+//class USpringArmComponent;
 class AAIController;
 class ATenchuEnemyCharacter;
 
@@ -84,11 +84,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPositionBack;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<UCameraComponent> StealthKillCamera;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Combat)
-	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;
+	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;*/
 
 	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
 	FVector PlayerSteathKillBackLocationWithSword;

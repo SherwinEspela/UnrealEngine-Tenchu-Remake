@@ -15,6 +15,7 @@ class ATenchuEnemyCharacter;
 class UAnimMontage;
 class UAnimInstance;
 class ATakeCoverBox;
+class AActionCam;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -102,14 +103,19 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageSwordInteraction;
 
-private:
-	/* Private Members / Properties */
-
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrouchSpeed;
+
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TSubclassOf<AActionCam> ActionCamClass;
+
+private:
+	/* Private Members / Properties */
+
+	AActionCam* ActionCam;
 
 	float WalkSpeed;
 	FVector CrouchEyeOffset;
