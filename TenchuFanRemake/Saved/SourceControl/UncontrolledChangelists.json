@@ -6,10 +6,20 @@
 			"description": "Default Uncontrolled Changelist",
 			"files": [
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Characters/BP_TenchuRikimaru.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/BP_ActionCamera.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/NewBlueprint.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/BP_ActionCam.uasset",
-				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/Level1DemoMapV2.umap"
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/Level1DemoMapV2.umap",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/CR_Riki_Take2.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/ControlRigMap.umap",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/testbaked1.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/BlendSpace/BS_Crouch1.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/Tenchu_Sneak_Walk_Forward_baked.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/Tenchu_crouch_walk_forward.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/Walk/Tenchu_v3_Sneak_Walk_Forward.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/ABP_Rikimaru.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/ArashiAkuma/Meshes/Characters/Combines/SK_Male_Skeleton.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/Tenchu_crouch_walk_forward_v2.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/BP_ActionCamera.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/NewBlueprint.uasset"
 			]
 		}
 	]
