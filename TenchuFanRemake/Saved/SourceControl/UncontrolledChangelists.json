@@ -18,6 +18,10 @@
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Animation/ABP_Rikimaru.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/ArashiAkuma/Meshes/Characters/Combines/SK_Male_Skeleton.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Animations/RetargetedAnimations/SneakAttack/Baked/Tenchu_crouch_walk_forward_v2.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/HUD/Inventory/WBP_InventoryItem.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Sounds/MetaSounds/sfx_TenchuMusic1.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Sounds/MetaSounds/sfx_ItemSelect.uasset",
+				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Maps/SetupMap.umap",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/BP_ActionCamera.uasset",
 				"C:/PROJECTS/UnrealEngine/NINJA_PROJECT_2/TenchuFanRemake/Content/Blueprints/Utility/NewBlueprint.uasset"
 			]
