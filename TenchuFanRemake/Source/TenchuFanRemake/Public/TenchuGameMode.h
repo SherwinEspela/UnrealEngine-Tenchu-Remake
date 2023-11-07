@@ -30,6 +30,9 @@ protected:
 	UFUNCTION(BlueprintCallable)
 	void GetAllEnemies();
 
+	UPROPERTY(EditAnywhere)
+	int PercentDistanceOffset = 30;
+
 private:
 	ATenchuCharacter* Player;
 	TArray<ATenchuEnemyCharacter*> Enemies;
@@ -39,7 +42,7 @@ private:
 	void HandleEnemyDied(ATenchuEnemyCharacter* Enemy);
 
 	double ClosestDistanceTotal;
-	const int PercentDistanceOffset = 30;
+	
 	
 	void FindClosestEnemy();
 

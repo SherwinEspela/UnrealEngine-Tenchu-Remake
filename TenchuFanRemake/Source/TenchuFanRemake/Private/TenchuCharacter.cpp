@@ -185,7 +185,27 @@ void ATenchuCharacter::StealthAttack()
 
 	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
-	int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
+
+	int SectionIndex = 1;
+	if (bIsStealthDebugEnabled)
+	{
+		SectionIndex = StealthSectionIndexToDebug;
+	}
+	else {
+		if (bIsStealthRandomized)
+		{
+			SectionIndex = FMath::RandRange(1, 2);
+		}
+		else {
+			SectionIndex = CurrentStealthIndex;
+			CurrentStealthIndex++;
+			if (CurrentStealthIndex > 2)
+			{
+				CurrentStealthIndex = 1;
+			}
+		}
+	}
+
 	FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
 
 	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(SectionName, bIsSwordEquipped));

@@ -75,6 +75,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Debug)
 	int StealthSectionIndexToDebug = 1;
 
+	UPROPERTY(EditAnywhere, Category = Debug)
+	bool bIsStealthRandomized = false;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -114,11 +117,12 @@ private:
 
 private:
 	/* Private Members / Properties */
-
 	AActionCam* ActionCam;
 
 	float WalkSpeed;
 	FVector CrouchEyeOffset;
+
+	int CurrentStealthIndex = 1;
 
 	UAnimInstance* AnimInstance;
 	ATakeCoverBox* TakeCoverBox;
