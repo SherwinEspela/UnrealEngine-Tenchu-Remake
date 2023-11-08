@@ -14,6 +14,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
+#include "Utility/ActionCam.h"
 
 ATenchuCharacter::ATenchuCharacter()
 {
@@ -54,6 +55,8 @@ void ATenchuCharacter::BeginPlay()
 	bTakeCoverBoxInterpCompleted = false;
 	Interactable = nullptr;
 	bIsSwordEquipped = true;
+
+	ActionCam = GetWorld()->SpawnActor<AActionCam>();
 }
 
 void ATenchuCharacter::AttachSword()
@@ -138,7 +141,7 @@ void ATenchuCharacter::ToggleCrouch()
 {
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-	if (WalkSpeed > 0) return;
+	//if (WalkSpeed > 0) return;
 
 	if (bIsCrouched)
 	{
@@ -146,6 +149,29 @@ void ATenchuCharacter::ToggleCrouch()
 	} else {
 		Crouch();
 	}
+}
+
+void ATenchuCharacter::Crouch(bool bClientSimulation)
+{
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
+	if (!bIsCrouched)
+	{
+		Super::Crouch(bClientSimulation);
+	}
+}
+
+void ATenchuCharacter::UnCrouch(bool bClientSimulation)
+{
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+
+	if (bIsCrouched)
+	{
+		Super::UnCrouch(bClientSimulation);
+	}
+	
 }
 
 void ATenchuCharacter::StealthAttack()
@@ -159,16 +185,45 @@ void ATenchuCharacter::StealthAttack()
 
 	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
-	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	PlayerController->SetViewTarget(EnemyToStealthAttack);
 
-	int SectionIndex = bIsStealthDebugEnabled ? StealthSectionIndexToDebug : FMath::RandRange(1, 2);
+	int SectionIndex = 1;
+	if (bIsStealthDebugEnabled)
+	{
+		SectionIndex = StealthSectionIndexToDebug;
+	}
+	else {
+		if (bIsStealthRandomized)
+		{
+			SectionIndex = FMath::RandRange(1, 2);
+		}
+		else {
+			SectionIndex = CurrentStealthIndex;
+			CurrentStealthIndex++;
+			if (CurrentStealthIndex > 2)
+			{
+				CurrentStealthIndex = 1;
+			}
+		}
+	}
+
 	FName SectionName = GameUtilities::GetStealthEventSectionName(SectionIndex, bIsSwordEquipped);
 
 	SetActorLocation(EnemyToStealthAttack->GetPlayerStealthKillLocation(SectionName, bIsSwordEquipped));
 	const FRotator EnemyRotation = EnemyToStealthAttack->GetPlayerStealthKillRotation();
 	SetActorRotation(EnemyRotation);
 	GetController()->SetControlRotation(EnemyRotation);
+
+	if (ActionCam)
+	{
+		TArray<FVector> Vectors = { GetActorLocation(), EnemyToStealthAttack->GetActorLocation() };
+		FVector Average = UKismetMathLibrary::GetVectorArrayAverage(Vectors);
+		Average.Z = EnemyToStealthAttack->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+		ActionCam->SetActorLocation(Average);
+		ActionCam->SetRandomView();
+		//DrawDebugSphere(GetWorld(), Average, 20.f, 15, FColor::Red, false, 30.f);
+		APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+		PlayerController->SetViewTarget(ActionCam);
+	}
 
 	PlayStealthAttackAnimation(SectionName, SectionIndex);
 }

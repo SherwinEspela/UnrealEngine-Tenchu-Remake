@@ -39,26 +39,26 @@ ATenchuEnemyCharacter::ATenchuEnemyCharacter()
 	PlayerSteathKillPositionBack = CreateDefaultSubobject<USceneComponent>(TEXT("Stealth Kill Position Behind"));
 	PlayerSteathKillPositionBack->SetupAttachment(GetRootComponent());
 
-	StealthKillCameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Stealth Kill Camera Boom"));
-	StealthKillCameraBoom->SetupAttachment(GetRootComponent());
-
-	StealthKillCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Stealth Kill Camera"));
-	StealthKillCamera->SetupAttachment(StealthKillCameraBoom);
-
-	bIsPatrolling = true;
+	bIsPatrolling = false;
 }
 
 void ATenchuEnemyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	bIsWaypointReached = true;
+	bIsPatrolling = false;
 	EnemyCloseWidget->SetVisibility(false);
 	InteractableType = EInteractableType::EIT_Enemy;
 
 	EnemyAnimInstance = GetMesh()->GetAnimInstance();
 
 	EnemyAIController = Cast<AAIController>(GetController());
-	SelectNextWaypoint();
+
+	if (NavigationWaypoints.Num() > 0)
+	{
+		bIsPatrolling = true;
+		SelectNextWaypoint();
+	}
 }
 
 void ATenchuEnemyCharacter::Tick(float DeltaTime)
@@ -93,6 +93,7 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 {
 	if (EnemyAnimInstance)
 	{
+		EnemyState = EEnemyStates::ES_Dead;
 		bIsPatrolling = false;
 
 		EnemyCloseWidget->SetVisibility(false);
@@ -100,13 +101,9 @@ void ATenchuEnemyCharacter::StealthDeath(EEnemyDeathPose NewDeathPose)
 		SphereComponent->SetVisibility(false);
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		GetCapsuleComponent()->SetVisibility(false);
-		
-		FRandomStream Stream(FMath::Rand());
-		float RandomYaw = Stream.FRandRange(60.f, 300.f);
-		StealthKillCameraBoom->SetWorldRotation(FRotator(0.f, RandomYaw, 0.f));
-		StealthKillCameraBoom->SetWorldRotation(FRotator(Stream.FRandRange(15.f, -70.f), RandomYaw, 0.f));
 
 		DeathPose = NewDeathPose;
+		OnEnemyDied.Broadcast(this);
 	}
 }
 
@@ -133,7 +130,7 @@ void ATenchuEnemyCharacter::StealthDeathBack(FName SectionName, EEnemyDeathPose 
 
 FVector ATenchuEnemyCharacter::GetPlayerStealthKillLocation(FName SectionName, bool bWithSword)
 {
-	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -150.f : -180.f;
+	PlayerSteathKillBackLocationWithSword.X = SectionName == FName("Behind1") ? -135.f : -180.f;
 
 	PlayerSteathKillPositionBack->SetRelativeLocation(bWithSword ? PlayerSteathKillBackLocationWithSword : PlayerSteathKillBackLocationNoSword);
 	FVector StealthLocation = bIsStealthAttackFromBack ? PlayerSteathKillPositionBack->GetComponentLocation() : PlayerSteathKillPositionFront->GetComponentLocation();
@@ -157,7 +154,7 @@ EInteractableType ATenchuEnemyCharacter::GetInteractableType()
 
 void ATenchuEnemyCharacter::GetStealthPosition(AActor* Player)
 {
-	UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
+	//UKismetSystemLibrary::DrawDebugSphere(this, Player->GetActorLocation(), 10.f, 15.f, FColor::Red);
 
 	const FVector Right = GetActorRightVector();
 	const FVector ToHit = (Player->GetActorLocation() - GetActorLocation()).GetSafeNormal();
@@ -220,7 +217,6 @@ void ATenchuEnemyCharacter::SelectNextWaypoint()
 			MoveRequest.SetAcceptanceRadius(10.f);
 			FNavPathSharedPtr NavPath;
 			EnemyAIController->MoveTo(MoveRequest, &NavPath);
-			TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 			bIsWaypointReached = false;
 		}
 		else {

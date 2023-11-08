@@ -15,6 +15,7 @@ class ATenchuEnemyCharacter;
 class UAnimMontage;
 class UAnimInstance;
 class ATakeCoverBox;
+class AActionCam;
 
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
@@ -35,6 +36,9 @@ public:
 	void TakeCover();
 	void Interact();
 	void SwordInteract();
+
+	virtual void Crouch(bool bClientSimulation = false) override;
+	virtual void UnCrouch(bool bClientSimulation = false) override;
 
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
@@ -71,6 +75,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category = Debug)
 	int StealthSectionIndexToDebug = 1;
 
+	UPROPERTY(EditAnywhere, Category = Debug)
+	bool bIsStealthRandomized = false;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;
@@ -99,17 +106,23 @@ private:
 	UPROPERTY(EditAnywhere, Category = Combat)
 	TObjectPtr<UAnimMontage> MontageSwordInteraction;
 
-private:
-	/* Private Members / Properties */
-
 	UPROPERTY(BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
 	bool bIsJumping = false;
 
 	UPROPERTY(EditDefaultsOnly)
 	float CrouchSpeed;
 
+	UPROPERTY(EditDefaultsOnly, Category = Combat)
+	TSubclassOf<AActionCam> ActionCamClass;
+
+private:
+	/* Private Members / Properties */
+	AActionCam* ActionCam;
+
 	float WalkSpeed;
 	FVector CrouchEyeOffset;
+
+	int CurrentStealthIndex = 1;
 
 	UAnimInstance* AnimInstance;
 	ATakeCoverBox* TakeCoverBox;

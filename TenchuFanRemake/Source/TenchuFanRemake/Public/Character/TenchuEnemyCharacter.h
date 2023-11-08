@@ -12,9 +12,12 @@ class USphereComponent;
 class UWidgetComponent;
 class UAnimMontage;
 class USceneComponent;
-class UCameraComponent;
-class USpringArmComponent;
+//class UCameraComponent;
+//class USpringArmComponent;
 class AAIController;
+class ATenchuEnemyCharacter;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FEnemyDiedSignature, ATenchuEnemyCharacter*, Enemy);
 
 /**
  * 
@@ -32,16 +35,21 @@ public:
 	void StealthDeathBack(FName SectionName, EEnemyDeathPose NewDeathPose, bool bWithSword);
 
 	UPROPERTY(BlueprintReadWrite)
-	EEnemyStates EnemyStates = EEnemyStates::ES_Alive;
+	EEnemyStates EnemyState = EEnemyStates::ES_Alive;
 
 	UPROPERTY(BlueprintReadOnly)
 	EEnemyDeathPose DeathPose = EEnemyDeathPose::EDP_Pose1;
+
+	UPROPERTY(BlueprintAssignable)
+	FEnemyDiedSignature OnEnemyDied;
 
 	UFUNCTION()
 	FVector GetPlayerStealthKillLocation(FName SectionName, bool bWithSword);
 
 	UFUNCTION()
 	FRotator GetPlayerStealthKillRotation();
+
+	
 
 	virtual void Interact() override;
 	virtual EInteractableType GetInteractableType();
@@ -75,12 +83,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
 	TObjectPtr<USceneComponent> PlayerSteathKillPositionBack;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Combat)
-	TObjectPtr<UCameraComponent> StealthKillCamera;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Combat)
-	TObjectPtr<USpringArmComponent> StealthKillCameraBoom;
 
 	UPROPERTY(EditAnywhere, Category = "Stealth Positions")
 	FVector PlayerSteathKillBackLocationWithSword;
