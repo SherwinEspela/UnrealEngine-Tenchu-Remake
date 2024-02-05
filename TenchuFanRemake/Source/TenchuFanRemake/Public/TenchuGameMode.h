@@ -6,7 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "TenchuGameMode.generated.h"
 
-class ATenchuCharacter;
+class ARikimaruCharacter;
 class ATenchuEnemyCharacter;
 class UEnemyDetectorWidget;
 class ATenchuHUD;
@@ -34,7 +34,7 @@ protected:
 	int PercentDistanceOffset = 30;
 
 private:
-	ATenchuCharacter* Player;
+	ARikimaruCharacter* Player;
 	TArray<ATenchuEnemyCharacter*> Enemies;
 	ATenchuEnemyCharacter* ClosestEnemy;
 

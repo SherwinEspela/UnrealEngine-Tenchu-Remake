@@ -9,7 +9,7 @@
 
 class UInputMappingContext;
 class UInputAction;
-class ATenchuCharacter;
+class ARikimaruCharacter;
 class ATenchuHUD;
 
 /**
@@ -58,7 +58,7 @@ protected:
 	UInputAction* InputActionDPadLeft;
 
 	UPROPERTY();
-	TObjectPtr<ATenchuCharacter> PlayerCharacter;
+	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
 
 private:
 	void Move(const FInputActionValue& Value);

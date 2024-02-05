@@ -5,7 +5,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
-#include "TenchuCharacter.h"
+#include "Character/RikimaruCharacter.h"
 #include "HUD/TenchuHUD.h"
 #include "HUD/InventoryWidget.h"
 
@@ -13,7 +13,7 @@ void ATenchuPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerCharacter = Cast<ATenchuCharacter>(GetPawn());
+	PlayerCharacter = Cast<ARikimaruCharacter>(GetPawn());
 
 	UEnhancedInputLocalPlayerSubsystem* PlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	PlayerSubsystem->AddMappingContext(InputMappingContextPlayer, 0);

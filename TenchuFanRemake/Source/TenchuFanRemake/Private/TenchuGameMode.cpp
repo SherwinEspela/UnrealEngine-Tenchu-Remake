@@ -5,20 +5,13 @@
 #include "EngineUtils.h"
 #include "Character/TenchuEnemyCharacter.h"
 #include "Kismet/GameplayStatics.h"
-#include "TenchuCharacter.h"
+#include "Character/RikimaruCharacter.h"
 #include "HUD/TenchuHUD.h"
 #include "HUD/EnemyDetectorWidget.h"
 
 void ATenchuGameMode::BeginPlay()
 {
-	TArray<AActor*> FoundActors;
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATenchuCharacter::StaticClass(), FoundActors);
-
-	if (FoundActors.Num() > 0)
-	{
-		Player = Cast<ATenchuCharacter>(FoundActors[0]);
-	}
-
+	Player = Cast<ARikimaruCharacter>(UGameplayStatics::GetPlayerController(this, 0));
 	TenchuHUD = Cast<ATenchuHUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD());
 	GetAllEnemies();
 }
@@ -27,6 +20,7 @@ void ATenchuGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
+	if (Player == nullptr) return;
 	FindClosestEnemy();
 	if (ClosestEnemy && ClosestEnemy->EnemyState != EEnemyStates::ES_Dead)
 	{
@@ -63,7 +57,7 @@ void ATenchuGameMode::GetAllEnemies()
 			}
 		}
 
-		if (Enemies.Num() > 0)
+		if (Player && Enemies.Num() > 0)
 		{
 			ClosestEnemy = Enemies[0];
 			ClosestDistanceTotal = FVector::Distance(Player->GetActorLocation(), ClosestEnemy->GetActorLocation());
@@ -81,6 +75,8 @@ void ATenchuGameMode::HandleEnemyDied(ATenchuEnemyCharacter* Enemy)
 
 void ATenchuGameMode::FindClosestEnemy()
 {
+	if (Player == nullptr) return;
+
 	for (ATenchuEnemyCharacter* Enemy : Enemies)
 	{
 		double Distance = FVector::Distance(Player->GetActorLocation(), Enemy->GetActorLocation());
