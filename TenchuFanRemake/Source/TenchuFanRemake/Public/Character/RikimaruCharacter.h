@@ -17,6 +17,7 @@ class UAnimMontage;
 class UAnimInstance;
 class ATakeCoverBox;
 class AActionCam;
+class UPlayerAnimInstance;
 
 /**
  * 
@@ -62,10 +63,12 @@ public:
 	void HandleSwordSheatingCompleted();
 
 public:
-	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
 	FORCEINLINE void RemoveActorToInteract() { Interactable = nullptr; }
 	FORCEINLINE bool CanInteract() { return Interactable != nullptr; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE float GetWalkingSpeed() const { return WalkingSpeed; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -80,6 +83,12 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = Debug)
 	bool bIsStealthRandomized = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float WalkingSpeed = 227.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float RunningSpeed = 340.f;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -119,19 +128,14 @@ private:
 	TSubclassOf<AActionCam> ActionCamClass;
 
 private:
-	/* Private Members / Properties */
 	AActionCam* ActionCam;
-
-	float WalkSpeed;
 	FVector CrouchEyeOffset;
-
 	int CurrentStealthIndex = 1;
-
-	UAnimInstance* AnimInstance;
+	UPlayerAnimInstance* PlayerAnimInstance;
 	ATakeCoverBox* TakeCoverBox;
-
 	bool bTakeCoverBoxInterpCompleted = false;
 
+private:
 	/*
 	* The Enemy to which the Player
 	* can perform the Stealth attack to
@@ -148,7 +152,6 @@ private:
 	bool bIsSwordEquipped = true;
 
 private:
-	/* Private Functions */
 	void AttachSword();
 	void PlayStealthAttackAnimation(FName SectionName, int SectionIndex);
 	void AttachSwordToSocket(FName SocketName);

@@ -2,7 +2,7 @@
 
 
 #include "Animation/PlayerAnimInstance.h"
-#include "TenchuCharacter.h"
+#include "Character/RikimaruCharacter.h"
 #include "Gameframework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
@@ -10,14 +10,21 @@ void UPlayerAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
 
-	ACharacter* Character = Cast<ATenchuCharacter>(TryGetPawnOwner());
-	if (Character) MovementComponent = Character->GetCharacterMovement();
+	PlayerCharacter = Cast<ARikimaruCharacter>(TryGetPawnOwner());
+	if (PlayerCharacter) MovementComponent = PlayerCharacter->GetCharacterMovement();
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
 {
 	Super::NativeUpdateAnimation(DeltaTime);
 
+	if (PlayerCharacter)
+	{
+		FRotator AimRotation = PlayerCharacter->GetBaseAimRotation();
+		FRotator MovementRotation = UKismetMathLibrary::MakeRotFromX(PlayerCharacter->GetVelocity());
+		MovementOffsetYaw = UKismetMathLibrary::NormalizedDeltaRotator(MovementRotation, AimRotation).Yaw;
+	}
+	
 	if (MovementComponent)
 	{
 		MovementSpeed = UKismetMathLibrary::VSizeXY(MovementComponent->Velocity);

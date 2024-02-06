@@ -17,6 +17,8 @@ class UAnimInstance;
 class ATakeCoverBox;
 class AActionCam;
 
+// TODO: Remove when no longer needed
+
 UCLASS()
 class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
 {

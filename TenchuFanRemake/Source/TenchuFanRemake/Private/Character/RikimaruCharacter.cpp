@@ -14,6 +14,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
+#include "Animation/PlayerAnimInstance.h"
 #include "Utility/ActionCam.h"
 
 ARikimaruCharacter::ARikimaruCharacter()
@@ -41,6 +42,21 @@ ARikimaruCharacter::ARikimaruCharacter()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(CameraBoom);
 
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = false;
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
+	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+
+	GetCharacterMovement()->JumpZVelocity = 700.f;
+	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+	//GetCharacterMovement()->GroundFriction = 0.f;
+	//GetCharacterMovement()->BrakingDecelerationWalking = 85.f;
+	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
+
 	CanCrouch();
 
 	CrouchEyeOffset = FVector(0.f);
@@ -50,7 +66,7 @@ ARikimaruCharacter::ARikimaruCharacter()
 void ARikimaruCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	AnimInstance = GetMesh()->GetAnimInstance();
+	PlayerAnimInstance = Cast<UPlayerAnimInstance>(GetMesh()->GetAnimInstance());
 	AttachSword();
 	bTakeCoverBoxInterpCompleted = false;
 	Interactable = nullptr;
@@ -74,7 +90,6 @@ void ARikimaruCharacter::Tick(float DeltaTime)
 
 	float CrouchInterpTime = FMath::Min(1.f, CrouchSpeed * DeltaTime);
 	CrouchEyeOffset = (1.f - CrouchInterpTime) * CrouchEyeOffset;
-	WalkSpeed = UKismetMathLibrary::VSizeXY(GetMovementComponent()->Velocity);
 	TakeCoverBoxInterp(DeltaTime);
 }
 
@@ -129,10 +144,10 @@ void ARikimaruCharacter::PlayerJump()
 	if (!bIsJumping)
 	{
 		bIsJumping = true;
-		if (AnimInstance)
+		if (PlayerAnimInstance)
 		{
-			AnimInstance->Montage_Play(MontageJump);
-			AnimInstance->Montage_JumpToSection("JumpLong", MontageJump);
+			PlayerAnimInstance->Montage_Play(MontageJump);
+			PlayerAnimInstance->Montage_JumpToSection("JumpLong", MontageJump);
 		}
 	}
 }
@@ -229,18 +244,18 @@ void ARikimaruCharacter::StealthAttack()
 
 void ARikimaruCharacter::PlayStealthAttackAnimation(FName SectionName, int SectionIndex)
 {
-	if (AnimInstance)
+	if (PlayerAnimInstance)
 	{
 		if (EnemyToStealthAttack->GetIsStealthAttackFromBack())
 		{
 			if (bIsSwordEquipped)
 			{
-				AnimInstance->Montage_Play(MontageStealthAttacks);
-				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
+				PlayerAnimInstance->Montage_Play(MontageStealthAttacks);
+				PlayerAnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacks);
 			}
 			else {
-				AnimInstance->Montage_Play(MontageStealthKillBackNoSword);
-				AnimInstance->Montage_JumpToSection(SectionName, MontageStealthKillBackNoSword);
+				PlayerAnimInstance->Montage_Play(MontageStealthKillBackNoSword);
+				PlayerAnimInstance->Montage_JumpToSection(SectionName, MontageStealthKillBackNoSword);
 			}
 
 			EEnemyDeathPose DeathPose = GameUtilities::GetDeathPose(SectionIndex, bIsSwordEquipped);
@@ -254,8 +269,8 @@ void ARikimaruCharacter::PlayStealthAttackAnimation(FName SectionName, int Secti
 			FrontString.Append(FString::FromInt(SectionIndex));
 			FName SectionName(*FrontString);
 
-			AnimInstance->Montage_Play(MontageStealthAttacksFront);
-			AnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
+			PlayerAnimInstance->Montage_Play(MontageStealthAttacksFront);
+			PlayerAnimInstance->Montage_JumpToSection(SectionName, MontageStealthAttacksFront);
 
 			EEnemyDeathPose DeathPose = GameUtilities::GetStealthDeathFrontPose(SectionIndex);
 			EnemyToStealthAttack->StealthDeathFront(SectionName, DeathPose, true);
@@ -270,7 +285,7 @@ void ARikimaruCharacter::TakeCover()
 	bTakeCoverBoxInterpCompleted = false;
 	TenchuPlayerState = ETenchuPlayerStates::EPS_TakingCover;
 
-	if (AnimInstance && MontageTakeCover)
+	if (PlayerAnimInstance && MontageTakeCover)
 	{
 		TakeCoverBox = Cast<ATakeCoverBox>(Interactable);
 		Interactable->Interact();
@@ -303,14 +318,14 @@ void ARikimaruCharacter::Interact()
 
 void ARikimaruCharacter::SwordInteract()
 {
-	if (WalkSpeed > 0.f) return;
+	if (PlayerAnimInstance && PlayerAnimInstance->GetMovementSpeed() > 0.f) return;
 	TenchuPlayerState = ETenchuPlayerStates::EPS_Interacting;
 
-	if (AnimInstance && MontageSwordInteraction)
+	if (PlayerAnimInstance && MontageSwordInteraction)
 	{
 		FName SectionName = bIsSwordEquipped ? FName("Sheathe") : FName("Unsheathe");
-		AnimInstance->Montage_Play(MontageSwordInteraction);
-		AnimInstance->Montage_JumpToSection(SectionName, MontageSwordInteraction);
+		PlayerAnimInstance->Montage_Play(MontageSwordInteraction);
+		PlayerAnimInstance->Montage_JumpToSection(SectionName, MontageSwordInteraction);
 		bIsSwordEquipped = !bIsSwordEquipped;
 	}
 }

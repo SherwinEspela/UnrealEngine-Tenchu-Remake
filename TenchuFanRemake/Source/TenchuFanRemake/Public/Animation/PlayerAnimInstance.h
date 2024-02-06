@@ -6,6 +6,7 @@
 #include "Animation/AnimInstance.h"
 #include "PlayerAnimInstance.generated.h"
 
+class ARikimaruCharacter;
 class UCharacterMovementComponent;
 
 /**
@@ -19,9 +20,17 @@ public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaTime) override;
 
+public:
+	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
+
+protected:
 	UPROPERTY(BlueprintReadOnly)
 	float MovementSpeed;
+	
+	UPROPERTY(BlueprintReadOnly)
+	float MovementOffsetYaw;
 
 private:
+	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
 	TObjectPtr<UCharacterMovementComponent> MovementComponent;
 };
