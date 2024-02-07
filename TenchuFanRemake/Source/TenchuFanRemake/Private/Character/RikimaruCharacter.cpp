@@ -152,19 +152,19 @@ void ARikimaruCharacter::PlayerJump()
 	}
 }
 
-void ARikimaruCharacter::ToggleCrouch()
-{
-	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
-	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-
-	if (bIsCrouched)
-	{
-		UnCrouch();
-	}
-	else {
-		Crouch();
-	}
-}
+//void ARikimaruCharacter::ToggleCrouch()
+//{
+//	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
+//	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
+//
+//	if (bIsCrouched)
+//	{
+//		UnCrouch();
+//	}
+//	else {
+//		Crouch();
+//	}
+//}
 
 void ARikimaruCharacter::Crouch(bool bClientSimulation)
 {
