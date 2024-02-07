@@ -25,11 +25,11 @@ ARikimaruCharacter::ARikimaruCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
+	/*UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
 	MovementComponent->bOrientRotationToMovement = true;
 	MovementComponent->RotationRate = FRotator(0.f, 400.f, 0.f);
 	MovementComponent->MaxWalkSpeed = 850.f;
-	MovementComponent->MinAnalogWalkSpeed = 50.f;
+	MovementComponent->MinAnalogWalkSpeed = 50.f;*/
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
@@ -52,7 +52,9 @@ ARikimaruCharacter::ARikimaruCharacter()
 
 	GetCharacterMovement()->JumpZVelocity = 700.f;
 	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
+	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchingSpeed;
+	GetCharacterMovement()->MinAnalogWalkSpeed = WalkingSpeed;
 	//GetCharacterMovement()->GroundFriction = 0.f;
 	//GetCharacterMovement()->BrakingDecelerationWalking = 85.f;
 	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
@@ -73,6 +75,10 @@ void ARikimaruCharacter::BeginPlay()
 	bIsSwordEquipped = true;
 
 	ActionCam = GetWorld()->SpawnActor<AActionCam>();
+	
+	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchingSpeed;
+	GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+	GetCharacterMovement()->MinAnalogWalkSpeed = RunningSpeed;
 }
 
 void ARikimaruCharacter::AttachSword()
@@ -152,19 +158,16 @@ void ARikimaruCharacter::PlayerJump()
 	}
 }
 
-//void ARikimaruCharacter::ToggleCrouch()
-//{
-//	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
-//	if (TenchuPlayerState == ETenchuPlayerStates::EPS_StealthAttacking) return;
-//
-//	if (bIsCrouched)
-//	{
-//		UnCrouch();
-//	}
-//	else {
-//		Crouch();
-//	}
-//}
+void ARikimaruCharacter::ToggleCrouch()
+{
+	if (bIsCrouched)
+	{
+		UnCrouch();
+	}
+	else {
+		Crouch();
+	}
+}
 
 void ARikimaruCharacter::Crouch(bool bClientSimulation)
 {
@@ -174,6 +177,9 @@ void ARikimaruCharacter::Crouch(bool bClientSimulation)
 	if (!bIsCrouched)
 	{
 		Super::Crouch(bClientSimulation);
+		GetCharacterMovement()->MaxWalkSpeed = CrouchingSpeed;
+		GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchingSpeed;
+		GetCharacterMovement()->MinAnalogWalkSpeed = CrouchingSpeed;
 	}
 }
 
@@ -185,8 +191,10 @@ void ARikimaruCharacter::UnCrouch(bool bClientSimulation)
 	if (bIsCrouched)
 	{
 		Super::UnCrouch(bClientSimulation);
+		GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
+		GetCharacterMovement()->MaxWalkSpeedCrouched = RunningSpeed;
+		GetCharacterMovement()->MinAnalogWalkSpeed = RunningSpeed;
 	}
-
 }
 
 void ARikimaruCharacter::StealthAttack()

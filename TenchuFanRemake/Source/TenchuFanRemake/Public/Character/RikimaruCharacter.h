@@ -35,12 +35,11 @@ public:
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
 	void PlayerJump();
-	//void ToggleCrouch();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
 	void SwordInteract();
-
+	void ToggleCrouch();
 	virtual void Crouch(bool bClientSimulation = false) override;
 	virtual void UnCrouch(bool bClientSimulation = false) override;
 
@@ -83,6 +82,9 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = Debug)
 	bool bIsStealthRandomized = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float CrouchingSpeed = 140.f;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float WalkingSpeed = 227.f;

@@ -28,5 +28,6 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
 	if (MovementComponent)
 	{
 		MovementSpeed = UKismetMathLibrary::VSizeXY(MovementComponent->Velocity);
+		//UE_LOG(LogTemp, Warning, TEXT("MovementSpeed = %f"), MovementSpeed);
 	}
 }

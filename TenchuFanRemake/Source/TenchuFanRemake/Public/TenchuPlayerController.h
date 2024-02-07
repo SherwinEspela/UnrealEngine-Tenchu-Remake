@@ -66,6 +66,7 @@ private:
 	void Jump();
 	void Crouch();
 	void UnCrouch();
+	void ToggleCrouch();
 	void Interact();
 	void SwordInteract();
 	void DpadRightClicked();

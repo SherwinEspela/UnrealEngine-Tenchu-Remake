@@ -31,10 +31,11 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
 	EnhancedInputComponent->BindAction(InputActionInteract, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Interact);
 	EnhancedInputComponent->BindAction(InputActionYButton, ETriggerEvent::Triggered, this, &ATenchuPlayerController::SwordInteract);
-	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
-	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Completed, this, &ATenchuPlayerController::UnCrouch);
+	//EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
+	//EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Completed, this, &ATenchuPlayerController::UnCrouch);
 	EnhancedInputComponent->BindAction(InputActionDPadRight, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadRightClicked);
 	EnhancedInputComponent->BindAction(InputActionDPadLeft, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadLeftClicked);
+	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -48,6 +49,7 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
 	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
 	GetPawn()->AddMovementInput(RightDirection, MovementVector.X);
 
@@ -80,6 +82,11 @@ void ATenchuPlayerController::UnCrouch()
 	{
 		PlayerCharacter->UnCrouch();
 	}
+}
+
+void ATenchuPlayerController::ToggleCrouch()
+{
+	if (PlayerCharacter) PlayerCharacter->ToggleCrouch();
 }
 
 void ATenchuPlayerController::Interact()
