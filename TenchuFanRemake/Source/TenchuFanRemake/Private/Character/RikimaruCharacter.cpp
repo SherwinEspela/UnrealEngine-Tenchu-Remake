@@ -76,7 +76,7 @@ void ARikimaruCharacter::BeginPlay()
 
 	ActionCam = GetWorld()->SpawnActor<AActionCam>();
 	
-	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchingSpeed;
+	GetCharacterMovement()->MaxWalkSpeedCrouched = RunningSpeed;
 	GetCharacterMovement()->MaxWalkSpeed = RunningSpeed;
 	GetCharacterMovement()->MinAnalogWalkSpeed = RunningSpeed;
 }
