@@ -12,6 +12,8 @@ void UPlayerAnimInstance::NativeInitializeAnimation()
 
 	PlayerCharacter = Cast<ARikimaruCharacter>(TryGetPawnOwner());
 	if (PlayerCharacter) MovementComponent = PlayerCharacter->GetCharacterMovement();
+
+	bJumpStarted = false;
 }
 
 void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)

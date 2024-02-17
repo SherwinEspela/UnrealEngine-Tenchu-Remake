@@ -22,6 +22,7 @@ public:
 
 public:
 	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
+	FORCEINLINE void SetJumpStarted() { bJumpStarted = true; }
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
@@ -29,6 +30,9 @@ protected:
 	
 	UPROPERTY(BlueprintReadOnly)
 	float MovementOffsetYaw;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bJumpStarted = false;
 
 private:
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;

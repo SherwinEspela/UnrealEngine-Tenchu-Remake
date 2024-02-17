@@ -65,7 +65,7 @@ void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 
 void ATenchuPlayerController::Jump()
 {
-	//PlayerCharacter->PlayerJump();
+	PlayerCharacter->PlayerJump();
 }
 
 void ATenchuPlayerController::Crouch()

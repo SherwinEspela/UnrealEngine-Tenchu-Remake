@@ -46,18 +46,23 @@ ARikimaruCharacter::ARikimaruCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	GetCharacterMovement()->GravityScale = 1.5f;
+
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
 
-	GetCharacterMovement()->JumpZVelocity = 700.f;
+	GetCharacterMovement()->JumpZVelocity = 600.f;
+	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
 	GetCharacterMovement()->AirControl = 0.35f;
+	GetCharacterMovement()->AirControlBoostMultiplier = 2.0f;
+	GetCharacterMovement()->AirControlBoostVelocityThreshold = 25.f;
+
 	GetCharacterMovement()->MaxWalkSpeed = WalkingSpeed;
 	GetCharacterMovement()->MaxWalkSpeedCrouched = CrouchingSpeed;
 	GetCharacterMovement()->MinAnalogWalkSpeed = WalkingSpeed;
 	//GetCharacterMovement()->GroundFriction = 0.f;
 	//GetCharacterMovement()->BrakingDecelerationWalking = 85.f;
-	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
 
 	CanCrouch();
 
@@ -147,15 +152,11 @@ void ARikimaruCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult
 
 void ARikimaruCharacter::PlayerJump()
 {
-	if (!bIsJumping)
-	{
-		bIsJumping = true;
-		if (PlayerAnimInstance)
-		{
-			PlayerAnimInstance->Montage_Play(MontageJump);
-			PlayerAnimInstance->Montage_JumpToSection("JumpLong", MontageJump);
-		}
+	if (GetCharacterMovement()->IsFalling()) return;
+	if (PlayerAnimInstance) {
+		PlayerAnimInstance->SetJumpStarted();
 	}
+	Jump();
 }
 
 void ARikimaruCharacter::ToggleCrouch()
