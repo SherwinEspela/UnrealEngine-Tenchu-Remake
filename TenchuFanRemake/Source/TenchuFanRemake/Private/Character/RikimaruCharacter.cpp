@@ -155,8 +155,18 @@ void ARikimaruCharacter::PlayerJump()
 	if (GetCharacterMovement()->IsFalling()) return;
 	if (PlayerAnimInstance) {
 		PlayerAnimInstance->SetJumpStarted();
+		PlayerAnimInstance->SetJumpType(EJumpType::EJT_Default);
 	}
 	Jump();
+}
+
+void ARikimaruCharacter::ForwardJumpFlip()
+{
+	if (GetCharacterMovement()->IsFalling()) return;
+	if (PlayerAnimInstance) {
+		PlayerAnimInstance->SetJumpStarted();
+		PlayerAnimInstance->SetJumpType(EJumpType::EJT_FrontFlip);
+	}
 }
 
 void ARikimaruCharacter::ToggleCrouch()

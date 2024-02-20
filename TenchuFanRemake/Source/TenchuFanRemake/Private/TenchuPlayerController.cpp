@@ -28,7 +28,8 @@ void ATenchuPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(InputActionMovement, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Move);
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
-	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Canceled, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Completed, this, &ATenchuPlayerController::ForwardJumpFlip);
 	EnhancedInputComponent->BindAction(InputActionInteract, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Interact);
 	EnhancedInputComponent->BindAction(InputActionYButton, ETriggerEvent::Triggered, this, &ATenchuPlayerController::SwordInteract);
 	//EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
@@ -36,6 +37,7 @@ void ATenchuPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(InputActionDPadRight, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadRightClicked);
 	EnhancedInputComponent->BindAction(InputActionDPadLeft, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadLeftClicked);
 	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
+	
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -66,6 +68,11 @@ void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 void ATenchuPlayerController::Jump()
 {
 	PlayerCharacter->PlayerJump();
+}
+
+void ATenchuPlayerController::ForwardJumpFlip()
+{
+	PlayerCharacter->ForwardJumpFlip();
 }
 
 void ATenchuPlayerController::Crouch()

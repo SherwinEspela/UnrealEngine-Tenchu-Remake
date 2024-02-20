@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "CustomEnums.h"
 #include "PlayerAnimInstance.generated.h"
 
 class ARikimaruCharacter;
@@ -23,6 +24,7 @@ public:
 public:
 	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
 	FORCEINLINE void SetJumpStarted() { bJumpStarted = true; }
+	FORCEINLINE void SetJumpType(EJumpType Type) { JumpType = Type; }
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
@@ -33,6 +35,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bJumpStarted = false;
+
+	UPROPERTY(BlueprintReadOnly)
+	EJumpType JumpType = EJumpType::EJT_Default;
 
 private:
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;

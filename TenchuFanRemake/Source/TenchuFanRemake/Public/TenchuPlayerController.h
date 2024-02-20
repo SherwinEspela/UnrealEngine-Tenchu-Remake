@@ -57,6 +57,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	UInputAction* InputActionDPadLeft;
 
+	/*UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionForwardJumpFlip;*/
+
 	UPROPERTY();
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
 
@@ -64,6 +67,7 @@ private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
+	void ForwardJumpFlip();
 	void Crouch();
 	void UnCrouch();
 	void ToggleCrouch();

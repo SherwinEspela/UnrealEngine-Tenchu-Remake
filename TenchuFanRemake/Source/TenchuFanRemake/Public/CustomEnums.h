@@ -54,3 +54,10 @@ enum class EEnemyIdleType : uint8
 	EIT_LoosenUp2	UMETA(DisplayName = "Loosen Up 2"),
 	EIT_LoosenUp3	UMETA(DisplayName = "Loosen Up 3")
 };
+
+UENUM(Blueprinttype)
+enum class EJumpType : uint8
+{
+	EJT_Default		UMETA(DisplayName = "Jump Default"),
+	EJT_FrontFlip	UMETA(DisplayName = "Jump Front Flip")
+};
