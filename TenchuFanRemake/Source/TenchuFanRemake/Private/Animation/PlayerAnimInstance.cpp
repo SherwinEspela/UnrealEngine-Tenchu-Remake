@@ -33,3 +33,23 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
 		//UE_LOG(LogTemp, Warning, TEXT("MovementSpeed = %f"), MovementSpeed);
 	}
 }
+
+void UPlayerAnimInstance::SetJumpTypeByMovementOffsetYaw()
+{
+	bIsJumpFlipping = true;
+	bJumpStarted = true;
+	float FrontThreshold = 30.f;
+	float BackThreshold = 150.f;
+
+	if (MovementOffsetYaw < FrontThreshold && MovementOffsetYaw > -FrontThreshold)
+	{
+		JumpType = EJumpType::EJT_FrontFlip;
+	}
+	else if (MovementOffsetYaw >= BackThreshold || MovementOffsetYaw <= -BackThreshold) {
+		JumpType = EJumpType::EJT_BackFlip;
+	}
+	else {
+		bIsJumpFlipping = false;
+		bJumpStarted = false;
+	}
+}

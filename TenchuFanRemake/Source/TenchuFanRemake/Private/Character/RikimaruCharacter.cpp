@@ -160,12 +160,11 @@ void ARikimaruCharacter::PlayerJump()
 	Jump();
 }
 
-void ARikimaruCharacter::ForwardJumpFlip()
+void ARikimaruCharacter::JumpFlip()
 {
 	if (GetCharacterMovement()->IsFalling()) return;
 	if (PlayerAnimInstance) {
-		PlayerAnimInstance->SetJumpStarted();
-		PlayerAnimInstance->SetJumpType(EJumpType::EJT_FrontFlip);
+		PlayerAnimInstance->SetJumpTypeByMovementOffsetYaw();
 	}
 }
 

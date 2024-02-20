@@ -35,7 +35,7 @@ public:
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
 	void PlayerJump();
-	void ForwardJumpFlip();
+	void JumpFlip();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();

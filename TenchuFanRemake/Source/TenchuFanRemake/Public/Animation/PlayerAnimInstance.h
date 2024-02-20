@@ -20,6 +20,7 @@ class TENCHUFANREMAKE_API UPlayerAnimInstance : public UAnimInstance
 public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaTime) override;
+	void SetJumpTypeByMovementOffsetYaw();
 
 public:
 	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
@@ -35,6 +36,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	bool bJumpStarted = false;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bIsJumpFlipping = false;
 
 	UPROPERTY(BlueprintReadOnly)
 	EJumpType JumpType = EJumpType::EJT_Default;

@@ -59,5 +59,6 @@ UENUM(Blueprinttype)
 enum class EJumpType : uint8
 {
 	EJT_Default		UMETA(DisplayName = "Jump Default"),
-	EJT_FrontFlip	UMETA(DisplayName = "Jump Front Flip")
+	EJT_FrontFlip	UMETA(DisplayName = "Jump Front Flip"),
+	EJT_BackFlip	UMETA(DisplayName = "Jump Back Flip")
 };

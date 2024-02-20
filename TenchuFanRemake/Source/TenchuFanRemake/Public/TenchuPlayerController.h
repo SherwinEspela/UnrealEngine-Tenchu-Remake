@@ -67,7 +67,7 @@ private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
-	void ForwardJumpFlip();
+	void JumpFlip();
 	void Crouch();
 	void UnCrouch();
 	void ToggleCrouch();
