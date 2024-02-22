@@ -63,6 +63,9 @@ protected:
 	UPROPERTY();
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
 
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsJumping = false;
+
 private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);

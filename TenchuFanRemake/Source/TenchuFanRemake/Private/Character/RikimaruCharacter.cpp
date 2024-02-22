@@ -150,6 +150,27 @@ void ARikimaruCharacter::CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult
 	}
 }
 
+void ARikimaruCharacter::Move(FVector2D MovementVector, FVector ForwardDirection, FVector RightDirection)
+{
+	auto JumpType = PlayerAnimInstance->GetJumpType();
+	if (GetCharacterMovement()->IsFalling() && JumpType == EJumpType::EJT_Default || !GetCharacterMovement()->IsFalling())
+	{
+		AddMovementInput(RightDirection, MovementVector.X);
+	}
+	AddMovementInput(ForwardDirection, MovementVector.Y);
+	TenchuPlayerState = ETenchuPlayerStates::EPS_Moving;
+}
+
+void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
+{
+	auto JumpType = PlayerAnimInstance->GetJumpType();
+	if (!GetCharacterMovement()->IsFalling())
+	{
+		AddControllerYawInput(LookAxisVector.X);
+	}
+	AddControllerPitchInput(LookAxisVector.Y);
+}
+
 void ARikimaruCharacter::PlayerJump()
 {
 	if (GetCharacterMovement()->IsFalling()) return;

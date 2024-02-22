@@ -26,6 +26,7 @@ public:
 	FORCEINLINE float GetMovementSpeed() const { return MovementSpeed; }
 	FORCEINLINE void SetJumpStarted() { bJumpStarted = true; }
 	FORCEINLINE void SetJumpType(EJumpType Type) { JumpType = Type; }
+	FORCEINLINE EJumpType GetJumpType() const { return JumpType; }
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
@@ -40,7 +41,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	bool bIsJumpFlipping = false;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	EJumpType JumpType = EJumpType::EJT_Default;
 
 private:

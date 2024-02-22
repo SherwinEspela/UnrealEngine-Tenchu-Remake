@@ -34,6 +34,8 @@ public:
 	void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
+	void Move(FVector2D MovementVector, FVector ForwardDirection, FVector RightDirection);
+	void LookAround(FVector2D LookAxisVector);
 	void PlayerJump();
 	void JumpFlip();
 	void StealthAttack();

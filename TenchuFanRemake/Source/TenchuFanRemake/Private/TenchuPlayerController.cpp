@@ -8,6 +8,7 @@
 #include "Character/RikimaruCharacter.h"
 #include "HUD/TenchuHUD.h"
 #include "HUD/InventoryWidget.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 void ATenchuPlayerController::BeginPlay()
 {
@@ -52,17 +53,13 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 
-	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
-	GetPawn()->AddMovementInput(RightDirection, MovementVector.X);
-
-	PlayerCharacter->TenchuPlayerState = ETenchuPlayerStates::EPS_Moving;
+	PlayerCharacter->Move(MovementVector, ForwardDirection, RightDirection);
 }
 
 void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 {
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
-	GetPawn()->AddControllerYawInput(LookAxisVector.X);
-	GetPawn()->AddControllerPitchInput(LookAxisVector.Y);
+	PlayerCharacter->LookAround(LookAxisVector);
 }
 
 void ATenchuPlayerController::Jump()
