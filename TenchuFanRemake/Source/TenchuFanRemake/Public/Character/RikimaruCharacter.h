@@ -3,10 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Character/TenchuBaseCharacter.h"
 #include "GameFramework/Character.h"
 #include "CustomEnums.h"
 #include "Interface/InteractableInterface.h"
-#include "TenchuCharacter.generated.h"
+#include "RikimaruCharacter.generated.h"
 
 class USpringArmComponent;
 class UCameraComponent;
@@ -16,29 +17,32 @@ class UAnimMontage;
 class UAnimInstance;
 class ATakeCoverBox;
 class AActionCam;
+class UPlayerAnimInstance;
 
-// TODO: Remove when no longer needed
-
+/**
+ * 
+ */
 UCLASS()
-class TENCHUFANREMAKE_API ATenchuCharacter : public ACharacter
+class TENCHUFANREMAKE_API ARikimaruCharacter : public ATenchuBaseCharacter
 {
 	GENERATED_BODY()
-
 public:
-	ATenchuCharacter();
+	ARikimaruCharacter();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
+	void Move(FVector2D MovementVector, FVector ForwardDirection, FVector RightDirection);
+	void LookAround(FVector2D LookAxisVector);
 	void PlayerJump();
-	void ToggleCrouch();
+	void JumpFlip();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
 	void SwordInteract();
-
+	void ToggleCrouch();
 	virtual void Crouch(bool bClientSimulation = false) override;
 	virtual void UnCrouch(bool bClientSimulation = false) override;
 
@@ -61,10 +65,12 @@ public:
 	void HandleSwordSheatingCompleted();
 
 public:
-	FORCEINLINE float GetWalkSpeed() const { return WalkSpeed; }
 	FORCEINLINE void SetActorToInteract(IInteractableInterface* NewInteractable) { Interactable = NewInteractable; }
 	FORCEINLINE void RemoveActorToInteract() { Interactable = nullptr; }
 	FORCEINLINE bool CanInteract() { return Interactable != nullptr; }
+
+	UFUNCTION(BlueprintCallable)
+	FORCEINLINE float GetWalkingSpeed() const { return WalkingSpeed; }
 
 protected:
 	virtual void BeginPlay() override;
@@ -79,6 +85,15 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = Debug)
 	bool bIsStealthRandomized = false;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float CrouchingSpeed = 140.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float WalkingSpeed = 227.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	float RunningSpeed = 340.f;
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -118,19 +133,14 @@ private:
 	TSubclassOf<AActionCam> ActionCamClass;
 
 private:
-	/* Private Members / Properties */
 	AActionCam* ActionCam;
-
-	float WalkSpeed;
 	FVector CrouchEyeOffset;
-
 	int CurrentStealthIndex = 1;
-
-	UAnimInstance* AnimInstance;
+	UPlayerAnimInstance* PlayerAnimInstance;
 	ATakeCoverBox* TakeCoverBox;
-
 	bool bTakeCoverBoxInterpCompleted = false;
 
+private:
 	/*
 	* The Enemy to which the Player
 	* can perform the Stealth attack to
@@ -147,7 +157,6 @@ private:
 	bool bIsSwordEquipped = true;
 
 private:
-	/* Private Functions */
 	void AttachSword();
 	void PlayStealthAttackAnimation(FName SectionName, int SectionIndex);
 	void AttachSwordToSocket(FName SocketName);

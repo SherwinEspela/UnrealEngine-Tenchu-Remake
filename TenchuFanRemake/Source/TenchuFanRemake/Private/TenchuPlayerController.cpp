@@ -5,15 +5,16 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
-#include "TenchuCharacter.h"
+#include "Character/RikimaruCharacter.h"
 #include "HUD/TenchuHUD.h"
 #include "HUD/InventoryWidget.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 void ATenchuPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerCharacter = Cast<ATenchuCharacter>(GetPawn());
+	PlayerCharacter = Cast<ARikimaruCharacter>(GetPawn());
 
 	UEnhancedInputLocalPlayerSubsystem* PlayerSubsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	PlayerSubsystem->AddMappingContext(InputMappingContextPlayer, 0);
@@ -28,13 +29,16 @@ void ATenchuPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(InputActionMovement, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Move);
 	EnhancedInputComponent->BindAction(InputActionLookAround, ETriggerEvent::Triggered, this, &ATenchuPlayerController::LookAround);
-	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Canceled, this, &ATenchuPlayerController::Jump);
+	EnhancedInputComponent->BindAction(InputActionJump, ETriggerEvent::Completed, this, &ATenchuPlayerController::JumpFlip);
 	EnhancedInputComponent->BindAction(InputActionInteract, ETriggerEvent::Triggered, this, &ATenchuPlayerController::Interact);
 	EnhancedInputComponent->BindAction(InputActionYButton, ETriggerEvent::Triggered, this, &ATenchuPlayerController::SwordInteract);
-	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
-	EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Completed, this, &ATenchuPlayerController::UnCrouch);
+	//EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Started, this, &ATenchuPlayerController::Crouch);
+	//EnhancedInputComponent->BindAction(InputActionR2Button, ETriggerEvent::Completed, this, &ATenchuPlayerController::UnCrouch);
 	EnhancedInputComponent->BindAction(InputActionDPadRight, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadRightClicked);
 	EnhancedInputComponent->BindAction(InputActionDPadLeft, ETriggerEvent::Triggered, this, &ATenchuPlayerController::DpadLeftClicked);
+	EnhancedInputComponent->BindAction(InputActionToggleCrouch, ETriggerEvent::Triggered, this, &ATenchuPlayerController::ToggleCrouch);
+	
 }
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
@@ -48,22 +52,24 @@ void ATenchuPlayerController::Move(const FInputActionValue& Value)
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	GetPawn()->AddMovementInput(ForwardDirection, MovementVector.Y);
-	GetPawn()->AddMovementInput(RightDirection, MovementVector.X);
 
-	PlayerCharacter->TenchuPlayerState = ETenchuPlayerStates::EPS_Moving;
+	PlayerCharacter->Move(MovementVector, ForwardDirection, RightDirection);
 }
 
 void ATenchuPlayerController::LookAround(const FInputActionValue& Value)
 {
 	const FVector2D LookAxisVector = Value.Get<FVector2D>();
-	GetPawn()->AddControllerYawInput(LookAxisVector.X);
-	GetPawn()->AddControllerPitchInput(LookAxisVector.Y);
+	PlayerCharacter->LookAround(LookAxisVector);
 }
 
 void ATenchuPlayerController::Jump()
 {
-	//PlayerCharacter->PlayerJump();
+	PlayerCharacter->PlayerJump();
+}
+
+void ATenchuPlayerController::JumpFlip()
+{
+	PlayerCharacter->JumpFlip();
 }
 
 void ATenchuPlayerController::Crouch()
@@ -80,6 +86,11 @@ void ATenchuPlayerController::UnCrouch()
 	{
 		PlayerCharacter->UnCrouch();
 	}
+}
+
+void ATenchuPlayerController::ToggleCrouch()
+{
+	if (PlayerCharacter) PlayerCharacter->ToggleCrouch();
 }
 
 void ATenchuPlayerController::Interact()

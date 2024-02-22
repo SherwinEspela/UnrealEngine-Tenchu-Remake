@@ -9,7 +9,7 @@
 
 class UInputMappingContext;
 class UInputAction;
-class ATenchuCharacter;
+class ARikimaruCharacter;
 class ATenchuHUD;
 
 /**
@@ -57,15 +57,23 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Player Input")
 	UInputAction* InputActionDPadLeft;
 
+	/*UPROPERTY(EditDefaultsOnly, Category = "Player Input")
+	UInputAction* InputActionForwardJumpFlip;*/
+
 	UPROPERTY();
-	TObjectPtr<ATenchuCharacter> PlayerCharacter;
+	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsJumping = false;
 
 private:
 	void Move(const FInputActionValue& Value);
 	void LookAround(const FInputActionValue& Value);
 	void Jump();
+	void JumpFlip();
 	void Crouch();
 	void UnCrouch();
+	void ToggleCrouch();
 	void Interact();
 	void SwordInteract();
 	void DpadRightClicked();
