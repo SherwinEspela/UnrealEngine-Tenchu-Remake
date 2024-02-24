@@ -38,6 +38,7 @@ public:
 	void LookAround(FVector2D LookAxisVector);
 	void PlayerJump();
 	void JumpFlip();
+	void ClimbLedge();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
@@ -46,6 +47,7 @@ public:
 	virtual void Crouch(bool bClientSimulation = false) override;
 	virtual void UnCrouch(bool bClientSimulation = false) override;
 
+public:
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
 
@@ -71,6 +73,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE float GetWalkingSpeed() const { return WalkingSpeed; }
+
+protected:
+	bool IsWallTraced(FHitResult& OutHitResult);
+	bool IsWallHeightTraced(FHitResult& OutHitResult);
+	bool CanTraceWall(FVector Start, FVector End, FHitResult& OutHit);
 
 protected:
 	virtual void BeginPlay() override;

@@ -27,6 +27,7 @@ public:
 	FORCEINLINE void SetJumpStarted() { bJumpStarted = true; }
 	FORCEINLINE void SetJumpType(EJumpType Type) { JumpType = Type; }
 	FORCEINLINE EJumpType GetJumpType() const { return JumpType; }
+	FORCEINLINE void SetClimbing() { bIsClimbing = true; }
 
 protected:
 	UPROPERTY(BlueprintReadOnly)
@@ -43,6 +44,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	EJumpType JumpType = EJumpType::EJT_Default;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsClimbing = false;
 
 private:
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;

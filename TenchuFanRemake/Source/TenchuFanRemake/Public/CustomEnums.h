@@ -16,6 +16,7 @@ enum class ETenchuPlayerStates : uint8
 	EPS_Running				UMETA(DisplayName = "Running"),
 	EPS_Moving				UMETA(DisplayName = "Moving"),
 	EPS_Croucing			UMETA(DisplayName = "Crouching"),
+	EPS_Climbing			UMETA(DisplayName = "Climbing"),
 	EPS_StealthAttacking	UMETA(DisplayName = "Stealth Attacking"),
 	EPS_Interacting			UMETA(DisplayName = "Interacting"),
 	EPS_TakingCover			UMETA(DisplayName = "Taking Cover")
@@ -43,7 +44,8 @@ UENUM(Blueprinttype)
 enum class EInteractableType : uint8
 {
 	EIT_Enemy			UMETA(DisplayName = "Enemy"),
-	EIT_TakeCoverBox	UMETA(DisplayName = "Take Cover Box")
+	EIT_TakeCoverBox	UMETA(DisplayName = "Take Cover Box"),
+	EIT_ClimableWall	UMETA(DisplayName = "Climable Wall")
 };
 
 UENUM(Blueprinttype)

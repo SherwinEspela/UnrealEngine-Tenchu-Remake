@@ -8,9 +8,10 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Item/Weapons/Weapon.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Character/TenchuEnemyCharacter.h"
 #include "Animation/AnimMontage.h"
-#include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
@@ -117,6 +118,72 @@ void ARikimaruCharacter::TakeCoverBoxInterp(float DeltaTime)
 	SetActorLocation(FVector(InterpLocationX, InterpLocationY, CurrentPlayerLocation.Z));
 }
 
+void ARikimaruCharacter::ClimbLedge()
+{
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Croucing) return;
+
+	FHitResult WallSurfaceHitResult;
+	if (IsWallTraced(WallSurfaceHitResult))
+	{
+		FHitResult WallTopHitResult;
+		if (IsWallHeightTraced(WallTopHitResult))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Wall Height Traced!!!"));
+
+			FVector WallTopLocation = WallTopHitResult.ImpactPoint;
+			DrawDebugSphere(GetWorld(), WallSurfaceHitResult.ImpactPoint, 15.f, 20.f, FColor::Green, false, 5.f);
+			DrawDebugSphere(GetWorld(), WallTopLocation, 15.f, 20.f, FColor::Blue, false, 5.f);
+
+			FVector HeadSocketLocation = GetMesh()->GetSocketLocation(FName("HeadTopSocket"));
+			bool IsWallHigherThanPlayer = WallTopLocation.Z > HeadSocketLocation.Z;
+			if (IsWallHigherThanPlayer)
+			{
+				UE_LOG(LogTemp, Warning, TEXT("Wall is HIGHER than player!!!!"));
+
+				/*FRotator CurrentRotation = GetActorRotation();
+				CurrentRotation.Yaw = WallSurfaceHitResult.ImpactNormal.Rotation().Yaw;
+				SetActorRotation(CurrentRotation);*/
+
+				TenchuPlayerState = ETenchuPlayerStates::EPS_Climbing;
+				//if (PlayerAnimInstance) PlayerAnimInstance->SetClimbing();
+			}
+		}
+	}
+}
+
+bool ARikimaruCharacter::IsWallTraced(FHitResult& OutHitResult)
+{
+	FVector StartLocation = GetActorLocation();
+	FVector EndLocation = GetActorLocation() + (GetActorForwardVector() * 75.f);
+	return CanTraceWall(StartLocation, EndLocation, OutHitResult);
+}
+
+bool ARikimaruCharacter::IsWallHeightTraced(FHitResult& OutHitResult)
+{
+	FVector Offset = FVector{ 0.f, 0.f, 500.f };
+	FVector StartLocation = GetActorLocation() + Offset + (GetActorForwardVector() * 75.f);
+	FVector EndLocation = StartLocation - Offset;
+	return CanTraceWall(StartLocation, EndLocation, OutHitResult);
+}
+
+bool ARikimaruCharacter::CanTraceWall(FVector StartLocation, FVector EndLocation, FHitResult &OutHit)
+{
+	TArray<AActor*> ActorsToIgnore;
+	return UKismetSystemLibrary::SphereTraceSingle(
+		this,
+		StartLocation,
+		EndLocation,
+		10.f,
+		ETraceTypeQuery::TraceTypeQuery1,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::ForDuration,
+		OutHit,
+		true
+	);
+}
+
 void ARikimaruCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -163,7 +230,6 @@ void ARikimaruCharacter::Move(FVector2D MovementVector, FVector ForwardDirection
 
 void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
 {
-	auto JumpType = PlayerAnimInstance->GetJumpType();
 	if (!GetCharacterMovement()->IsFalling())
 	{
 		AddControllerYawInput(LookAxisVector.X);
@@ -348,6 +414,10 @@ void ARikimaruCharacter::Interact()
 
 	case EInteractableType::EIT_TakeCoverBox:
 		TakeCover();
+		break;
+
+	case EInteractableType::EIT_ClimableWall:
+		ClimbLedge();
 		break;
 
 	default:
