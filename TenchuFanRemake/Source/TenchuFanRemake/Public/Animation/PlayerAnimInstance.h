@@ -30,6 +30,12 @@ public:
 	FORCEINLINE void SetClimbing() { bIsClimbing = true; }
 
 protected:
+	void TurnInPlace();
+
+	UFUNCTION(BlueprintCallable)
+	void ResetRootYawOffset();
+
+protected:
 	UPROPERTY(BlueprintReadOnly)
 	float MovementSpeed;
 	
@@ -51,4 +57,15 @@ protected:
 private:
 	TObjectPtr<ARikimaruCharacter> PlayerCharacter;
 	TObjectPtr<UCharacterMovementComponent> MovementComponent;
+
+private:
+	// Turn in Place variables
+	float CharacterYaw;
+	float CharacterYawLastFrame;
+
+	float RotationCurve;
+	float RotationCurveLastFrame;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Turn In Place", meta = (AllowPrivateAccess = "true"))
+	float RootYawOffset;
 };

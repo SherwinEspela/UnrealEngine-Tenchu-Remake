@@ -32,6 +32,8 @@ void UPlayerAnimInstance::NativeUpdateAnimation(float DeltaTime)
 		MovementSpeed = UKismetMathLibrary::VSizeXY(MovementComponent->Velocity);
 		//UE_LOG(LogTemp, Warning, TEXT("MovementSpeed = %f"), MovementSpeed);
 	}
+
+	TurnInPlace();
 }
 
 void UPlayerAnimInstance::SetJumpTypeByMovementOffsetYaw()
@@ -52,4 +54,38 @@ void UPlayerAnimInstance::SetJumpTypeByMovementOffsetYaw()
 		bIsJumpFlipping = false;
 		bJumpStarted = false;
 	}
+}
+
+void UPlayerAnimInstance::TurnInPlace()
+{
+	if (PlayerCharacter == nullptr) return;
+	if (MovementSpeed > 0)
+	{
+		RootYawOffset = 0.f;
+		CharacterYaw = PlayerCharacter->GetActorRotation().Yaw;
+		CharacterYawLastFrame = CharacterYaw;
+		RotationCurveLastFrame = 0.f;
+		RotationCurve = 0.f;
+	}
+	else {
+		CharacterYawLastFrame = CharacterYaw;
+		CharacterYaw = PlayerCharacter->GetActorRotation().Yaw;
+		const float YawDelta = CharacterYaw - CharacterYawLastFrame;
+		RootYawOffset = UKismetMathLibrary::NormalizeAxis(RootYawOffset - YawDelta);
+		const float Turning = GetCurveValue(TEXT("Turning"));
+		if (Turning > 0)
+		{
+			RotationCurveLastFrame = RotationCurve;
+			RotationCurve = GetCurveValue(TEXT("Rotation"));
+			const float DeltaRotation = RotationCurve - RotationCurveLastFrame;
+			const bool IsTurningLeft = RootYawOffset > 0.f;
+			IsTurningLeft ? RootYawOffset -= DeltaRotation : RootYawOffset += DeltaRotation;
+			RootYawOffset = FMath::Clamp(RootYawOffset, -90.f, 90.f);
+		}
+	}
+}
+
+void UPlayerAnimInstance::ResetRootYawOffset()
+{
+	RootYawOffset = 0.f;
 }
