@@ -102,6 +102,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float RunningSpeed = 340.f;
 
+	UPROPERTY(EditDefaultsOnly)
+	float ClimbStateWallSurfaceOffset = 38.f;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ClimbStateWallHeightOffset = 100.f;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USpringArmComponent> CameraBoom;

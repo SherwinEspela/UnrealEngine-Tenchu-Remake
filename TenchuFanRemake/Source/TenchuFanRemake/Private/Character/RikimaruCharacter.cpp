@@ -129,8 +129,6 @@ void ARikimaruCharacter::ClimbLedge()
 		FHitResult WallTopHitResult;
 		if (IsWallHeightTraced(WallTopHitResult))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Wall Height Traced!!!"));
-
 			FVector WallTopLocation = WallTopHitResult.ImpactPoint;
 			DrawDebugSphere(GetWorld(), WallSurfaceHitResult.ImpactPoint, 15.f, 20.f, FColor::Green, false, 5.f);
 			DrawDebugSphere(GetWorld(), WallTopLocation, 15.f, 20.f, FColor::Blue, false, 5.f);
@@ -146,7 +144,16 @@ void ARikimaruCharacter::ClimbLedge()
 				SetActorRotation(CurrentRotation);*/
 
 				TenchuPlayerState = ETenchuPlayerStates::EPS_Climbing;
-				//if (PlayerAnimInstance) PlayerAnimInstance->SetClimbing();
+				if (PlayerAnimInstance) PlayerAnimInstance->SetClimbing();
+
+				GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+				GetCharacterMovement()->StopMovementImmediately();
+
+				FVector CurrentActorLocation = GetActorLocation();
+				float PosX = WallSurfaceHitResult.ImpactPoint.X - ClimbStateWallSurfaceOffset;
+				float PosZ = WallTopLocation.Z - ClimbStateWallHeightOffset;
+				FVector NewPlayerPosition{ PosX, CurrentActorLocation.Y, PosZ };
+				SetActorLocation(NewPlayerPosition);
 			}
 		}
 	}

@@ -72,6 +72,9 @@ void UPlayerAnimInstance::TurnInPlace()
 		CharacterYaw = PlayerCharacter->GetActorRotation().Yaw;
 		const float YawDelta = CharacterYaw - CharacterYawLastFrame;
 		RootYawOffset = UKismetMathLibrary::NormalizeAxis(RootYawOffset - YawDelta);
+
+		if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+
 		const float Turning = GetCurveValue(TEXT("Turning"));
 		if (Turning > 0)
 		{

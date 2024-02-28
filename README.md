@@ -23,3 +23,10 @@ PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engi
 https://www.youtube.com/watch?v=ahAX3w5ovts
 1. Enter on the Console Command: Streaming.PoolSize to seee current poolsize
 2. Type: Streaming.PoolSize 8000
+
+## To ensure animation root motion works during retargetting process
+1. Select - open the retargetter file
+2. Choose Target source tab
+3. Select the "Root" bone in the Chain Mapping panel ( under the Details panel )
+4. In the details panel, under FK group, find the Translation Mode. 
+5. In Translation Mode, select Globally Scaled in the dropdown.
