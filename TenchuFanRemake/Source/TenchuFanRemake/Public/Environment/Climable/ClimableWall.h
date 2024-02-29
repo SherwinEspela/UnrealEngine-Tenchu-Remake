@@ -9,6 +9,7 @@
 
 class UBoxComponent;
 class ARikimaruCharacter;
+class USceneComponent;
 
 /**
  * 
@@ -22,6 +23,12 @@ public:
 	virtual void BeginPlay() override;
 	virtual EInteractableType GetInteractableType() override;
 
+	void SetWarpTargetTransform(FTransform Value);
+	void SetWarpTargetPosition(FVector Value);
+
+public:
+	FORCEINLINE FTransform GetWarpTargetTransform() const { return WarpTarget->GetComponentTransform(); }
+
 protected:
 	UFUNCTION()
 	void OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -32,6 +39,9 @@ protected:
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Interact)
 	TObjectPtr<UBoxComponent> BoxComponent;
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* WarpTarget;
 
 private:
 	ARikimaruCharacter* Rikimaru;

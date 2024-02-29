@@ -102,11 +102,22 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float RunningSpeed = 340.f;
 
-	UPROPERTY(EditDefaultsOnly)
+protected:
+	// Climbing System
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnClimbTransformWarpTargetAdded();
+
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
 	float ClimbStateWallSurfaceOffset = 38.f;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
 	float ClimbStateWallHeightOffset = 100.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = Climbing)
+	FTransform ClimbTransformWarpTarget;
+
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
+	TObjectPtr<UAnimMontage> MontageClimbLedge;
 
 private:
 	UPROPERTY(VisibleAnywhere)

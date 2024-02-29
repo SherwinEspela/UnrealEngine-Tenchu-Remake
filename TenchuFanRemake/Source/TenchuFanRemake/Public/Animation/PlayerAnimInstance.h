@@ -51,7 +51,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite)
 	EJumpType JumpType = EJumpType::EJT_Default;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadWrite)
 	bool bIsClimbing = false;
 
 private:

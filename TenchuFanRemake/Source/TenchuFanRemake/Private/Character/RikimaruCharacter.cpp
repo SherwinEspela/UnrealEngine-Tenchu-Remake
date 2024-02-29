@@ -15,6 +15,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
+#include "Environment/Climable/ClimableWall.h"
 #include "Animation/PlayerAnimInstance.h"
 #include "Utility/ActionCam.h"
 
@@ -130,30 +131,41 @@ void ARikimaruCharacter::ClimbLedge()
 		if (IsWallHeightTraced(WallTopHitResult))
 		{
 			FVector WallTopLocation = WallTopHitResult.ImpactPoint;
-			DrawDebugSphere(GetWorld(), WallSurfaceHitResult.ImpactPoint, 15.f, 20.f, FColor::Green, false, 5.f);
-			DrawDebugSphere(GetWorld(), WallTopLocation, 15.f, 20.f, FColor::Blue, false, 5.f);
+			//DrawDebugSphere(GetWorld(), WallSurfaceHitResult.ImpactPoint, 15.f, 20.f, FColor::Green, false, 5.f);
+			//DrawDebugSphere(GetWorld(), WallTopLocation, 15.f, 20.f, FColor::Blue, false, 5.f);
 
 			FVector HeadSocketLocation = GetMesh()->GetSocketLocation(FName("HeadTopSocket"));
 			bool IsWallHigherThanPlayer = WallTopLocation.Z > HeadSocketLocation.Z;
 			if (IsWallHigherThanPlayer)
 			{
-				UE_LOG(LogTemp, Warning, TEXT("Wall is HIGHER than player!!!!"));
-
-				/*FRotator CurrentRotation = GetActorRotation();
-				CurrentRotation.Yaw = WallSurfaceHitResult.ImpactNormal.Rotation().Yaw;
-				SetActorRotation(CurrentRotation);*/
-
 				TenchuPlayerState = ETenchuPlayerStates::EPS_Climbing;
-				if (PlayerAnimInstance) PlayerAnimInstance->SetClimbing();
+				
+				if (Interactable)
+				{
+					AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+					if (Wall)
+					{
+						FVector CurrentActorLocation = GetActorLocation();
+						float PosX = WallSurfaceHitResult.ImpactPoint.X - ClimbStateWallSurfaceOffset;
+						float PosZ = WallTopLocation.Z - ClimbStateWallHeightOffset;
+						FVector WarpTargetPosition{ PosX, CurrentActorLocation.Y, PosZ };						
+						//FTransform WarpTargetTransform = FTransform(WarpTargetPosition);
+						//Wall->SetWarpTargetTransform(WarpTargetTransform);
 
-				GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
-				GetCharacterMovement()->StopMovementImmediately();
+						Wall->SetWarpTargetPosition(WarpTargetPosition);
+						ClimbTransformWarpTarget = Wall->GetWarpTargetTransform();
+						//DrawDebugSphere(GetWorld(), ClimbTransformWarpTarget.GetLocation(), 30.f, 20.f, FColor::Red, false, 5.f);
 
-				FVector CurrentActorLocation = GetActorLocation();
-				float PosX = WallSurfaceHitResult.ImpactPoint.X - ClimbStateWallSurfaceOffset;
-				float PosZ = WallTopLocation.Z - ClimbStateWallHeightOffset;
-				FVector NewPlayerPosition{ PosX, CurrentActorLocation.Y, PosZ };
-				SetActorLocation(NewPlayerPosition);
+						OnClimbTransformWarpTargetAdded();
+
+						if (PlayerAnimInstance && MontageClimbLedge) {
+							
+							PlayerAnimInstance->Montage_Play(MontageClimbLedge);
+							GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+							GetCharacterMovement()->StopMovementImmediately();
+						}
+					}
+				}
 			}
 		}
 	}
