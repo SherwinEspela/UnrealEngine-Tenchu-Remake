@@ -76,16 +76,13 @@ void UPlayerAnimInstance::TurnInPlace()
 		CharacterYawLastFrame = CharacterYaw;
 		RotationCurveLastFrame = 0.f;
 		RotationCurve = 0.f;
-		//UE_LOG(LogTemp, Warning, TEXT("Is moving...."));
 	}
 	else {
 		CharacterYawLastFrame = CharacterYaw;
 		CharacterYaw = PlayerCharacter->GetActorRotation().Yaw;
 		const float YawDelta = CharacterYaw - CharacterYawLastFrame;
 		RootYawOffset = UKismetMathLibrary::NormalizeAxis(RootYawOffset - YawDelta);
-		//UE_LOG(LogTemp, Warning, TEXT("Is not moving...."));
-		//UE_LOG(LogTemp, Warning, TEXT("RootYawOffset ==== %f"), RootYawOffset);
-
+	
 		if (bIsClimbing) return;
 		const float Turning = GetCurveValue(TEXT("Turning"));
 		if (Turning > 0)

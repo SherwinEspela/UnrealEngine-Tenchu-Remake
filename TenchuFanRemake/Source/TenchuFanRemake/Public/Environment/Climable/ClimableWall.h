@@ -25,6 +25,9 @@ public:
 
 	void SetWarpTargetTransform(FTransform Value);
 	void SetWarpTargetPosition(FVector Value);
+	void SetWarpTargetRotation();
+
+	FTransform GetClimbLedgeTopWarpTargetTransform();
 
 public:
 	FORCEINLINE FTransform GetWarpTargetTransform() const { return WarpTarget->GetComponentTransform(); }
@@ -42,6 +45,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	USceneComponent* WarpTarget;
+
+	UPROPERTY(EditAnywhere)
+	float TopLedgeDistanceTravel = 130.f;
 
 private:
 	ARikimaruCharacter* Rikimaru;

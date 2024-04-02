@@ -43,6 +43,7 @@ void ATenchuPlayerController::SetupInputComponent()
 
 void ATenchuPlayerController::Move(const FInputActionValue& Value)
 {
+	//if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
 	if (PlayerCharacter->TenchuPlayerState == ETenchuPlayerStates::EPS_Interacting) return;
 
 	const FVector2D MovementVector = Value.Get<FVector2D>();

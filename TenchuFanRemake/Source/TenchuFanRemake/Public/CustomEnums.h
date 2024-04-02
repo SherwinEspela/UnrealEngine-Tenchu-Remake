@@ -17,6 +17,8 @@ enum class ETenchuPlayerStates : uint8
 	EPS_Moving				UMETA(DisplayName = "Moving"),
 	EPS_Croucing			UMETA(DisplayName = "Crouching"),
 	EPS_Climbing			UMETA(DisplayName = "Climbing"),
+	EPS_HangingOnLedge		UMETA(DisplayName = "Hanging On Ledge"),
+	EPS_ClimbingOnLedgeTop	UMETA(DisplayName = "Climbing On Ledge Top"),
 	EPS_StealthAttacking	UMETA(DisplayName = "Stealth Attacking"),
 	EPS_Interacting			UMETA(DisplayName = "Interacting"),
 	EPS_TakingCover			UMETA(DisplayName = "Taking Cover")

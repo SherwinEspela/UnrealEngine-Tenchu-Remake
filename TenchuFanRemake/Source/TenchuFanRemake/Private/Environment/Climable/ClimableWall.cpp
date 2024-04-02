@@ -19,6 +19,8 @@ void AClimableWall::BeginPlay()
 {
 	BoxComponent->OnComponentBeginOverlap.AddDynamic(this, &AClimableWall::OnPlayerBeginOverlap);
 	BoxComponent->OnComponentEndOverlap.AddDynamic(this, &AClimableWall::OnPlayerEndOverlap);
+
+	WarpTarget->SetRelativeRotation(GetActorRotation());
 }
 
 EInteractableType AClimableWall::GetInteractableType()
@@ -33,7 +35,14 @@ void AClimableWall::SetWarpTargetTransform(FTransform Value)
 
 void AClimableWall::SetWarpTargetPosition(FVector Value)
 {
-	WarpTarget->SetWorldLocation(Value);
+	WarpTarget->SetRelativeLocation(Value);
+}
+
+FTransform AClimableWall::GetClimbLedgeTopWarpTargetTransform()
+{
+	FVector LedgeTopPosition = WarpTarget->GetComponentLocation() + (WarpTarget->GetForwardVector() * TopLedgeDistanceTravel);
+	WarpTarget->SetWorldLocation(LedgeTopPosition);
+	return WarpTarget->GetComponentTransform();
 }
 
 void AClimableWall::OnPlayerBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

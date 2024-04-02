@@ -39,6 +39,7 @@ public:
 	void PlayerJump();
 	void JumpFlip();
 	void ClimbLedge();
+	void ClimbLedgeTop();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
@@ -108,10 +109,10 @@ protected:
 	void OnClimbTransformWarpTargetAdded();
 
 	UPROPERTY(EditDefaultsOnly, Category = Climbing)
-	float ClimbStateWallSurfaceOffset = 38.f;
+	float ClimbStateWallSurfaceOffset = 40.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = Climbing)
-	float ClimbStateWallHeightOffset = 100.f;
+	float ClimbStateWallHeightOffset = 206.f;
 
 	UPROPERTY(BlueprintReadOnly, Category = Climbing)
 	FTransform ClimbTransformWarpTarget;

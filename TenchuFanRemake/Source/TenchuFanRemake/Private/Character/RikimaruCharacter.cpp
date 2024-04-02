@@ -121,6 +121,7 @@ void ARikimaruCharacter::TakeCoverBoxInterp(float DeltaTime)
 
 void ARikimaruCharacter::ClimbLedge()
 {
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_HangingOnLedge) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Croucing) return;
 
@@ -131,9 +132,6 @@ void ARikimaruCharacter::ClimbLedge()
 		if (IsWallHeightTraced(WallTopHitResult))
 		{
 			FVector WallTopLocation = WallTopHitResult.ImpactPoint;
-			//DrawDebugSphere(GetWorld(), WallSurfaceHitResult.ImpactPoint, 15.f, 20.f, FColor::Green, false, 5.f);
-			//DrawDebugSphere(GetWorld(), WallTopLocation, 15.f, 20.f, FColor::Blue, false, 5.f);
-
 			FVector HeadSocketLocation = GetMesh()->GetSocketLocation(FName("HeadTopSocket"));
 			bool IsWallHigherThanPlayer = WallTopLocation.Z > HeadSocketLocation.Z;
 			if (IsWallHigherThanPlayer)
@@ -146,28 +144,42 @@ void ARikimaruCharacter::ClimbLedge()
 					if (Wall)
 					{
 						FVector CurrentActorLocation = GetActorLocation();
-						float PosX = WallSurfaceHitResult.ImpactPoint.X - ClimbStateWallSurfaceOffset;
-						float PosZ = WallTopLocation.Z - ClimbStateWallHeightOffset;
-						FVector WarpTargetPosition{ PosX, CurrentActorLocation.Y, PosZ };						
-						//FTransform WarpTargetTransform = FTransform(WarpTargetPosition);
-						//Wall->SetWarpTargetTransform(WarpTargetTransform);
-
+						FVector WarpTargetPosition = WallSurfaceHitResult.ImpactPoint + WallSurfaceHitResult.ImpactNormal * ClimbStateWallSurfaceOffset;
+						WarpTargetPosition.Z = WallTopLocation.Z - ClimbStateWallHeightOffset;
 						Wall->SetWarpTargetPosition(WarpTargetPosition);
 						ClimbTransformWarpTarget = Wall->GetWarpTargetTransform();
-						//DrawDebugSphere(GetWorld(), ClimbTransformWarpTarget.GetLocation(), 30.f, 20.f, FColor::Red, false, 5.f);
-
 						OnClimbTransformWarpTargetAdded();
+						GetCharacterMovement()->bUseControllerDesiredRotation = false;
+						
+						//DrawDebugSphere(GetWorld(), ClimbTransformWarpTarget.GetLocation(), 15.f, 10.f, FColor::Emerald, false, 5.f);
 
 						if (PlayerAnimInstance && MontageClimbLedge) {
-							
 							PlayerAnimInstance->Montage_Play(MontageClimbLedge);
 							GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
 							GetCharacterMovement()->StopMovementImmediately();
+							
 						}
 					}
 				}
 			}
 		}
+	}
+}
+
+void ARikimaruCharacter::ClimbLedgeTop()
+{
+	if (TenchuPlayerState != ETenchuPlayerStates::EPS_HangingOnLedge) return;
+
+	AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+	if (Wall)
+	{
+		ClimbTransformWarpTarget = Wall->GetClimbLedgeTopWarpTargetTransform();
+		OnClimbTransformWarpTargetAdded();
+	}
+
+	if (PlayerAnimInstance && MontageClimbLedge) {
+		PlayerAnimInstance->Montage_Play(MontageClimbLedge);
+		PlayerAnimInstance->Montage_JumpToSection(FName("ClimbTop1"));
 	}
 }
 
@@ -197,7 +209,7 @@ bool ARikimaruCharacter::CanTraceWall(FVector StartLocation, FVector EndLocation
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::ForDuration,
+		EDrawDebugTrace::None,
 		OutHit,
 		true
 	);
@@ -249,6 +261,8 @@ void ARikimaruCharacter::Move(FVector2D MovementVector, FVector ForwardDirection
 
 void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
 {
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_ClimbingOnLedgeTop) return;
 	if (!GetCharacterMovement()->IsFalling())
 	{
 		AddControllerYawInput(LookAxisVector.X);
@@ -259,11 +273,21 @@ void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
 void ARikimaruCharacter::PlayerJump()
 {
 	if (GetCharacterMovement()->IsFalling()) return;
-	if (PlayerAnimInstance) {
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_HangingOnLedge) return;
+
+	if (CanInteract())
+	{
+		if (Interactable->GetInteractableType() == EInteractableType::EIT_ClimableWall)
+		{
+			ClimbLedge();
+		}
+	}
+	else {
 		PlayerAnimInstance->SetJumpStarted();
 		PlayerAnimInstance->SetJumpType(EJumpType::EJT_Default);
+		Jump();
 	}
-	Jump();
 }
 
 void ARikimaruCharacter::JumpFlip()
@@ -436,7 +460,7 @@ void ARikimaruCharacter::Interact()
 		break;
 
 	case EInteractableType::EIT_ClimableWall:
-		ClimbLedge();
+		ClimbLedgeTop();
 		break;
 
 	default:
