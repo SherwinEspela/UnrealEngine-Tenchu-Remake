@@ -29,7 +29,7 @@ class TENCHUFANREMAKE_API ARikimaruCharacter : public ATenchuBaseCharacter
 public:
 	ARikimaruCharacter();
 	virtual void Tick(float DeltaTime) override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void OnEndCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust) override;
 	void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
@@ -38,6 +38,8 @@ public:
 	void LookAround(FVector2D LookAxisVector);
 	void PlayerJump();
 	void JumpFlip();
+	void ClimbLedge();
+	void ClimbLedgeTop();
 	void StealthAttack();
 	void TakeCover();
 	void Interact();
@@ -46,6 +48,7 @@ public:
 	virtual void Crouch(bool bClientSimulation = false) override;
 	virtual void UnCrouch(bool bClientSimulation = false) override;
 
+public:
 	UPROPERTY(VisibleInstanceOnly, BlueprintReadWrite)
 	ETenchuPlayerStates TenchuPlayerState = ETenchuPlayerStates::EPS_Idle;
 
@@ -73,6 +76,11 @@ public:
 	FORCEINLINE float GetWalkingSpeed() const { return WalkingSpeed; }
 
 protected:
+	bool IsWallTraced(FHitResult& OutHitResult);
+	bool IsWallHeightTraced(FHitResult& OutHitResult);
+	bool CanTraceWall(FVector Start, FVector End, FHitResult& OutHit);
+
+protected:
 	virtual void BeginPlay() override;
 	void TakeCoverBoxInterp(float DeltaTime);
 	AWeapon* Katana;
@@ -94,6 +102,23 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float RunningSpeed = 340.f;
+
+protected:
+	// Climbing System
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnClimbTransformWarpTargetAdded();
+
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
+	float ClimbStateWallSurfaceOffset = 40.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
+	float ClimbStateWallHeightOffset = 206.f;
+
+	UPROPERTY(BlueprintReadOnly, Category = Climbing)
+	FTransform ClimbTransformWarpTarget;
+
+	UPROPERTY(EditDefaultsOnly, Category = Climbing)
+	TObjectPtr<UAnimMontage> MontageClimbLedge;
 
 private:
 	UPROPERTY(VisibleAnywhere)

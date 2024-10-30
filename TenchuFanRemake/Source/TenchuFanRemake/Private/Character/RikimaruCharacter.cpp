@@ -8,12 +8,14 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Item/Weapons/Weapon.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Character/TenchuEnemyCharacter.h"
 #include "Animation/AnimMontage.h"
-#include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "GameUtilities.h"
 #include "Environment/TakeCoverBox.h"
+#include "Environment/Climable/ClimableWall.h"
 #include "Animation/PlayerAnimInstance.h"
 #include "Utility/ActionCam.h"
 
@@ -24,12 +26,6 @@ ARikimaruCharacter::ARikimaruCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
-	/*UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
-	MovementComponent->bOrientRotationToMovement = true;
-	MovementComponent->RotationRate = FRotator(0.f, 400.f, 0.f);
-	MovementComponent->MaxWalkSpeed = 850.f;
-	MovementComponent->MinAnalogWalkSpeed = 50.f;*/
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
@@ -117,10 +113,166 @@ void ARikimaruCharacter::TakeCoverBoxInterp(float DeltaTime)
 	SetActorLocation(FVector(InterpLocationX, InterpLocationY, CurrentPlayerLocation.Z));
 }
 
-void ARikimaruCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ARikimaruCharacter::ClimbLedge()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_HangingOnLedge) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Croucing) return;
+
+	AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+	//if (Wall == nullptr) return;
+
+	//bool IsCoincident = FVector::Coincident(GetActorForwardVector(), Wall->GetActorForwardVector(), 90.f);
+	//if (IsCoincident)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Is COINCIDENT......"));
+	//}
+	//else {
+	//	UE_LOG(LogTemp, Warning, TEXT("Is NOT COINCIDENT......"));
+	//}
+
+	/*FRotator Rotator1 = GetActorForwardVector().Rotation();
+	FRotator Rotator2 = Wall->GetActorForwardVector().Rotation();
+	UE_LOG(LogTemp, Warning, TEXT("Rotator1 Yaw = %f"), GetActorRotation().Yaw);*/
+
+	FHitResult WallSurfaceHitResult;
+	if (IsWallTraced(WallSurfaceHitResult))
+	{
+		
+
+		/*FVector CurrentActorLocation = GetActorLocation();
+		FVector CurrentForward = GetActorForwardVector();
+		FRotator CurrentRotation = CurrentForward.Rotation();
+		UE_LOG(LogTemp, Warning, TEXT("CurrentRotation.Yaw ======= %f"), CurrentRotation.Yaw);*/
+
+		FVector TestPos = WallSurfaceHitResult.ImpactNormal - GetActorLocation() + WallSurfaceHitResult.ImpactPoint;
+		TestPos = -TestPos;
+		TestPos.Z = GetActorLocation().Z;
+		DrawDebugSphere(GetWorld(), TestPos, 20.f, 20.f, FColor::Emerald, false, 5.f);
+
+		//FRotator TestRotate = WallSurfaceHitResult.ImpactPoint.Rotation();
+		//UE_LOG(LogTemp, Warning, TEXT("Yaw ==== %f"), TestRotate.Yaw);
+
+		return;
+
+		FHitResult WallTopHitResult;
+		if (IsWallHeightTraced(WallTopHitResult))
+		{
+			FVector WallTopLocation = WallTopHitResult.ImpactPoint;
+			FVector HeadSocketLocation = GetMesh()->GetSocketLocation(FName("HeadTopSocket"));
+			bool IsWallHigherThanPlayer = WallTopLocation.Z > HeadSocketLocation.Z;
+			if (IsWallHigherThanPlayer)
+			{
+				TenchuPlayerState = ETenchuPlayerStates::EPS_Climbing;
+				
+				if (Interactable)
+				{
+
+					if (Wall)
+					{
+						//FVector CurrentActorLocation = GetActorLocation();
+						
+						
+						FVector WarpTargetPosition = WallSurfaceHitResult.ImpactPoint + WallSurfaceHitResult.ImpactNormal * ClimbStateWallSurfaceOffset;
+						WarpTargetPosition.Z = WallTopLocation.Z - ClimbStateWallHeightOffset;
+						Wall->SetWarpTargetPosition(WarpTargetPosition);
+						ClimbTransformWarpTarget = Wall->GetWarpTargetTransform();
+						OnClimbTransformWarpTargetAdded();
+						GetCharacterMovement()->bUseControllerDesiredRotation = false;
+						
+						//DrawDebugSphere(GetWorld(), ClimbTransformWarpTarget.GetLocation(), 15.f, 10.f, FColor::Emerald, false, 5.f);
+						
+
+						if (PlayerAnimInstance && MontageClimbLedge) {
+							PlayerAnimInstance->Montage_Play(MontageClimbLedge);
+							GetCharacterMovement()->SetMovementMode(EMovementMode::MOVE_Flying);
+							GetCharacterMovement()->StopMovementImmediately();
+							
+						}
+					}
+				}
+			}
+		}
+	}
 }
+
+void ARikimaruCharacter::ClimbLedgeTop()
+{
+	if (TenchuPlayerState != ETenchuPlayerStates::EPS_HangingOnLedge) return;
+
+	AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+	if (Wall)
+	{
+		ClimbTransformWarpTarget = Wall->GetClimbLedgeTopWarpTargetTransform();
+		OnClimbTransformWarpTargetAdded();
+	}
+
+	if (PlayerAnimInstance && MontageClimbLedge) {
+		PlayerAnimInstance->Montage_Play(MontageClimbLedge);
+		PlayerAnimInstance->Montage_JumpToSection(FName("ClimbTop1"));
+	}
+}
+
+bool ARikimaruCharacter::IsWallTraced(FHitResult& OutHitResult)
+{
+	FVector StartLocation = GetActorLocation();// GetMesh()->GetSocketLocation(FName("PELVIS")); //
+	//FVector EndLocation = GetMesh()->GetSocketLocation(FName("SocketWallTrace"));
+	//DrawDebugSphere(GetWorld(), StartLocation, 10.f, 15.f, FColor::Blue, false, 5.f);
+	//
+
+	//FRotator BaseRotation = GetBaseAimRotation();
+	//UE_LOG(LogTemp, Warning, TEXT("AimRotation ======= %f"), BaseRotation.Yaw);
+
+	//FRotator DeltaRotation = BaseRotation;
+	//DeltaRotation.Yaw = -BaseRotation.Yaw / 2.f;
+
+	//UE_LOG(LogTemp, Warning, TEXT("DeltaRotation Yaw ======= %f"), DeltaRotation.Yaw);
+
+	//FVector DeltaPos = DeltaRotation.Vector();
+
+	//FVector EndLocation = StartLocation + (DeltaPos * 80.f); //(GetActorForwardVector() * 75.f);
+	//EndLocation.Z = StartLocation.Z;
+	
+	//DrawDebugSphere(GetWorld(), EndLocation, 10.f, 15.f, FColor::Blue, false, 5.f);
+	
+	/*FVector ForwardVector = GetActorForwardVector();
+	FRotator ForwardRotator = ForwardVector.Rotation();
+	UE_LOG(LogTemp, Warning, TEXT("ForwardRotator.Yaw ======= %f"), ForwardRotator.Yaw);
+	ForwardRotator.Yaw = 0.f;
+	FVector ZeroRotateVector = ForwardRotator.Vector();*/
+	FVector EndLocation = StartLocation + (GetActorForwardVector() * 150.f);
+	return CanTraceWall(StartLocation, EndLocation, OutHitResult);
+}
+
+bool ARikimaruCharacter::IsWallHeightTraced(FHitResult& OutHitResult)
+{
+	FVector Offset = FVector{ 0.f, 0.f, 500.f };
+	FVector StartLocation = GetActorLocation() + Offset + (GetActorForwardVector() * 75.f);
+	FVector EndLocation = StartLocation - Offset;
+	return CanTraceWall(StartLocation, EndLocation, OutHitResult);
+}
+
+bool ARikimaruCharacter::CanTraceWall(FVector StartLocation, FVector EndLocation, FHitResult &OutHit)
+{
+	TArray<AActor*> ActorsToIgnore;
+	return UKismetSystemLibrary::SphereTraceSingle(
+		this,
+		StartLocation,
+		EndLocation,
+		10.f,
+		ETraceTypeQuery::TraceTypeQuery1,
+		false,
+		ActorsToIgnore,
+		EDrawDebugTrace::ForDuration,
+		OutHit,
+		true
+	);
+}
+
+//void ARikimaruCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+//{
+//	Super::SetupPlayerInputComponent(PlayerInputComponent);
+//}
 
 void ARikimaruCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
 {
@@ -163,7 +315,8 @@ void ARikimaruCharacter::Move(FVector2D MovementVector, FVector ForwardDirection
 
 void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
 {
-	auto JumpType = PlayerAnimInstance->GetJumpType();
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_ClimbingOnLedgeTop) return;
 	if (!GetCharacterMovement()->IsFalling())
 	{
 		AddControllerYawInput(LookAxisVector.X);
@@ -174,11 +327,21 @@ void ARikimaruCharacter::LookAround(FVector2D LookAxisVector)
 void ARikimaruCharacter::PlayerJump()
 {
 	if (GetCharacterMovement()->IsFalling()) return;
-	if (PlayerAnimInstance) {
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
+	if (TenchuPlayerState == ETenchuPlayerStates::EPS_HangingOnLedge) return;
+
+	if (CanInteract())
+	{
+		if (Interactable->GetInteractableType() == EInteractableType::EIT_ClimableWall)
+		{
+			ClimbLedge();
+		}
+	}
+	else {
 		PlayerAnimInstance->SetJumpStarted();
 		PlayerAnimInstance->SetJumpType(EJumpType::EJT_Default);
+		Jump();
 	}
-	Jump();
 }
 
 void ARikimaruCharacter::JumpFlip()
@@ -348,6 +511,10 @@ void ARikimaruCharacter::Interact()
 
 	case EInteractableType::EIT_TakeCoverBox:
 		TakeCover();
+		break;
+
+	case EInteractableType::EIT_ClimableWall:
+		ClimbLedgeTop();
 		break;
 
 	default:
