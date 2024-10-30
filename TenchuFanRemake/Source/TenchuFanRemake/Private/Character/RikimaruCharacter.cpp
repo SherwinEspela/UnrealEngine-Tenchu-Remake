@@ -27,12 +27,6 @@ ARikimaruCharacter::ARikimaruCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
-	/*UCharacterMovementComponent* MovementComponent = GetCharacterMovement();
-	MovementComponent->bOrientRotationToMovement = true;
-	MovementComponent->RotationRate = FRotator(0.f, 400.f, 0.f);
-	MovementComponent->MaxWalkSpeed = 850.f;
-	MovementComponent->MinAnalogWalkSpeed = 50.f;*/
-
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Boom"));
 	CameraBoom->SetupAttachment(GetRootComponent());
 	CameraBoom->TargetArmLength = 300.f;
@@ -125,9 +119,42 @@ void ARikimaruCharacter::ClimbLedge()
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Climbing) return;
 	if (TenchuPlayerState == ETenchuPlayerStates::EPS_Croucing) return;
 
+	AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+	//if (Wall == nullptr) return;
+
+	//bool IsCoincident = FVector::Coincident(GetActorForwardVector(), Wall->GetActorForwardVector(), 90.f);
+	//if (IsCoincident)
+	//{
+	//	UE_LOG(LogTemp, Warning, TEXT("Is COINCIDENT......"));
+	//}
+	//else {
+	//	UE_LOG(LogTemp, Warning, TEXT("Is NOT COINCIDENT......"));
+	//}
+
+	/*FRotator Rotator1 = GetActorForwardVector().Rotation();
+	FRotator Rotator2 = Wall->GetActorForwardVector().Rotation();
+	UE_LOG(LogTemp, Warning, TEXT("Rotator1 Yaw = %f"), GetActorRotation().Yaw);*/
+
 	FHitResult WallSurfaceHitResult;
 	if (IsWallTraced(WallSurfaceHitResult))
 	{
+		
+
+		/*FVector CurrentActorLocation = GetActorLocation();
+		FVector CurrentForward = GetActorForwardVector();
+		FRotator CurrentRotation = CurrentForward.Rotation();
+		UE_LOG(LogTemp, Warning, TEXT("CurrentRotation.Yaw ======= %f"), CurrentRotation.Yaw);*/
+
+		FVector TestPos = WallSurfaceHitResult.ImpactNormal - GetActorLocation() + WallSurfaceHitResult.ImpactPoint;
+		TestPos = -TestPos;
+		TestPos.Z = GetActorLocation().Z;
+		DrawDebugSphere(GetWorld(), TestPos, 20.f, 20.f, FColor::Emerald, false, 5.f);
+
+		//FRotator TestRotate = WallSurfaceHitResult.ImpactPoint.Rotation();
+		//UE_LOG(LogTemp, Warning, TEXT("Yaw ==== %f"), TestRotate.Yaw);
+
+		return;
+
 		FHitResult WallTopHitResult;
 		if (IsWallHeightTraced(WallTopHitResult))
 		{
@@ -140,10 +167,12 @@ void ARikimaruCharacter::ClimbLedge()
 				
 				if (Interactable)
 				{
-					AClimableWall* Wall = Cast<AClimableWall>(Interactable);
+
 					if (Wall)
 					{
-						FVector CurrentActorLocation = GetActorLocation();
+						//FVector CurrentActorLocation = GetActorLocation();
+						
+						
 						FVector WarpTargetPosition = WallSurfaceHitResult.ImpactPoint + WallSurfaceHitResult.ImpactNormal * ClimbStateWallSurfaceOffset;
 						WarpTargetPosition.Z = WallTopLocation.Z - ClimbStateWallHeightOffset;
 						Wall->SetWarpTargetPosition(WarpTargetPosition);
@@ -152,6 +181,7 @@ void ARikimaruCharacter::ClimbLedge()
 						GetCharacterMovement()->bUseControllerDesiredRotation = false;
 						
 						//DrawDebugSphere(GetWorld(), ClimbTransformWarpTarget.GetLocation(), 15.f, 10.f, FColor::Emerald, false, 5.f);
+						
 
 						if (PlayerAnimInstance && MontageClimbLedge) {
 							PlayerAnimInstance->Montage_Play(MontageClimbLedge);
@@ -185,8 +215,32 @@ void ARikimaruCharacter::ClimbLedgeTop()
 
 bool ARikimaruCharacter::IsWallTraced(FHitResult& OutHitResult)
 {
-	FVector StartLocation = GetActorLocation();
-	FVector EndLocation = GetActorLocation() + (GetActorForwardVector() * 75.f);
+	FVector StartLocation = GetActorLocation();// GetMesh()->GetSocketLocation(FName("PELVIS")); //
+	//FVector EndLocation = GetMesh()->GetSocketLocation(FName("SocketWallTrace"));
+	//DrawDebugSphere(GetWorld(), StartLocation, 10.f, 15.f, FColor::Blue, false, 5.f);
+	//
+
+	//FRotator BaseRotation = GetBaseAimRotation();
+	//UE_LOG(LogTemp, Warning, TEXT("AimRotation ======= %f"), BaseRotation.Yaw);
+
+	//FRotator DeltaRotation = BaseRotation;
+	//DeltaRotation.Yaw = -BaseRotation.Yaw / 2.f;
+
+	//UE_LOG(LogTemp, Warning, TEXT("DeltaRotation Yaw ======= %f"), DeltaRotation.Yaw);
+
+	//FVector DeltaPos = DeltaRotation.Vector();
+
+	//FVector EndLocation = StartLocation + (DeltaPos * 80.f); //(GetActorForwardVector() * 75.f);
+	//EndLocation.Z = StartLocation.Z;
+	
+	//DrawDebugSphere(GetWorld(), EndLocation, 10.f, 15.f, FColor::Blue, false, 5.f);
+	
+	/*FVector ForwardVector = GetActorForwardVector();
+	FRotator ForwardRotator = ForwardVector.Rotation();
+	UE_LOG(LogTemp, Warning, TEXT("ForwardRotator.Yaw ======= %f"), ForwardRotator.Yaw);
+	ForwardRotator.Yaw = 0.f;
+	FVector ZeroRotateVector = ForwardRotator.Vector();*/
+	FVector EndLocation = StartLocation + (GetActorForwardVector() * 150.f);
 	return CanTraceWall(StartLocation, EndLocation, OutHitResult);
 }
 
@@ -209,16 +263,16 @@ bool ARikimaruCharacter::CanTraceWall(FVector StartLocation, FVector EndLocation
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::None,
+		EDrawDebugTrace::ForDuration,
 		OutHit,
 		true
 	);
 }
 
-void ARikimaruCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-}
+//void ARikimaruCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+//{
+//	Super::SetupPlayerInputComponent(PlayerInputComponent);
+//}
 
 void ARikimaruCharacter::OnStartCrouch(float HalfHeightAdjust, float ScaledHalfHeightAdjust)
 {

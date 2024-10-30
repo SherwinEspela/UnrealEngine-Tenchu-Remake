@@ -29,4 +29,5 @@ https://www.youtube.com/watch?v=ahAX3w5ovts
 2. Choose Target source tab
 3. Select the "Root" bone in the Chain Mapping panel ( under the Details panel )
 4. In the details panel, under FK group, find the Translation Mode. 
-5. In Translation Mode, select Globally Scaled in the dropdown.
+5. In Translation Mode, select Globally Scaled in the dropdown. // originally set to None
+6. Select and save a new animation. Open the newly saved animation file, enable Root Motion.
