@@ -7,6 +7,7 @@
 #include "PlayerSelectionActor.generated.h"
 
 class USkeletalMeshComponent;
+class UTenchuCSAnimInstance;
 
 UCLASS()
 class TENCHUFANREMAKE_API APlayerSelectionActor : public AActor
@@ -16,10 +17,14 @@ class TENCHUFANREMAKE_API APlayerSelectionActor : public AActor
 public:	
 	APlayerSelectionActor();
 
+	void SetSelected(bool Value);
+
 protected:
 	virtual void BeginPlay() override;
 
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Player Selection Mesh")
 	USkeletalMeshComponent* PlayerSelectionMesh;
+
+	UTenchuCSAnimInstance* PSAnimInstance;
 };

@@ -1,6 +1,7 @@
 // Copyright 2024 Sherwin Espela. All rights reserved.
 
 #include "Character/Menu/PlayerSelectionActor.h"
+#include "Animation/Menu/TenchuCSAnimInstance.h"
 
 APlayerSelectionActor::APlayerSelectionActor()
 {
@@ -14,4 +15,13 @@ void APlayerSelectionActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	PSAnimInstance = Cast<UTenchuCSAnimInstance>(PlayerSelectionMesh->GetAnimInstance());
+}
+
+void APlayerSelectionActor::SetSelected(bool Value)
+{
+	if (PSAnimInstance)
+	{
+		PSAnimInstance->SetSelected(Value);
+	}
 }
