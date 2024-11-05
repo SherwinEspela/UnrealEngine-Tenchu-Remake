@@ -18,6 +18,7 @@ public:
 	APlayerSelectionActor();
 
 	void SetSelected(bool Value);
+	virtual void ConfirmSelect();
 
 protected:
 	virtual void BeginPlay() override;

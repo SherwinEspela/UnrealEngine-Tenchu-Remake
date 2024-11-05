@@ -7,6 +7,7 @@
 #include "InputActionValue.h"
 #include "Character/Menu/PlayerSelectionActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "UI/CSMenuUserWidget.h"
 
 #define NAME_RIKIMARU TEXT("Rikimaru")
 
@@ -35,6 +36,12 @@ void ACSMenuPlayerController::BeginPlay()
 	}
 
 	bIsLeft = true;
+
+	if (CSMenuUserWidgetClass)
+	{
+		CSMenuUserWidget = CreateWidget<UCSMenuUserWidget>(GetWorld(), CSMenuUserWidgetClass);
+		CSMenuUserWidget->AddToViewport();
+	}
 }
 
 void ACSMenuPlayerController::SetupInputComponent()
@@ -44,10 +51,13 @@ void ACSMenuPlayerController::SetupInputComponent()
 	UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(InputActionLeft, ETriggerEvent::Triggered, this, &ACSMenuPlayerController::SelectLeft);
 	EnhancedInputComponent->BindAction(InputActionRight, ETriggerEvent::Triggered, this, &ACSMenuPlayerController::SelectRight);
+	EnhancedInputComponent->BindAction(InputActionSelect, ETriggerEvent::Triggered, this, &ACSMenuPlayerController::Select);
+	EnhancedInputComponent->BindAction(InputActionRestart, ETriggerEvent::Triggered, this, &ACSMenuPlayerController::Restart);
 }
 
 void ACSMenuPlayerController::SelectLeft()
 {
+	if (bHasSelected) return;
 	if (bIsLeft) return;
 	if (!PlayerSelectionRikimaru) return;
 	if (!PlayerSelectionAyame) return;
@@ -60,7 +70,8 @@ void ACSMenuPlayerController::SelectLeft()
 
 void ACSMenuPlayerController::SelectRight()
 {
-	if (!bIsLeft) return; // right selected
+	if (bHasSelected) return;
+	if (!bIsLeft) return;
 	if (!PlayerSelectionRikimaru) return;
 	if (!PlayerSelectionAyame) return;
 
@@ -68,4 +79,24 @@ void ACSMenuPlayerController::SelectRight()
 	PlayerSelectionRikimaru->SetSelected(false);
 	PlayerSelectionAyame->SetSelected(true);
 	bIsLeft = false;
+}
+
+void ACSMenuPlayerController::Select()
+{
+	if (bHasSelected) return;
+	if (!PlayerSelectionRikimaru) return;
+	if (!PlayerSelectionAyame) return;
+
+	if (bIsLeft)
+	{
+		OnSelectRikimaruConfirmed();
+		PlayerSelectionRikimaru->ConfirmSelect();
+	}
+
+	bHasSelected = true;
+}
+
+void ACSMenuPlayerController::Restart()
+{
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
 }

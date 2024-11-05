@@ -10,6 +10,7 @@ class UInputMappingContext;
 class UInputAction;
 class UEnhancedInputComponent;
 class APlayerSelectionActor;
+class UCSMenuUserWidget;
 struct FInputActionValue;
 
 /**
@@ -27,6 +28,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void OnRightSelected();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnSelectRikimaruConfirmed();
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -34,6 +38,8 @@ protected:
 protected:
 	void SelectLeft();
 	void SelectRight();
+	void Select();
+	void Restart();
 
 protected:
 	// Player Inputs
@@ -46,8 +52,23 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player Input")
 	UInputAction* InputActionRight;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player Input")
+	UInputAction* InputActionSelect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player Input")
+	UInputAction* InputActionRestart;
+
+protected:
+	// UI
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UCSMenuUserWidget> CSMenuUserWidgetClass;
+
+	UPROPERTY(BlueprintReadOnly, Category = "UI")
+	UCSMenuUserWidget* CSMenuUserWidget;
+
 protected:
 	APlayerSelectionActor* PlayerSelectionRikimaru;
 	APlayerSelectionActor* PlayerSelectionAyame;
 	bool bIsLeft = true;
+	bool bHasSelected = false;
 };

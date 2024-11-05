@@ -15,7 +15,6 @@ class TENCHUFANREMAKE_API AItem : public AActor
 	
 public:	
 	AItem();
-	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<USkeletalMeshComponent> Mesh;

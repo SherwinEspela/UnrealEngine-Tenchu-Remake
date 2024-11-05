@@ -25,3 +25,11 @@ void APlayerSelectionActor::SetSelected(bool Value)
 		PSAnimInstance->SetSelected(Value);
 	}
 }
+
+void APlayerSelectionActor::ConfirmSelect()
+{
+	if (PSAnimInstance)
+	{
+		PSAnimInstance->SetConfirmedSelected();
+	}
+}

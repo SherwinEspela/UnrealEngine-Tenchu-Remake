@@ -3,3 +3,7 @@
 
 #include "Animation/Menu/TenchuCSAnimInstance.h"
 
+void UTenchuCSAnimInstance::HandleAttachKatanaToHandNotification()
+{
+	OnAttachKatanaToHandNotified.Broadcast();
+}
